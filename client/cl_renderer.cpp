@@ -1,0 +1,673 @@
+/*
+ * cl_renderer.cpp
+ *
+ *  Created on: 26 апр. 2021 г.
+ *      Author: alex9932
+ */
+
+#include "cl_renderer.h"
+
+#include <rg_animmodelloader.h>
+#include <rg_modelloader.h>
+#include <rg_level.h>
+#include <GL/glew.h>
+#include <string>
+#include <cstring>
+#include <sstream>
+
+#include "cl_fbo.h"
+#include "cl_shader.h"
+#include "cl_display.h"
+#include "cl_vao.h"
+
+#include "cl_gui.h"
+
+#include "cl_font.h"
+#include "cl_renderer2d.h"
+#include "cl_material.h"
+#include "cl_particle.h"
+
+#include "cl_guiscreen.h"
+
+#include "cl_surfaces.h"
+#include "cl_skybox.h"
+#include "cl_grass.h"
+
+
+#define SHADOW_SIZE   1024
+#define MAX_PARTICLES 1024
+
+static const Uint32 inds[] = { 0, 1, 2, 2, 3, 0 };
+static const rg_vertex_t vtx[] = {
+	{ -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+	{  1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f },
+	{  1.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f },
+	{ -1.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
+};
+
+static cl_camera camera;
+
+static Framebuffer* gbuffer;
+static rg_Shader s_gbuffer;
+
+static rg_Shader s_shadowqmap;
+
+// Postprocess
+static rg_Shader s_lpbuffer;
+static Framebuffer* lp_buffer;
+static rg_Shader s_combine;
+static Framebuffer* cb_buffer;
+static cl_VAO* quad;
+
+// Point light shadow maps
+static GLuint shadow_qubemaps[4];
+static GLuint shadow_mapFBO[4];
+
+// Particles
+static rg_Shader s_particle;
+static GLuint p_vao;
+static GLuint p_vbo;
+
+static std::vector<cl_particle> particles;
+//static cl_particle _particles[4];
+
+
+static GuiScreen* screen;
+
+static float _time = 0;
+
+static bool _changeViewport = false;
+static bool _wireframe = false;
+static bool _doAnimation = false;
+
+static bool allbright = false;
+static bool g_cursor = true;
+static bool r_canRender = false;
+
+static bool _r_handler(rg_Event* event) {
+	if(event->type == RG_EVENT_SDL && event->event.type == SDL_WINDOWEVENT) {
+		if(event->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			//SDL_Log("Resized: %d %d", (int)cl_display_getWidth(), (int)cl_display_getHeight());
+			_changeViewport = true;
+		}
+	}
+
+	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_F5) { // @suppress("Field cannot be resolved")
+		allbright = !allbright;
+	}
+	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_F6) { // @suppress("Field cannot be resolved")
+		g_cursor = !g_cursor;
+	}
+
+	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_F) { // @suppress("Field cannot be resolved")
+		_doAnimation = !_doAnimation;
+	}
+	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_G) { // @suppress("Field cannot be resolved")
+		_wireframe = !_wireframe;
+	}
+
+
+
+	// Handle events
+	return screen->eventHandler(event);
+}
+
+static float a = 0;
+static cl_font_t* font;
+
+static mat4 model_mat;
+static std::vector<cl_VAO*> meshes;
+
+void cl_r_init() {
+
+	screen = new GuiScreen();
+
+	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Starting renderer");
+	rg_registerEventHandler(_r_handler);
+
+	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "OpenGL Renderer: %s %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
+	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "OpenGL Version: %s; GLSL: %s", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+	glEnable(GL_DEPTH_TEST);
+
+	s_gbuffer = shader_create("platform/shader/main.vs", "platform/shader/main.fs", NULL);
+	s_lpbuffer = shader_create("platform/shader/ds_lightpass.vs", "platform/shader/ds_lightpass.fs", NULL);
+	s_combine = shader_create("platform/shader/ds_output.vs", "platform/shader/ds_output.fs", NULL);
+	s_shadowqmap = shader_create("platform/shader/ds_shadowqmap.vs", "platform/shader/ds_shadowqmap.fs", "platform/shader/ds_shadowqmap.gs");
+
+	s_particle = shader_create("platform/shader/fs_particle.vs", "platform/shader/fs_particle.fs", "platform/shader/fs_particle.gs");
+
+	gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
+	lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+	cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+
+	cl_skybox_init();
+	cl_grass_init();
+
+	rg_mesh_t* mesh = rg_newMesh();
+	// Yes, i know what i'm doing! //
+	mesh->vertices = (rg_vertex_t*)vtx;
+	mesh->indices = (Uint32*)inds;
+	mesh->vertex_count = 4;
+	mesh->index_count = 6;
+	quad = cl_makeVAO(mesh);
+	rg_freeMesh(mesh);
+
+	camera.position.x = 0;
+	camera.position.y = 3;
+	camera.position.z = 3;
+
+	camera.rotation.x = 0.0;
+	camera.rotation.y = 0;
+	camera.rotation.z = 0;
+
+	mat4_frustum(&camera.projection, cl_display_getAspect(), 75, 0.1, 3000);
+
+	cl_r2d_init();
+	font = cl_font_new("platform/f_gui.ttf", 42);
+
+	mat4_identity(&model_mat);
+
+	glGenFramebuffers(4, shadow_mapFBO);
+	glGenTextures(4, shadow_qubemaps);
+	for (Uint32 i = 0; i < 4; ++i) {
+		glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[i]);
+		for (Uint32 j = 0; j < 6; ++j) {
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j, 0, GL_DEPTH_COMPONENT, SHADOW_SIZE, SHADOW_SIZE, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		}
+		glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFBO[i]);
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, shadow_qubemaps[i], 0);
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glGenVertexArrays(1, &p_vao);
+	glBindVertexArray(p_vao);
+	glGenBuffers(1, &p_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, p_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cl_particle) * MAX_PARTICLES, NULL, GL_STREAM_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(cl_particle), (GLvoid*)(sizeof(float) * 0)); // position
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(cl_particle), (GLvoid*)(sizeof(float) * 3)); // size, time, rotation
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(cl_particle), (GLvoid*)(sizeof(float) * 6)); // velocity
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+
+	cl_particle p0;
+	cl_particle p1;
+	cl_particle p2;
+	SDL_memset(&p0, 0, sizeof(cl_particle));
+	SDL_memset(&p1, 0, sizeof(cl_particle));
+	SDL_memset(&p2, 0, sizeof(cl_particle));
+	p0.y = 3;
+	p1.y = 4;
+	p2.y = 5;
+	particles.push_back(p0);
+	particles.push_back(p1);
+	particles.push_back(p2);
+//	particles.push_back({0, 2, 0,  0.3, 0, 0,  0, 0, 0});
+//	particles.push_back({2, 0, 2,  0.3, 0, 0,  0, 0, 0});
+}
+
+void cl_r_destroy() {
+	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Shutting down...");
+
+	cl_skybox_destroy();
+	shader_delete(s_gbuffer);
+	shader_delete(s_lpbuffer);
+	shader_delete(s_combine);
+	shader_delete(s_shadowqmap);
+	shader_delete(s_particle);
+	glDeleteVertexArrays(1, &p_vao);
+	glDeleteBuffers(1, &p_vbo);
+	cl_fboFree(gbuffer);
+	cl_fboFree(lp_buffer);
+	cl_fboFree(cb_buffer);
+	glDeleteFramebuffers(4, shadow_mapFBO);
+	cl_r2d_destroy();
+}
+
+
+// TODO:
+// GUI (panels, buttons, scroll bars, progress bars, etc)
+// Implement in near future:
+//
+// Outhers:
+//     VVVVVVVVVVVVVVVVVV
+// >>> Skeletal animation <<<
+//     ^^^^^^^^^^^^^^^^^^
+// SSLR reflections?
+// Water
+// Skybox
+
+
+//
+// server      engine        client
+//  ----  << gameobject  => material
+//
+
+
+static void _r_draw2d(double dt) {
+	cl_r2d_rotate({0, 0, 0});
+	cl_r2d_translate({0, 0});
+
+	float w = cl_display_getWidth(), h = cl_display_getHeight();
+
+	if(allbright) {
+		cl_r2d_bind(gbuffer->color[0]);
+	} else {
+		cl_r2d_bind(cb_buffer->color[0]);
+	}
+	cl_r2d_begin();
+	cl_r2d_vertex({0, 0, 0, 0, 1, 1, 1, 1});
+	cl_r2d_vertex({w, 0, 1, 0, 1, 1, 1, 1});
+	cl_r2d_vertex({w, h, 1, 1, 1, 1, 1, 1});
+	cl_r2d_vertex({w, h, 1, 1, 1, 1, 1, 1});
+	cl_r2d_vertex({0, h, 0, 1, 1, 1, 1, 1});
+	cl_r2d_vertex({0, 0, 0, 0, 1, 1, 1, 1});
+	cl_r2d_end();
+
+	cl_gui_draw(dt);
+
+	cl_r2d_rotate({0, 0, 0});
+	cl_r2d_translate({0, 0});
+	screen->drawScreen(dt);
+
+	a += 5 * dt;
+//	cl_r2d_rotate({0, 0, a});
+//	cl_r2d_translate({200, 200});
+//
+//	cl_r2d_bind(0);
+//	cl_r2d_begin();
+//	cl_r2d_vertex({-15, -15, 0, 1, 1, 1, 1, 1});
+//	cl_r2d_vertex({ 15, -15, 1, 1, 1, 1, 1, 1});
+//	cl_r2d_vertex({ 15,  15, 1, 0, 1, 1, 1, 1});
+//	cl_r2d_vertex({ 15,  15, 1, 0, 1, 1, 1, 1});
+//	cl_r2d_vertex({-15,  15, 0, 0, 1, 1, 1, 1});
+//	cl_r2d_vertex({-15, -15, 0, 1, 1, 1, 1, 1});
+//	cl_r2d_end();
+//
+//	cl_r2d_rotate({0, 0, (float)SDL_sin(-a * 0.4) * 0.2f});
+//	cl_r2d_translate({700, 100});
+
+//	float b = (SDL_sin(a*2) + 1) / 2.0;
+//	cl_r2d_drawString(font, L"Hello, world!", -125, -35, 1, 1, 1, 0, b);
+//	cl_r2d_drawString(font, L"Привет, мир!", -125, 0, 1, 0, 0, 1, b);
+	//cl_r2d_drawString(font, L"This text contains higher than 22 characters!", -125, 35, 1, 1, 0, 0, b);
+
+
+	cl_r2d_rotate({0, 0, 0});
+	cl_r2d_translate({5, cl_display_getHeight() - 50});
+
+	cl_r2d_begin();
+	cl_r2d_vertex({0,   0,  0, 0, 0, 0, 0, 0.5});
+	cl_r2d_vertex({140, 0,  1, 0, 0, 0, 0, 0.5});
+	cl_r2d_vertex({140, 45, 1, 1, 0, 0, 0, 0.5});
+	cl_r2d_vertex({140, 45, 1, 1, 0, 0, 0, 0.5});
+	cl_r2d_vertex({0,   45, 0, 1, 0, 0, 0, 0.5});
+	cl_r2d_vertex({0,   0,  0, 0, 0, 0, 0, 0.5});
+	cl_r2d_end();
+
+	cl_r2d_translate({5, cl_display_getHeight() - 27});
+	cl_r2d_drawString(font, L"Fps", 5, 5, 0.25, 0, 1, 0, 1);
+	cl_r2d_drawString(font, std::to_wstring((int)rg_fps_avg).c_str(), 35, 5, 0.28, 0, 1, 0, 1);
+	cl_r2d_drawString(font, L"Mem len", 5, -15, 0.25, 0, 1, 0, 1);
+	cl_r2d_drawString(font, std::to_wstring(rg_getAllocatedMem()).c_str(), 55, -15, 0.28, 0, 1, 0, 1);
+}
+
+RG_INLINE cl_VAO* _cl_r_getMesh(Uint32 id) {
+	if(meshes.size() < id) {
+		return NULL;
+	}
+	return meshes[id];
+}
+
+rg_string luniform[4][4] = {
+	{"lposition_0", "lcolor_0", "lattenuation_0", "lradius_0"},
+	{"lposition_1", "lcolor_1", "lattenuation_1", "lradius_1"},
+	{"lposition_2", "lcolor_2", "lattenuation_2", "lradius_2"},
+	{"lposition_3", "lcolor_3", "lattenuation_3", "lradius_3"}
+};
+
+void _cl_r_loadLight(rg_Shader shader, cl_PointLight** light) {
+	for (Uint32 i = 0; i < 4; ++i) {
+		if(light[i] != NULL) {
+			shader_uniform_3fp(shader_uniform_get(shader, luniform[i][0]), (float*)&light[i]->position);
+			shader_uniform_3fp(shader_uniform_get(shader, luniform[i][1]), (float*)&light[i]->color);
+			shader_uniform_3fp(shader_uniform_get(shader, luniform[i][2]), (float*)&light[i]->attenuation);
+			shader_uniform_1f(shader_uniform_get(shader,  luniform[i][3]), light[i]->radius);
+		} else {
+			shader_uniform_1f(shader_uniform_get(shader,  luniform[i][3]), 0);
+		}
+	}
+}
+
+RG_INLINE void _cl_r_beginLightShader() {
+	shader_start(s_lpbuffer);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "diffuse"), 0);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "normal"), 1);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "vertex"), 2);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "prew"), 3);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[0]"), 4);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[1]"), 5);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[2]"), 6);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[3]"), 7);
+
+	shader_uniform_3fp(shader_uniform_get(s_lpbuffer, "camera_pos"), (float*)&camera.position);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, gbuffer->color[0]);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, gbuffer->color[1]);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, gbuffer->color[2]);
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, lp_buffer->color[0]);
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[0]);
+	glActiveTexture(GL_TEXTURE5);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[1]);
+	glActiveTexture(GL_TEXTURE6);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[2]);
+	glActiveTexture(GL_TEXTURE7);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[3]);
+}
+
+void _cl_r_calcShadowQmaps(cl_PointLight** light) {
+	glViewport(0, 0, SHADOW_SIZE, SHADOW_SIZE);
+	for (Uint32 i = 0; i < 4; ++i) {
+		if(light[i] == NULL) { continue; }
+		mat4 proj;
+		mat4 view[6];
+		mat4_frustum(&proj, 1, 90, 1, light[i]->radius);
+		float d90 = PI/2;
+		float d180 = PI;
+		mat4_viewZ(&view[0], light[i]->position.x, light[i]->position.y, light[i]->position.z,  d90, 0,    d180);
+		mat4_viewZ(&view[1], light[i]->position.x, light[i]->position.y, light[i]->position.z, -d90, 0,    d180);
+		mat4_viewZ(&view[2], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180,  d90, d180);
+		mat4_viewZ(&view[3], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180, -d90, d180);
+		mat4_viewZ(&view[4], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180, 0,    d180);
+		mat4_viewZ(&view[5], light[i]->position.x, light[i]->position.y, light[i]->position.z,    0, 0,    d180);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFBO[i]);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shader_start(s_shadowqmap);
+		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[0]"), (float*)&view[0]);
+		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[1]"), (float*)&view[1]);
+		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[2]"), (float*)&view[2]);
+		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[3]"), (float*)&view[3]);
+		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[4]"), (float*)&view[4]);
+		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[5]"), (float*)&view[5]);
+		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "proj"), (float*)&proj);
+		shader_uniform_3fp(shader_uniform_get(s_shadowqmap, "lightPos"), (float*)&light[i]->position);
+		shader_uniform_1f(shader_uniform_get(s_shadowqmap, "far_plane"), light[i]->radius);
+		for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
+			rg_object_t* obj = rg_level->objects[i];
+			mat4_model(&model_mat, obj->position.x, obj->position.y, obj->position.z, obj->rotation.x, obj->rotation.y, obj->rotation.z);
+			shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "model"), (float*)&model_mat);
+			cl_VAO* mesh = _cl_r_getMesh(obj->mesh_id);
+			SDL_assert_always(mesh);
+			cl_drawVAO(mesh);
+		}
+	}
+	glViewport(0, 0, cl_display_getWidth(), cl_display_getHeight());
+}
+
+static void _cl_r_loadBoneMatrices(rg_Shader shader, rg_object_t* obj) {
+	char u_name[128];
+
+//	mat4_rotate(obj->bone_matrices[3], SDL_sin(a), 0, 0);
+
+	for (size_t i = 0; i < obj->skel.bone_count; ++i) {
+		strcpy(u_name, "bonesMatrices[");
+		std::stringstream ss; // mb rewrite this?
+		ss << i;
+		strcat(u_name, ss.str().c_str());
+		strcat(u_name, "]");
+//		printf("Load matrix: %s\n", u_name);
+//		mat4 matrix = obj->bone_local_transform[i];
+
+//		printf("~~~~~~ %d ~~~~~~ 0x%x\n", i, &matrix);
+//		printf("%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
+//				matrix.m00, matrix.m01, matrix.m02, matrix.m03,
+//				matrix.m10, matrix.m11, matrix.m12, matrix.m13,
+//				matrix.m20, matrix.m21, matrix.m22, matrix.m23,
+//				matrix.m30, matrix.m31, matrix.m32, matrix.m33);
+
+		shader_uniform_mat4f(shader_uniform_get(shader, u_name), (float*)&obj->global_transforms[i]);
+	}
+}
+
+void cl_r_doRender(double dt) {
+
+	_time += dt;
+
+	cl_display_setMouseGrabbed(g_cursor);
+
+	cl_camera_recalcViewMatrix(&camera);
+	if(_changeViewport) {
+		_changeViewport = false;
+		glViewport(0, 0, (int)cl_display_getWidth(), (int)cl_display_getHeight());
+		// Update framebuffers
+
+		cl_fboFree(gbuffer);
+		cl_fboFree(lp_buffer);
+		gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
+		lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+		cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+	}
+
+	glDisable(GL_BLEND);
+	glPolygonMode(GL_FRONT_AND_BACK, _wireframe ? GL_LINE : GL_FILL);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+	//                               GEOMETRY  PASS                               //
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+	cl_fboBind(gbuffer);
+	glEnable(GL_DEPTH_TEST);
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear gbuffer
+
+	shader_start(s_gbuffer);
+	shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "proj"), (float*)&camera.projection);
+	shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "view"), (float*)&camera.view);
+	shader_uniform_1i(shader_uniform_get(s_gbuffer, "diffuse"), 0);
+	shader_uniform_1i(shader_uniform_get(s_gbuffer, "normal"), 1);
+	shader_uniform_1f(shader_uniform_get(s_gbuffer, "tiling"), 1);
+	shader_uniform_1f(shader_uniform_get(s_gbuffer, "time"), _time);
+	shader_uniform_3fp(shader_uniform_get(s_gbuffer, "cam_pos"), (float*)&camera.position);
+
+
+	// Render objects
+
+//	if(rg_level != NULL) {
+
+	if(r_canRender) {
+		cl_skybox_render(s_gbuffer);
+		cl_grass_render(dt, s_gbuffer);
+
+		shader_uniform_1i(shader_uniform_get(s_gbuffer, "surface_type"), SURFACE_DEFAULT);
+//		SDL_Log("Objects to render: %ld", rg_level->objects.size());
+		for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
+			rg_object_t* obj = rg_level->objects[i];
+
+			if(obj != NULL) {
+				mat4_model(&model_mat, obj->position.x, obj->position.y, obj->position.z, obj->rotation.x, obj->rotation.y, obj->rotation.z);
+				shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "model"), (float*)&model_mat);
+				rg_material_t* mat = cl_mat_get(obj->mat_id);
+				if(mat != NULL) {
+					glActiveTexture(GL_TEXTURE0);
+					glBindTexture(GL_TEXTURE_2D, mat->diffuse);
+					glActiveTexture(GL_TEXTURE1);
+					glBindTexture(GL_TEXTURE_2D, mat->normal);
+					cl_VAO* mesh = _cl_r_getMesh(obj->mesh_id);
+					if(mesh != NULL) {
+						if(!mesh->anim) {
+							shader_uniform_1i(shader_uniform_get(s_gbuffer, "anim"), 0);
+						} else {
+							if(_doAnimation) {
+								shader_uniform_1i(shader_uniform_get(s_gbuffer, "anim"), 1);
+								_cl_r_loadBoneMatrices(s_gbuffer, obj);
+							}
+						}
+						cl_drawVAO(mesh);
+					}
+				}
+			}
+		}
+	}
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+	//                             SCREEN-SPACE  PASS                             //
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+//	if(rg_level != NULL) {
+
+	if(r_canRender) {
+		rg_level->lights[0].position.x = SDL_cos(a*0.2)*4;
+		rg_level->lights[0].position.z = SDL_sin(a*0.2)*4;
+//		rg_level->lights[0].position.y = SDL_sqrt(SDL_sin(a*0.2)*4 * SDL_sin(a*0.2)*4) + 2;
+//		rg_level->lights[1].position.x = SDL_cos(a*0.8 + PI) * 4;
+//		rg_level->lights[1].position.z = SDL_sin(a*0.8 + PI) * 4;
+
+		cl_fboBind(lp_buffer);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		cl_PointLight* plight[4];
+		Uint32 i = 0;
+		for (; i < rg_level->lights.size() / 4; ++i) {
+			plight[0] = &rg_level->lights[i*4];
+			plight[1] = &rg_level->lights[i*4 + 1];
+			plight[2] = &rg_level->lights[i*4 + 2];
+			plight[3] = &rg_level->lights[i*4 + 3];
+//			_cl_r_calcShadowQmaps(plight);
+			cl_fboBind(lp_buffer);
+			_cl_r_beginLightShader();
+			_cl_r_loadLight(s_lpbuffer, plight);
+			cl_drawVAO(quad);
+		}
+
+		if(rg_level->lights.size() % 4 != 0) {
+			plight[0] = plight[1] = plight[2] = plight[3] = NULL;
+			for (Uint32 j = 0; j < rg_level->lights.size() % 4; ++j) {
+				plight[j] = &rg_level->lights[i*4 + j];
+			}
+
+//			_cl_r_calcShadowQmaps(plight);
+			cl_fboBind(lp_buffer);
+			_cl_r_beginLightShader();
+			_cl_r_loadLight(s_lpbuffer, plight);
+			cl_drawVAO(quad);
+		}
+
+
+		cl_fboBind(cb_buffer);
+		glClear(GL_COLOR_BUFFER_BIT);
+		shader_start(s_combine);
+
+		shader_uniform_1i(shader_uniform_get(s_combine, "diffuse"), 0);
+		shader_uniform_1i(shader_uniform_get(s_combine, "lightmap"), 1);
+		shader_uniform_1i(shader_uniform_get(s_combine, "bloom"), 2);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, gbuffer->color[0]);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, lp_buffer->color[0]);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, lp_buffer->color[1]);
+		cl_drawVAO(quad);
+	}
+
+
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+	//                                  GUI PASS                                  //
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	cl_fboBind(0);
+	glClearColor(0.3, 0.5, 0.9, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear default framebuffer
+
+//	if(_wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+//	}
+	cl_r2d_doRender(dt, _r_draw2d);
+	glEnable(GL_DEPTH_TEST);
+
+
+
+//	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+//	//                                  --------                                  //
+//	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+//	glDisable(GL_CULL_FACE);
+//
+//	shader_start(s_particle);
+//	shader_uniform_mat4f(shader_uniform_get(s_particle, "proj"), (float*)&camera.projection);
+//	shader_uniform_mat4f(shader_uniform_get(s_particle, "view"), (float*)&camera.view);
+//
+//	//cl_drawVAO(quad);
+//
+//	glBindBuffer(GL_ARRAY_BUFFER, p_vao);
+//	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(cl_particle) * particles.size(), &particles[0]);
+////	SDL_memcpy(_particles, &particles[0], sizeof(cl_particle) * particles.size());
+////	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(_particles), _particles);
+//
+//	glActiveTexture(GL_TEXTURE0);
+//	glBindTexture(GL_TEXTURE_2D, gbuffer->color[1]);
+//	glDrawArrays(GL_POINTS, 0, particles.size());
+
+//	SDL_Log("Particles: %d", particles.size());
+
+//	SDL_Log("GL: %s", glewGetErrorString(glGetError()));
+}
+
+void cl_r_canRender(bool cr) {
+	r_canRender = cr;
+}
+
+void cl_r_unloadMeshes() {
+//	rg_print("unloading meshes: %d", meshes.size());
+	for (Uint32 i = 0; i < meshes.size(); ++i) {
+//		rg_print("%d -> c %d", i, meshes[i]->i_count);
+		cl_deleteVAO(meshes[i]);
+	}
+	meshes.clear();
+//	rg_print("done!");
+}
+
+void cl_r_loadMesh(rg_mesh mesh) {
+	char path[128];
+	rg_buildResourcePath(rg_level->levelname, mesh.name, path, "meshes");
+
+	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Load mesh: %s", path);
+
+	rg_Resource* res = rg_loadResource(path);
+	if(mesh.isAnimated) {
+		AnimatedMesh* amesh = rg_armlConvert(res->data);
+		cl_VAO* vao = cl_makeAVAO(amesh);
+		meshes.push_back(vao);
+		rg_free(amesh);
+	} else {
+		rg_mesh_t* mesht = rg_rmlConvert(res->data);
+		cl_VAO* vao = cl_makeVAO(mesht);
+		meshes.push_back(vao);
+		rg_freeMesh(mesht);
+	}
+
+	rg_freeResource(res);
+}
+
+cl_camera* cl_r_getCamera() {
+	return &camera;
+}

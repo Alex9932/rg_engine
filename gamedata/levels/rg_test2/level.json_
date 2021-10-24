@@ -1,0 +1,39 @@
+{
+    "meshes": [
+        "&level.rgm",
+        "bunny.rgm",
+        "terrain.rgm"
+    ],
+    
+    "materials": [
+        "bricks",
+        "planks",
+        "metal"
+    ],
+    
+    "entitys": [
+        {
+            "position": [0, 1.6, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 1,
+            "material": 1
+        }
+    ],
+    
+    "terrains": [
+        {
+            "position": [0, 0, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 0,
+            "material": 2
+        }
+    ],
+    
+    "lights": [
+        {
+            "position": [0, 7, 0],
+            "color": [0.8, 0.8, 0.8],
+            "attenuation": [1, 0.07, 0.032]
+        }
+    ]
+}
