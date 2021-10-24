@@ -465,7 +465,7 @@ void mat4_ortho(mat4* mat, float r, float l, float t, float b, float f, float n)
 }
 
 void mat4_frustum(mat4* mat, float aspect, float fov, float near, float far) {
-	float y_scale = (float)((1 / SDL_tan(math_toradians(fov / 2))) * aspect);
+	float y_scale = (float)((1 / SDL_tan(math_toradians(fov / 2))));
 	float x_scale = y_scale / aspect;
 	float frustum_length = far - near;
 	mat->m00 = x_scale; mat->m01 = 0;       mat->m02 = 0;                                mat->m03 = 0;
