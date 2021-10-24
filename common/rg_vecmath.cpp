@@ -468,6 +468,7 @@ void mat4_frustum(mat4* mat, float aspect, float fov, float near, float far) {
 	float y_scale = (float)((1 / SDL_tan(math_toradians(fov / 2))));
 	float x_scale = y_scale / aspect;
 	float frustum_length = far - near;
+
 	mat->m00 = x_scale; mat->m01 = 0;       mat->m02 = 0;                                mat->m03 = 0;
 	mat->m10 = 0;       mat->m11 = y_scale; mat->m12 = 0;                                mat->m13 = 0;
 	mat->m20 = 0;       mat->m21 = 0;       mat->m22 = -((far + near) / frustum_length); mat->m23 = -((2 * near * far) / frustum_length);
