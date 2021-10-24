@@ -11,6 +11,7 @@
 
 #include "cl_surfaces.h"
 #include "cl_texture.h"
+#include "cl_renderer.h"
 
 static const float SIZE = 1.0;
 
@@ -38,7 +39,7 @@ static cl_texture_t t_flower;
 static cl_texture_t t_norm;
 
 
-static const int GRASS_SIZE = 40;
+static const int GRASS_SIZE = 100;
 
 
 static float offsets[GRASS_SIZE * GRASS_SIZE * 3];
@@ -79,6 +80,9 @@ void cl_grass_destroy() {
 static double time = 0;
 
 void cl_grass_render(double delta, rg_Shader shader) {
+
+	return;
+
 	time += delta;
 
 	rg_vertex_t* new_verts = VERTICES;
@@ -108,9 +112,17 @@ void cl_grass_render(double delta, rg_Shader shader) {
 	glDisable(GL_CULL_FACE);
 
 	mat4 matrix;
-	for (int i = 0; i < GRASS_SIZE * GRASS_SIZE; ++i) {
+	for (int i = 0; i < GRASS_SIZE * GRASS_SIZE; ++i) { // TODO: use only one draw call for all grass (?)
 		float off_x = offsets[i * 3 + 0];
 		float off_z = offsets[i * 3 + 1];
+
+		float distx = cl_r_getCamera()->position.x - off_x;
+		float distz = cl_r_getCamera()->position.z - off_z;
+
+		if(sqrt(distx*distx + distz*distz) > 15) {
+			continue;
+		}
+
 		float rotat = offsets[i * 3 + 2];
 		mat4_identity(&matrix);
 		mat4_rotate(&matrix, 0, rotat, 0);
