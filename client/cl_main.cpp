@@ -365,6 +365,10 @@ if(rg_level) {
 			anim_obj = rg_level->objects[i];
 		}
 	}
+
+	rg_level->objects[0]->rotation.x = SDL_cos(time * 2);
+	rg_level->objects[0]->rotation.z = SDL_sin(time * 1.6);
+
 }
 if(anim_obj) {
 	animation_time += dt;

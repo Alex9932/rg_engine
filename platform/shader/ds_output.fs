@@ -7,6 +7,7 @@ layout (location = 1) out vec4 bloom;
 
 uniform sampler2D diffuse;
 uniform sampler2D lightmap;
+uniform sampler2D dbg_lights;
 
 void main () {
 	color = texture(diffuse, _coords);
@@ -18,4 +19,9 @@ void main () {
 	} else {
 		bloom = vec4(0.0, 0.0, 0.0, 1.0);
 	}
+	
+	
+	vec4 dbglight = texture(dbg_lights, _coords);
+	
+	color += dbglight;
 }

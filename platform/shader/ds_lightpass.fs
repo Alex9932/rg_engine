@@ -12,11 +12,12 @@ uniform sampler2D prew;
 uniform vec3 camera_pos;
 
 // "SUN" light
-vec3 lightColor = vec3(0.93, 0.89, 0.71);
-//vec3 lightColor = vec3(0, 0, 0);
+//vec3 lightColor = vec3(0.93, 0.89, 0.71);
+vec3 lightColor = vec3(0, 0, 0);
 vec3 lightDir = normalize(vec3(0.1, 1, 0.5));
 
-float ambientStrength = 0.4;
+//float ambientStrength = 0.4;
+float ambientStrength = 0.0;
 
 struct PointLight {
 	vec3 position;
@@ -67,7 +68,8 @@ vec3 calcLight(PointLight light, vec3 vertex, vec3 normal) {
 	float distance    = length(light.position - vertex);
 	float attenuation = 1.0 / (light.attenuation.x + light.attenuation.y * distance + light.attenuation.z * (distance * distance));
 	
-	return l_color*attenuation + l_specular*attenuation;
+	return (l_color + l_specular) * attenuation;
+	//return l_color*attenuation + l_specular*attenuation;
 }
 
 float calcShadow(vec3 vertex, PointLight light, samplerCube qmap, float far_plane) {
@@ -81,10 +83,10 @@ float calcShadow(vec3 vertex, PointLight light, samplerCube qmap, float far_plan
 
 	vec3 fragToLight = vertex - light.position;
 	float mapped_depth = texture(qmap, fragToLight).r * far_plane;
-	float bias = 0.05;
-	// if(length(fragToLight) - bias > mapped_depth) {
-	// 	return 0;
-	// }
+	float bias = 0.01;
+	if(length(fragToLight) - bias > mapped_depth) {
+		return 0;
+	}
 	
 	return 1;
 }

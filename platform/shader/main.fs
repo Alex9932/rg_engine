@@ -80,7 +80,8 @@ vec4 calcSkyColor() {
 
 	//float sunAngle = cos(time * 0.3) * 3.14159;
 	//float sunAngle = time * 0.3;
-	float sunAngle = 1.5;
+	//float sunAngle = 1.5;
+	float sunAngle = 1.7;
 
 	sun = vec3(160, 150 * cos(sunAngle), 150 * sin(sunAngle));
 	//sun = vec3(150, 0, 150);

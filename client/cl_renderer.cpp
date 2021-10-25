@@ -59,6 +59,10 @@ static rg_Shader s_combine;
 static Framebuffer* cb_buffer;
 static cl_VAO* quad;
 
+static rg_Shader s_dbg_light;
+static Framebuffer* dbg_light_buffer;
+static cl_VAO* dbg_light_box;
+
 // Point light shadow maps
 static GLuint shadow_qubemaps[4];
 static GLuint shadow_mapFBO[4];
@@ -112,7 +116,6 @@ static bool _r_handler(rg_Event* event) {
 	return screen->eventHandler(event);
 }
 
-static float a = 0;
 static cl_font_t* font;
 
 static mat4 model_mat;
@@ -140,6 +143,10 @@ void cl_r_init() {
 	gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
 	lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 	cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+
+
+	s_dbg_light = shader_create("platform/shader/dbg_light.vs", "platform/shader/dbg_light.fs", NULL);
+	dbg_light_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 1, 0);
 
 	cl_skybox_init();
 	cl_grass_init();
@@ -213,6 +220,14 @@ void cl_r_init() {
 	particles.push_back(p2);
 //	particles.push_back({0, 2, 0,  0.3, 0, 0,  0, 0, 0});
 //	particles.push_back({2, 0, 2,  0.3, 0, 0,  0, 0, 0});
+
+
+	rg_Resource* res = rg_loadResource("gamedata/meshes/box.rgm");
+	rg_mesh_t* mesht = rg_rmlConvert(res->data);
+	dbg_light_box = cl_makeVAO(mesht);
+	rg_freeMesh(mesht);
+	rg_freeResource(res);
+
 }
 
 void cl_r_destroy() {
@@ -230,6 +245,10 @@ void cl_r_destroy() {
 	cl_fboFree(lp_buffer);
 	cl_fboFree(cb_buffer);
 	glDeleteFramebuffers(4, shadow_mapFBO);
+
+	cl_fboFree(dbg_light_buffer);
+	shader_delete(s_dbg_light);
+
 	cl_r2d_destroy();
 }
 
@@ -244,7 +263,6 @@ void cl_r_destroy() {
 //     ^^^^^^^^^^^^^^^^^^
 // SSLR reflections?
 // Water
-// Skybox
 
 
 //
@@ -278,28 +296,6 @@ static void _r_draw2d(double dt) {
 	cl_r2d_rotate({0, 0, 0});
 	cl_r2d_translate({0, 0});
 	screen->drawScreen(dt);
-
-	a += 5 * dt;
-//	cl_r2d_rotate({0, 0, a});
-//	cl_r2d_translate({200, 200});
-//
-//	cl_r2d_bind(0);
-//	cl_r2d_begin();
-//	cl_r2d_vertex({-15, -15, 0, 1, 1, 1, 1, 1});
-//	cl_r2d_vertex({ 15, -15, 1, 1, 1, 1, 1, 1});
-//	cl_r2d_vertex({ 15,  15, 1, 0, 1, 1, 1, 1});
-//	cl_r2d_vertex({ 15,  15, 1, 0, 1, 1, 1, 1});
-//	cl_r2d_vertex({-15,  15, 0, 0, 1, 1, 1, 1});
-//	cl_r2d_vertex({-15, -15, 0, 1, 1, 1, 1, 1});
-//	cl_r2d_end();
-//
-//	cl_r2d_rotate({0, 0, (float)SDL_sin(-a * 0.4) * 0.2f});
-//	cl_r2d_translate({700, 100});
-
-//	float b = (SDL_sin(a*2) + 1) / 2.0;
-//	cl_r2d_drawString(font, L"Hello, world!", -125, -35, 1, 1, 1, 0, b);
-//	cl_r2d_drawString(font, L"Привет, мир!", -125, 0, 1, 0, 0, 1, b);
-	//cl_r2d_drawString(font, L"This text contains higher than 22 characters!", -125, 35, 1, 1, 0, 0, b);
 
 
 	cl_r2d_rotate({0, 0, 0});
@@ -395,7 +391,7 @@ void _cl_r_calcShadowQmaps(cl_PointLight** light) {
 		mat4_viewZ(&view[5], light[i]->position.x, light[i]->position.y, light[i]->position.z,    0, 0,    d180);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFBO[i]);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
 		shader_start(s_shadowqmap);
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[0]"), (float*)&view[0]);
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[1]"), (float*)&view[1]);
@@ -455,11 +451,15 @@ void cl_r_doRender(double dt) {
 		glViewport(0, 0, (int)cl_display_getWidth(), (int)cl_display_getHeight());
 		// Update framebuffers
 
+		// TODO: Make fbo function!!!
+
 		cl_fboFree(gbuffer);
 		cl_fboFree(lp_buffer);
+		cl_fboFree(dbg_light_buffer);
 		gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
 		lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 		cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+		dbg_light_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 1, 0);
 	}
 
 	glDisable(GL_BLEND);
@@ -531,12 +531,23 @@ void cl_r_doRender(double dt) {
 
 //	if(rg_level != NULL) {
 
+
+	if(_wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
 	if(r_canRender) {
-		rg_level->lights[0].position.x = SDL_cos(a*0.2)*4;
-		rg_level->lights[0].position.z = SDL_sin(a*0.2)*4;
+		rg_level->lights[0].position.x = SDL_cos(_time*0.8)*4;
+		rg_level->lights[0].position.z = SDL_sin(_time*0.8)*4;
+		rg_level->lights[0].position.y = 4 + SDL_sin(_time*2)*0.7;
 //		rg_level->lights[0].position.y = SDL_sqrt(SDL_sin(a*0.2)*4 * SDL_sin(a*0.2)*4) + 2;
 //		rg_level->lights[1].position.x = SDL_cos(a*0.8 + PI) * 4;
 //		rg_level->lights[1].position.z = SDL_sin(a*0.8 + PI) * 4;
+
+		rg_level->lights[1].position.x = SDL_cos(PI/2 + _time*0.8)*4;
+		rg_level->lights[1].position.z = SDL_sin(PI/2 + _time*0.8)*4;
+		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.7;
+
 
 		cl_fboBind(lp_buffer);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -548,7 +559,7 @@ void cl_r_doRender(double dt) {
 			plight[1] = &rg_level->lights[i*4 + 1];
 			plight[2] = &rg_level->lights[i*4 + 2];
 			plight[3] = &rg_level->lights[i*4 + 3];
-//			_cl_r_calcShadowQmaps(plight);
+			_cl_r_calcShadowQmaps(plight);
 			cl_fboBind(lp_buffer);
 			_cl_r_beginLightShader();
 			_cl_r_loadLight(s_lpbuffer, plight);
@@ -561,12 +572,28 @@ void cl_r_doRender(double dt) {
 				plight[j] = &rg_level->lights[i*4 + j];
 			}
 
-//			_cl_r_calcShadowQmaps(plight);
+			_cl_r_calcShadowQmaps(plight);
 			cl_fboBind(lp_buffer);
 			_cl_r_beginLightShader();
 			_cl_r_loadLight(s_lpbuffer, plight);
 			cl_drawVAO(quad);
 		}
+
+
+
+		cl_fboBind(dbg_light_buffer);
+		glClear(GL_COLOR_BUFFER_BIT);
+		shader_start(s_dbg_light);
+		shader_uniform_mat4f(shader_uniform_get(s_dbg_light, "proj"), (float*)&camera.projection);
+		shader_uniform_mat4f(shader_uniform_get(s_dbg_light, "view"), (float*)&camera.view);
+
+		for (size_t i = 0; i < rg_level->lights.size(); ++i) {
+			mat4_model(&model_mat, rg_level->lights[i].position.x, rg_level->lights[i].position.y, rg_level->lights[i].position.z, 0, 0, 0, 0.1);
+			shader_uniform_mat4f(shader_uniform_get(s_dbg_light, "model"), (float*)&model_mat);
+			shader_uniform_3fp(shader_uniform_get(s_dbg_light, "color"), (float*)&rg_level->lights[i].color);
+			cl_drawVAO(dbg_light_box);
+		}
+
 
 
 		cl_fboBind(cb_buffer);
@@ -576,12 +603,15 @@ void cl_r_doRender(double dt) {
 		shader_uniform_1i(shader_uniform_get(s_combine, "diffuse"), 0);
 		shader_uniform_1i(shader_uniform_get(s_combine, "lightmap"), 1);
 		shader_uniform_1i(shader_uniform_get(s_combine, "bloom"), 2);
+		shader_uniform_1i(shader_uniform_get(s_combine, "dbg_lights"), 3);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, gbuffer->color[0]);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, lp_buffer->color[0]);
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_2D, lp_buffer->color[1]);
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, dbg_light_buffer->color[0]);
 		cl_drawVAO(quad);
 	}
 
@@ -599,9 +629,6 @@ void cl_r_doRender(double dt) {
 	glClearColor(0.3, 0.5, 0.9, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear default framebuffer
 
-//	if(_wireframe) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//	}
 	cl_r2d_doRender(dt, _r_draw2d);
 	glEnable(GL_DEPTH_TEST);
 

@@ -71,7 +71,7 @@ void main() {
 		totalNormal = vec4(normal, 0);
 	}
 
-	_vertex  = m3_model * totalPosition.xyz;
+	_vertex  = (model * totalPosition).xyz;
 	//_normal  = normalize(m3_model * normal);
 	_normal  = normalize(m3_model * totalNormal.xyz);
 	_tangent = normalize(m3_model * tangent);
