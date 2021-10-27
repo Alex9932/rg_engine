@@ -32,6 +32,7 @@
 #include "cl_surfaces.h"
 #include "cl_skybox.h"
 #include "cl_grass.h"
+#include "cl_water.h"
 
 
 #define SHADOW_SIZE   1024
@@ -57,6 +58,8 @@ static rg_Shader s_lpbuffer;
 static Framebuffer* lp_buffer;
 static rg_Shader s_combine;
 static Framebuffer* cb_buffer;
+static rg_Shader s_sslr;
+static Framebuffer* sslr_buffer;
 static cl_VAO* quad;
 
 static rg_Shader s_dbg_light;
@@ -136,13 +139,16 @@ void cl_r_init() {
 	s_gbuffer = shader_create("platform/shader/main.vs", "platform/shader/main.fs", NULL);
 	s_lpbuffer = shader_create("platform/shader/ds_lightpass.vs", "platform/shader/ds_lightpass.fs", NULL);
 	s_combine = shader_create("platform/shader/ds_output.vs", "platform/shader/ds_output.fs", NULL);
+	s_sslr = shader_create("platform/shader/ds_sslr.vs", "platform/shader/ds_sslr.fs", NULL);
 	s_shadowqmap = shader_create("platform/shader/ds_shadowqmap.vs", "platform/shader/ds_shadowqmap.fs", "platform/shader/ds_shadowqmap.gs");
+
 
 	s_particle = shader_create("platform/shader/fs_particle.vs", "platform/shader/fs_particle.fs", "platform/shader/fs_particle.gs");
 
 	gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
 	lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 	cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+	sslr_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 1, 0);
 
 
 	s_dbg_light = shader_create("platform/shader/dbg_light.vs", "platform/shader/dbg_light.fs", NULL);
@@ -150,6 +156,7 @@ void cl_r_init() {
 
 	cl_skybox_init();
 	cl_grass_init();
+	cl_water_init();
 
 	rg_mesh_t* mesh = rg_newMesh();
 	// Yes, i know what i'm doing! //
@@ -234,16 +241,21 @@ void cl_r_destroy() {
 	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Shutting down...");
 
 	cl_skybox_destroy();
+	cl_grass_destroy();
+	cl_water_destroy();
 	shader_delete(s_gbuffer);
 	shader_delete(s_lpbuffer);
 	shader_delete(s_combine);
 	shader_delete(s_shadowqmap);
 	shader_delete(s_particle);
+	shader_delete(s_sslr);
+
 	glDeleteVertexArrays(1, &p_vao);
 	glDeleteBuffers(1, &p_vbo);
 	cl_fboFree(gbuffer);
 	cl_fboFree(lp_buffer);
 	cl_fboFree(cb_buffer);
+	cl_fboFree(sslr_buffer);
 	glDeleteFramebuffers(4, shadow_mapFBO);
 
 	cl_fboFree(dbg_light_buffer);
@@ -280,7 +292,8 @@ static void _r_draw2d(double dt) {
 	if(allbright) {
 		cl_r2d_bind(gbuffer->color[0]);
 	} else {
-		cl_r2d_bind(cb_buffer->color[0]);
+//		cl_r2d_bind(cb_buffer->color[0]);
+		cl_r2d_bind(sslr_buffer->color[0]);
 	}
 	cl_r2d_begin();
 	cl_r2d_vertex({0, 0, 0, 0, 1, 1, 1, 1});
@@ -455,10 +468,12 @@ void cl_r_doRender(double dt) {
 
 		cl_fboFree(gbuffer);
 		cl_fboFree(lp_buffer);
+		cl_fboFree(sslr_buffer);
 		cl_fboFree(dbg_light_buffer);
 		gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
 		lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 		cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
+		sslr_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 1, 0);
 		dbg_light_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 1, 0);
 	}
 
@@ -493,6 +508,7 @@ void cl_r_doRender(double dt) {
 	if(r_canRender) {
 		cl_skybox_render(s_gbuffer);
 		cl_grass_render(dt, s_gbuffer);
+		cl_water_render(dt, s_gbuffer);
 
 		shader_uniform_1i(shader_uniform_get(s_gbuffer, "surface_type"), SURFACE_DEFAULT);
 //		SDL_Log("Objects to render: %ld", rg_level->objects.size());
@@ -537,18 +553,24 @@ void cl_r_doRender(double dt) {
 	}
 
 	if(r_canRender) {
-		rg_level->lights[0].position.x = SDL_cos(_time*0.8)*4;
-		rg_level->lights[0].position.z = SDL_sin(_time*0.8)*4;
-		rg_level->lights[0].position.y = 4 + SDL_sin(_time*2)*0.7;
-//		rg_level->lights[0].position.y = SDL_sqrt(SDL_sin(a*0.2)*4 * SDL_sin(a*0.2)*4) + 2;
-//		rg_level->lights[1].position.x = SDL_cos(a*0.8 + PI) * 4;
-//		rg_level->lights[1].position.z = SDL_sin(a*0.8 + PI) * 4;
+//		rg_level->lights[0].position.x = SDL_cos(_time*0.8)*4;
+//		rg_level->lights[0].position.z = SDL_sin(_time*0.8)*4;
+//		rg_level->lights[0].position.y = 4 + SDL_sin(_time*2)*0.7;
+//
+//		rg_level->lights[1].position.x = SDL_cos(PI/2 + _time*0.8)*4;
+//		rg_level->lights[1].position.z = SDL_sin(PI/2 + _time*0.8)*4;
+//		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.7;
 
-		rg_level->lights[1].position.x = SDL_cos(PI/2 + _time*0.8)*4;
-		rg_level->lights[1].position.z = SDL_sin(PI/2 + _time*0.8)*4;
-		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.7;
+		rg_level->lights[0].position.x = SDL_cos(_time*0.8)*6;
+		rg_level->lights[0].position.z = 0;
+		rg_level->lights[0].position.y = 4 + SDL_sin(_time*2)*0.2;
+
+		rg_level->lights[1].position.x = SDL_cos(PI/2 + _time*0.8)*6;
+		rg_level->lights[1].position.z = 0;
+		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.2;
 
 
+		// Light
 		cl_fboBind(lp_buffer);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -579,8 +601,7 @@ void cl_r_doRender(double dt) {
 			cl_drawVAO(quad);
 		}
 
-
-
+		// Draw point light
 		cl_fboBind(dbg_light_buffer);
 		glClear(GL_COLOR_BUFFER_BIT);
 		shader_start(s_dbg_light);
@@ -594,8 +615,7 @@ void cl_r_doRender(double dt) {
 			cl_drawVAO(dbg_light_box);
 		}
 
-
-
+		// Combine
 		cl_fboBind(cb_buffer);
 		glClear(GL_COLOR_BUFFER_BIT);
 		shader_start(s_combine);
@@ -612,6 +632,25 @@ void cl_r_doRender(double dt) {
 		glBindTexture(GL_TEXTURE_2D, lp_buffer->color[1]);
 		glActiveTexture(GL_TEXTURE3);
 		glBindTexture(GL_TEXTURE_2D, dbg_light_buffer->color[0]);
+		cl_drawVAO(quad);
+
+		// Screen-space local reflections
+		cl_fboBind(sslr_buffer);
+		glClear(GL_COLOR_BUFFER_BIT);
+		shader_start(s_sslr);
+		shader_uniform_mat4f(shader_uniform_get(s_sslr, "proj"), (float*)&camera.projection);
+		shader_uniform_3fp(shader_uniform_get(s_sslr, "cam_pos"), (float*)&camera.position);
+		shader_uniform_mat4f(shader_uniform_get(s_sslr, "view"), (float*)&camera.view);
+
+		shader_uniform_1i(shader_uniform_get(s_sslr, "diffuse"), 0);
+		shader_uniform_1i(shader_uniform_get(s_sslr, "normal"), 1);
+		shader_uniform_1i(shader_uniform_get(s_sslr, "vertex"), 2);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, cb_buffer->color[0]);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, gbuffer->color[1]);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, gbuffer->color[2]);
 		cl_drawVAO(quad);
 	}
 

@@ -204,8 +204,8 @@ void cl_main() {
 	cl_freecam_init(cl_r_getCamera());
 	cl_player_init(cl_r_getCamera());
 
-	rg_Resource* res = rg_loadResource("gamedata/anims/wolf.anim"); // Load animation
-//	rg_Resource* res = rg_loadResource("gamedata/anims/vampire.anim"); // Load animation
+//	rg_Resource* res = rg_loadResource("gamedata/anims/wolf.anim"); // Load animation
+	rg_Resource* res = rg_loadResource("gamedata/anims/vampire.anim"); // Load animation
 //	rg_Resource* res = rg_loadResource("gamedata/anims/snake.anim"); // Load animation
 	anim = rg_convertAnimation(res->data);
 	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Loaded animation => tps %d d %lf", anim->tps, anim->duration);
@@ -271,9 +271,9 @@ static void _cl_calcBoneTransform(rg_object_t* obj, rg_Bone* bone, mat4* parent_
 
 	mat4 matrix;
 
-//	mat4_invert(&matrix, &bone->offset);
+	mat4_invert(&matrix, &bone->offset);
 
-	matrix = bone->offset;
+//	matrix = bone->offset;
 
 //	printf("~~~~~~~~~~~~\n");
 //	printf("%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
@@ -289,6 +289,7 @@ static void _cl_calcBoneTransform(rg_object_t* obj, rg_Bone* bone, mat4* parent_
 	}
 
 	mat4_mul(&obj->global_transforms[bone->id], &global_transform, &matrix);
+//	mat4_mul(&obj->global_transforms[bone->id], &matrix, &global_transform);
 }
 
 void cl_update(double dt) {
@@ -366,8 +367,8 @@ if(rg_level) {
 		}
 	}
 
-	rg_level->objects[0]->rotation.x = SDL_cos(time * 2);
-	rg_level->objects[0]->rotation.z = SDL_sin(time * 1.6);
+//	rg_level->objects[0]->rotation.x = SDL_cos(time * 2);
+//	rg_level->objects[0]->rotation.z = SDL_sin(time * 1.6);
 
 }
 if(anim_obj) {

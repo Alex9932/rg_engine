@@ -75,6 +75,7 @@ void cl_grass_destroy() {
 	cl_deleteVAO(grass);
 	cl_deleteTexture(t_grass);
 	cl_deleteTexture(t_flower);
+	cl_deleteTexture(t_norm);
 }
 
 static double time = 0;

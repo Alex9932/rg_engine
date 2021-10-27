@@ -134,4 +134,8 @@ void main() {
 	if(_surface_type == 1) {
 		o_color = calcSkyColor();
 	}
+	
+	if(_surface_type == 3) {
+		o_color = vec4(0, 0, 0, 1);
+	}
 }

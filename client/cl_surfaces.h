@@ -11,5 +11,6 @@
 #define SURFACE_DEFAULT 0
 #define SURFACE_SKYBOX  1
 #define SURFACE_GRASS   2
+#define SURFACE_WATER   3
 
 #endif /* CL_SURFACES_H_ */

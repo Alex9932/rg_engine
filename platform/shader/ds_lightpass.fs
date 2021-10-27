@@ -17,7 +17,7 @@ vec3 lightColor = vec3(0, 0, 0);
 vec3 lightDir = normalize(vec3(0.1, 1, 0.5));
 
 //float ambientStrength = 0.4;
-float ambientStrength = 0.0;
+float ambientStrength = 0.1;
 
 struct PointLight {
 	vec3 position;
@@ -83,7 +83,7 @@ float calcShadow(vec3 vertex, PointLight light, samplerCube qmap, float far_plan
 
 	vec3 fragToLight = vertex - light.position;
 	float mapped_depth = texture(qmap, fragToLight).r * far_plane;
-	float bias = 0.01;
+	float bias = 0.03;
 	if(length(fragToLight) - bias > mapped_depth) {
 		return 0;
 	}

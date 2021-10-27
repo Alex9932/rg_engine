@@ -154,7 +154,7 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 	rg_string error = cJSON_GetErrorPtr();
 	if(error != NULL) {
 		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "Level parsing error!");
-		SDL_LogError(SDL_LOG_CATEGORY_DEBUG, "At: %s", error);
+		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "At: %s", error);
 		return -1;
 	}
 

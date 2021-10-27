@@ -1,0 +1,3584 @@
+{
+	"meshes": [
+		[
+			"&geometry/sponza_236_sponza_236_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_328_sponza_328_fabric_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_329_sponza_329_fabric_g.rgm", 0
+		],
+		[
+			"&geometry/sponza_237_sponza_237_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_261_sponza_261_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_99_sponza_99_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_98_sponza_98_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_320_sponza_320_fabric_g.rgm", 0
+		],
+		[
+			"&geometry/sponza_321_sponza_321_fabric_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_322_sponza_322_fabric_f.rgm", 0
+		],
+		[
+			"&geometry/sponza_323_sponza_323_fabric_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_324_sponza_324_fabric_f.rgm", 0
+		],
+		[
+			"&geometry/sponza_325_sponza_325_fabric_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_326_sponza_326_fabric_g.rgm", 0
+		],
+		[
+			"&geometry/sponza_327_sponza_327_fabric_f.rgm", 0
+		],
+		[
+			"&geometry/sponza_263_sponza_263_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_150_sponza_150_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_265_sponza_265_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_156_sponza_156_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_155_sponza_155_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_266_sponza_266_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_117_sponza_117_floor.rgm", 0
+		],
+		[
+			"&geometry/sponza_116_sponza_116_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_115_sponza_115_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_114_sponza_114_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_113_sponza_113_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_220_sponza_220_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_223_sponza_223_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_222_sponza_222_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_229_sponza_229_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_228_sponza_228_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_119_sponza_119_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_118_sponza_118_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_75_sponza_75_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_74_sponza_74_details.rgm", 0
+		],
+		[
+			"&geometry/sponza_77_sponza_77_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_76_sponza_76_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_71_sponza_71_details.rgm", 0
+		],
+		[
+			"&geometry/sponza_71_sponza_71_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_70_sponza_70_details.rgm", 0
+		],
+		[
+			"&geometry/sponza_73_sponza_73_details.rgm", 0
+		],
+		[
+			"&geometry/sponza_72_sponza_72_details.rgm", 0
+		],
+		[
+			"&geometry/sponza_72_sponza_72_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_90_sponza_90_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_79_sponza_79_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_78_sponza_78_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_97_sponza_97_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_96_sponza_96_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_95_sponza_95_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_343_sponza_343_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_340_sponza_340_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_341_sponza_341_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_346_sponza_346_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_347_sponza_347_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_94_sponza_94_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_345_sponza_345_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_348_sponza_348_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_349_sponza_349_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_93_sponza_93_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_92_sponza_92_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_188_sponza_188_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_189_sponza_189_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_184_sponza_184_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_185_sponza_185_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_186_sponza_186_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_187_sponza_187_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_180_sponza_180_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_181_sponza_181_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_182_sponza_182_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_183_sponza_183_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_122_sponza_122_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_123_sponza_123_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_120_sponza_120_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_121_sponza_121_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_126_sponza_126_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_127_sponza_127_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_171_sponza_171_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_209_sponza_209_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_208_sponza_208_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_207_sponza_207_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_206_sponza_206_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_205_sponza_205_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_204_sponza_204_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_203_sponza_203_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_202_sponza_202_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_201_sponza_201_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_200_sponza_200_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_173_sponza_173_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_59_sponza_59_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_58_sponza_58_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_172_sponza_172_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_53_sponza_53_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_52_sponza_52_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_51_sponza_51_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_50_sponza_50_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_57_sponza_57_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_56_sponza_56_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_55_sponza_55_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_54_sponza_54_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_282_sponza_282_fabric_e.rgm", 0
+		],
+		[
+			"&geometry/sponza_175_sponza_175_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_177_sponza_177_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_286_sponza_286_fabric_d.rgm", 0
+		],
+		[
+			"&geometry/sponza_176_sponza_176_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_218_sponza_218_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_219_sponza_219_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_214_sponza_214_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_215_sponza_215_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_216_sponza_216_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_217_sponza_217_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_210_sponza_210_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_211_sponza_211_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_212_sponza_212_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_213_sponza_213_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_260_sponza_260_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_28_sponza_28_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_29_sponza_29_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_26_sponza_26_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_27_sponza_27_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_24_sponza_24_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_25_sponza_25_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_22_sponza_22_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_23_sponza_23_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_20_sponza_20_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_21_sponza_21_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_269_sponza_269_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_268_sponza_268_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_159_sponza_159_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_158_sponza_158_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_153_sponza_153_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_152_sponza_152_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_151_sponza_151_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_262_sponza_262_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_157_sponza_157_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_264_sponza_264_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_267_sponza_267_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_154_sponza_154_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_302_sponza_302_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_91_sponza_91_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_306_sponza_306_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_307_sponza_307_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_304_sponza_304_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_305_sponza_305_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_276_sponza_276_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_303_sponza_303_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_300_sponza_300_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_301_sponza_301_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_277_sponza_277_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_308_sponza_308_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_309_sponza_309_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_142_sponza_142_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_143_sponza_143_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_144_sponza_144_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_145_sponza_145_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_146_sponza_146_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_147_sponza_147_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_05_sponza_05_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_06_sponza_06_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_07_sponza_07_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_00_sponza_00_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_01_sponza_01_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_01_sponza_01_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_03_sponza_03_Material__298.rgm", 0
+		],
+		[
+			"&geometry/sponza_08_sponza_08_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_09_sponza_09_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_139_sponza_139_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_138_sponza_138_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_135_sponza_135_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_134_sponza_134_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_137_sponza_137_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_136_sponza_136_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_131_sponza_131_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_130_sponza_130_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_133_sponza_133_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_132_sponza_132_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_243_sponza_243_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_242_sponza_242_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_241_sponza_241_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_240_sponza_240_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_247_sponza_247_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_246_sponza_246_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_245_sponza_245_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_244_sponza_244_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_249_sponza_249_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_248_sponza_248_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_17_sponza_17_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_16_sponza_16_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_15_sponza_15_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_14_sponza_14_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_13_sponza_13_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_12_sponza_12_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_11_sponza_11_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_10_sponza_10_column_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_19_sponza_19_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_18_sponza_18_floor.rgm", 0
+		],
+		[
+			"&geometry/sponza_250_sponza_250_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_251_sponza_251_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_252_sponza_252_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_253_sponza_253_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_254_sponza_254_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_255_sponza_255_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_256_sponza_256_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_257_sponza_257_Material__47.rgm", 0
+		],
+		[
+			"&geometry/sponza_258_sponza_258_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_259_sponza_259_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_128_sponza_128_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_129_sponza_129_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_351_sponza_351_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_62_sponza_62_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_63_sponza_63_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_60_sponza_60_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_61_sponza_61_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_66_sponza_66_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_67_sponza_67_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_64_sponza_64_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_65_sponza_65_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_68_sponza_68_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_69_sponza_69_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_225_sponza_225_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_333_sponza_333_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_224_sponza_224_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_227_sponza_227_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_359_sponza_359_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_358_sponza_358_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_226_sponza_226_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_355_sponza_355_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_354_sponza_354_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_357_sponza_357_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_356_sponza_356_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_221_sponza_221_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_350_sponza_350_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_353_sponza_353_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_352_sponza_352_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_112_sponza_112_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_294_sponza_294_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_111_sponza_111_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_167_sponza_167_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_110_sponza_110_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_296_sponza_296_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_165_sponza_165_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_198_sponza_198_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_197_sponza_197_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_196_sponza_196_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_195_sponza_195_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_194_sponza_194_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_193_sponza_193_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_192_sponza_192_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_191_sponza_191_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_190_sponza_190_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_291_sponza_291_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_292_sponza_292_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_293_sponza_293_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_104_sponza_104_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_105_sponza_105_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_238_sponza_238_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_239_sponza_239_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_100_sponza_100_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_101_sponza_101_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_102_sponza_102_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_103_sponza_103_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_232_sponza_232_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_233_sponza_233_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_230_sponza_230_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_231_sponza_231_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_108_sponza_108_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_109_sponza_109_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_234_sponza_234_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_235_sponza_235_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_48_sponza_48_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_49_sponza_49_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_40_sponza_40_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_41_sponza_41_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_42_sponza_42_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_43_sponza_43_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_44_sponza_44_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_45_sponza_45_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_46_sponza_46_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_47_sponza_47_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_364_sponza_364_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_199_sponza_199_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_287_sponza_287_fabric_e.rgm", 0
+		],
+		[
+			"&geometry/sponza_170_sponza_170_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_285_sponza_285_fabric_e.rgm", 0
+		],
+		[
+			"&geometry/sponza_284_sponza_284_fabric_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_283_sponza_283_fabric_d.rgm", 0
+		],
+		[
+			"&geometry/sponza_174_sponza_174_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_281_sponza_281_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_280_sponza_280_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_179_sponza_179_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_178_sponza_178_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_289_sponza_289_fabric_d.rgm", 0
+		],
+		[
+			"&geometry/sponza_288_sponza_288_fabric_a.rgm", 0
+		],
+		[
+			"&geometry/sponza_377_sponza_377_Material__25.rgm", 0
+		],
+		[
+			"&geometry/sponza_377_sponza_377_Material__298.rgm", 0
+		],
+		[
+			"&geometry/sponza_376_sponza_376_vase.rgm", 0
+		],
+		[
+			"&geometry/sponza_375_sponza_375_vase.rgm", 0
+		],
+		[
+			"&geometry/sponza_374_sponza_374_vase.rgm", 0
+		],
+		[
+			"&geometry/sponza_373_sponza_373_vase.rgm", 0
+		],
+		[
+			"&geometry/sponza_372_sponza_372_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_372_sponza_372_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_371_sponza_371_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_371_sponza_371_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_370_sponza_370_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_370_sponza_370_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_362_sponza_362_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_379_sponza_379_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_378_sponza_378_Material__25.rgm", 0
+		],
+		[
+			"&geometry/sponza_378_sponza_378_Material__298.rgm", 0
+		],
+		[
+			"&geometry/sponza_124_sponza_124_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_290_sponza_290_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_368_sponza_368_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_368_sponza_368_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_166_sponza_166_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_295_sponza_295_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_164_sponza_164_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_297_sponza_297_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_162_sponza_162_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_163_sponza_163_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_160_sponza_160_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_161_sponza_161_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_332_sponza_332_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_125_sponza_125_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_298_sponza_298_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_299_sponza_299_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_168_sponza_168_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_169_sponza_169_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_331_sponza_331_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_365_sponza_365_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_366_sponza_366_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_366_sponza_366_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_367_sponza_367_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_367_sponza_367_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_360_sponza_360_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_361_sponza_361_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_330_sponza_330_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_363_sponza_363_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_337_sponza_337_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_369_sponza_369_vase_round.rgm", 0
+		],
+		[
+			"&geometry/sponza_369_sponza_369_Material__57.rgm", 0
+		],
+		[
+			"&geometry/sponza_336_sponza_336_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_335_sponza_335_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_334_sponza_334_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_311_sponza_311_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_310_sponza_310_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_313_sponza_313_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_312_sponza_312_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_315_sponza_315_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_314_sponza_314_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_317_sponza_317_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_316_sponza_316_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_319_sponza_319_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_318_sponza_318_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_31_sponza_31_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_30_sponza_30_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_33_sponza_33_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_32_sponza_32_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_35_sponza_35_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_34_sponza_34_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_37_sponza_37_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_36_sponza_36_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_39_sponza_39_arch.rgm", 0
+		],
+		[
+			"&geometry/sponza_38_sponza_38_ceiling.rgm", 0
+		],
+		[
+			"&geometry/sponza_148_sponza_148_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_149_sponza_149_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_278_sponza_278_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_279_sponza_279_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_140_sponza_140_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_141_sponza_141_column_b.rgm", 0
+		],
+		[
+			"&geometry/sponza_274_sponza_274_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_275_sponza_275_leaf.rgm", 0
+		],
+		[
+			"&geometry/sponza_272_sponza_272_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_273_sponza_273_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_270_sponza_270_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_271_sponza_271_flagpole.rgm", 0
+		],
+		[
+			"&geometry/sponza_382_sponza_382_bricks.rgm", 0
+		],
+		[
+			"&geometry/sponza_380_sponza_380_roof.rgm", 0
+		],
+		[
+			"&geometry/sponza_381_sponza_381_roof.rgm", 0
+		],
+		[
+			"&geometry/sponza_342_sponza_342_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_106_sponza_106_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_339_sponza_339_chain.rgm", 0
+		],
+		[
+			"&geometry/sponza_338_sponza_338_vase_hanging.rgm", 0
+		],
+		[
+			"&geometry/sponza_88_sponza_88_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_89_sponza_89_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_107_sponza_107_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_84_sponza_84_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_85_sponza_85_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_86_sponza_86_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_87_sponza_87_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_80_sponza_80_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_81_sponza_81_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_82_sponza_82_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_83_sponza_83_column_c.rgm", 0
+		],
+		[
+			"&geometry/sponza_344_sponza_344_vase_hanging.rgm", 0
+		]
+	],
+	"materials": [
+		"&vase",
+		"&vase_hanging",
+		"&vase_round",
+		"&details",
+		"&flagpole",
+		"&Material__25",
+		"&Material__298",
+		"&Material__47",
+		"&floor",
+		"&bricks",
+		"&ceiling",
+		"&fabric_a",
+		"&roof",
+		"&chain",
+		"&fabric_f",
+		"&fabric_g",
+		"&fabric_d",
+		"&leaf",
+		"&column_c",
+		"&fabric_e",
+		"&column_b",
+		"&column_a",
+		"&fabric_c",
+		"&arch",
+		"&Material__57"
+	],
+	"entitys": [
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 0,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 1,
+			"material": 22
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 2,
+			"material": 15
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 3,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 4,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 5,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 6,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 7,
+			"material": 15
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 8,
+			"material": 22
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 9,
+			"material": 14
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 10,
+			"material": 22
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 11,
+			"material": 14
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 12,
+			"material": 22
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 13,
+			"material": 15
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 14,
+			"material": 14
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 15,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 16,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 17,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 18,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 19,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 20,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 21,
+			"material": 8
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 22,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 23,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 24,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 25,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 26,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 27,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 28,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 29,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 30,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 31,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 32,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 33,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 34,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 35,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 36,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 37,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 38,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 39,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 40,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 41,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 42,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 43,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 44,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 45,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 46,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 47,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 48,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 49,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 50,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 51,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 52,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 53,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 54,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 55,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 56,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 57,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 58,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 59,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 60,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 61,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 62,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 63,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 64,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 65,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 66,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 67,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 68,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 69,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 70,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 71,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 72,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 73,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 74,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 75,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 76,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 77,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 78,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 79,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 80,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 81,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 82,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 83,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 84,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 85,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 86,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 87,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 88,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 89,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 90,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 91,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 92,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 93,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 94,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 95,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 96,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 97,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 98,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 99,
+			"material": 19
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 100,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 101,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 102,
+			"material": 16
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 103,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 104,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 105,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 106,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 107,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 108,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 109,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 110,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 111,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 112,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 113,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 114,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 115,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 116,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 117,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 118,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 119,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 120,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 121,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 122,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 123,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 124,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 125,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 126,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 127,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 128,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 129,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 130,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 131,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 132,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 133,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 134,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 135,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 136,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 137,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 138,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 139,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 140,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 141,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 142,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 143,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 144,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 145,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 146,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 147,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 148,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 149,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 150,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 151,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 152,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 153,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 154,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 155,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 156,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 157,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 158,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 159,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 160,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 161,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 162,
+			"material": 6
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 163,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 164,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 165,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 166,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 167,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 168,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 169,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 170,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 171,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 172,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 173,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 174,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 175,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 176,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 177,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 178,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 179,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 180,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 181,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 182,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 183,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 184,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 185,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 186,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 187,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 188,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 189,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 190,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 191,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 192,
+			"material": 21
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 193,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 194,
+			"material": 8
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 195,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 196,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 197,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 198,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 199,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 200,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 201,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 202,
+			"material": 7
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 203,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 204,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 205,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 206,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 207,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 208,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 209,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 210,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 211,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 212,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 213,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 214,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 215,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 216,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 217,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 218,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 219,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 220,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 221,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 222,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 223,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 224,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 225,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 226,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 227,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 228,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 229,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 230,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 231,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 232,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 233,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 234,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 235,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 236,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 237,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 238,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 239,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 240,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 241,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 242,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 243,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 244,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 245,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 246,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 247,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 248,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 249,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 250,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 251,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 252,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 253,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 254,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 255,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 256,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 257,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 258,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 259,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 260,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 261,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 262,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 263,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 264,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 265,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 266,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 267,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 268,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 269,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 270,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 271,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 272,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 273,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 274,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 275,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 276,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 277,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 278,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 279,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 280,
+			"material": 19
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 281,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 282,
+			"material": 19
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 283,
+			"material": 11
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 284,
+			"material": 16
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 285,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 286,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 287,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 288,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 289,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 290,
+			"material": 16
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 291,
+			"material": 11
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 292,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 293,
+			"material": 6
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 294,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 295,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 296,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 297,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 298,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 299,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 300,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 301,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 302,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 303,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 304,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 305,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 306,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 307,
+			"material": 6
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 308,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 309,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 310,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 311,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 312,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 313,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 314,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 315,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 316,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 317,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 318,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 319,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 320,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 321,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 322,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 323,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 324,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 325,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 326,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 327,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 328,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 329,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 330,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 331,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 332,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 333,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 334,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 335,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 336,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 337,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 338,
+			"material": 24
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 339,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 340,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 341,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 342,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 343,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 344,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 345,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 346,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 347,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 348,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 349,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 350,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 351,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 352,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 353,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 354,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 355,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 356,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 357,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 358,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 359,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 360,
+			"material": 23
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 361,
+			"material": 10
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 362,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 363,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 364,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 365,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 366,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 367,
+			"material": 20
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 368,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 369,
+			"material": 17
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 370,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 371,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 372,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 373,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 374,
+			"material": 9
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 375,
+			"material": 12
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 376,
+			"material": 12
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 377,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 378,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 379,
+			"material": 13
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 380,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 381,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 382,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 383,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 384,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 385,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 386,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 387,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 388,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 389,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 390,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 391,
+			"material": 18
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 392,
+			"material": 1
+		}
+	],
+	"terrains": [
+	],
+	"lights": [
+		{
+			"position": [3, 3, 3],
+			"color": [0, 0.5, 1],
+			"attenuation": [1, 0.06, 0.028]
+		},
+		{
+			"position": [3, 4, 3],
+			"color": [1, 0.5, 0],
+			"attenuation": [1, 0.06, 0.028]
+		}
+	]
+}
