@@ -7,8 +7,7 @@
 
 #include "cl_renderer.h"
 
-#include <rg_animmodelloader.h>
-#include <rg_modelloader.h>
+#include <rg_loader.h>
 #include <rg_level.h>
 #include <GL/glew.h>
 #include <string>
@@ -22,12 +21,12 @@
 
 #include "cl_gui.h"
 
-#include "cl_font.h"
 #include "cl_renderer2d.h"
 #include "cl_material.h"
 #include "cl_particle.h"
 
 #include "cl_guiscreen.h"
+#include "cl_guiconsole.h"
 
 #include "cl_surfaces.h"
 #include "cl_skybox.h"
@@ -35,7 +34,7 @@
 #include "cl_water.h"
 
 
-#define SHADOW_SIZE   1024
+#define SHADOW_SIZE   512
 #define MAX_PARTICLES 1024
 
 static const Uint32 inds[] = { 0, 1, 2, 2, 3, 0 };
@@ -79,13 +78,12 @@ static std::vector<cl_particle> particles;
 //static cl_particle _particles[4];
 
 
-static GuiScreen* screen;
-
-static float _time = 0;
+//static GuiScreen* screen;
 
 static bool _changeViewport = false;
 static bool _wireframe = false;
 static bool _doAnimation = false;
+static bool _allowShadows = false;
 
 static bool allbright = false;
 static bool g_cursor = true;
@@ -105,6 +103,9 @@ static bool _r_handler(rg_Event* event) {
 	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_F6) { // @suppress("Field cannot be resolved")
 		g_cursor = !g_cursor;
 	}
+	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_F7) { // @suppress("Field cannot be resolved")
+		_allowShadows = !_allowShadows;
+	}
 
 	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_F) { // @suppress("Field cannot be resolved")
 		_doAnimation = !_doAnimation;
@@ -116,7 +117,7 @@ static bool _r_handler(rg_Event* event) {
 
 
 	// Handle events
-	return screen->eventHandler(event);
+	return true;//screen->eventHandler(event);
 }
 
 static cl_font_t* font;
@@ -126,7 +127,7 @@ static std::vector<cl_VAO*> meshes;
 
 void cl_r_init() {
 
-	screen = new GuiScreen();
+//	screen = new GuiScreen();
 
 	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Starting renderer");
 	rg_registerEventHandler(_r_handler);
@@ -179,6 +180,7 @@ void cl_r_init() {
 
 	cl_r2d_init();
 	font = cl_font_new("platform/f_gui.ttf", 42);
+	cl_gui_console_init();
 
 	mat4_identity(&model_mat);
 
@@ -261,6 +263,7 @@ void cl_r_destroy() {
 	cl_fboFree(dbg_light_buffer);
 	shader_delete(s_dbg_light);
 
+	cl_gui_console_destroy();
 	cl_r2d_destroy();
 }
 
@@ -308,12 +311,13 @@ static void _r_draw2d(double dt) {
 
 	cl_r2d_rotate({0, 0, 0});
 	cl_r2d_translate({0, 0});
-	screen->drawScreen(dt);
+//	screen->drawScreen(dt);
 
 
 	cl_r2d_rotate({0, 0, 0});
 	cl_r2d_translate({5, cl_display_getHeight() - 50});
 
+	cl_r2d_bind(0);
 	cl_r2d_begin();
 	cl_r2d_vertex({0,   0,  0, 0, 0, 0, 0, 0.5});
 	cl_r2d_vertex({140, 0,  1, 0, 0, 0, 0, 0.5});
@@ -328,6 +332,12 @@ static void _r_draw2d(double dt) {
 	cl_r2d_drawString(font, std::to_wstring((int)rg_fps_avg).c_str(), 35, 5, 0.28, 0, 1, 0, 1);
 	cl_r2d_drawString(font, L"Mem len", 5, -15, 0.25, 0, 1, 0, 1);
 	cl_r2d_drawString(font, std::to_wstring(rg_getAllocatedMem()).c_str(), 55, -15, 0.28, 0, 1, 0, 1);
+
+	cl_gui_console_update(dt);
+}
+
+cl_font_t* cl_r_getDefaultFont() {
+	return font;
 }
 
 RG_INLINE cl_VAO* _cl_r_getMesh(Uint32 id) {
@@ -368,6 +378,8 @@ RG_INLINE void _cl_r_beginLightShader() {
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[2]"), 6);
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[3]"), 7);
 
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "allowShadows"), _allowShadows);
+
 	shader_uniform_3fp(shader_uniform_get(s_lpbuffer, "camera_pos"), (float*)&camera.position);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, gbuffer->color[0]);
@@ -388,6 +400,9 @@ RG_INLINE void _cl_r_beginLightShader() {
 }
 
 void _cl_r_calcShadowQmaps(cl_PointLight** light) {
+	if(!_allowShadows)
+		return;
+
 	glViewport(0, 0, SHADOW_SIZE, SHADOW_SIZE);
 	for (Uint32 i = 0; i < 4; ++i) {
 		if(light[i] == NULL) { continue; }
@@ -402,6 +417,13 @@ void _cl_r_calcShadowQmaps(cl_PointLight** light) {
 		mat4_viewZ(&view[3], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180, -d90, d180);
 		mat4_viewZ(&view[4], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180, 0,    d180);
 		mat4_viewZ(&view[5], light[i]->position.x, light[i]->position.y, light[i]->position.z,    0, 0,    d180);
+
+//		mat4_viewZ(&view[0], 0, 3, 0,  d90, 0,    d180);
+//		mat4_viewZ(&view[1], 0, 3, 0, -d90, 0,    d180);
+//		mat4_viewZ(&view[2], 0, 3, 0, d180,  d90, d180);
+//		mat4_viewZ(&view[3], 0, 3, 0, d180, -d90, d180);
+//		mat4_viewZ(&view[4], 0, 3, 0, d180, 0,    d180);
+//		mat4_viewZ(&view[5], 0, 3, 0,    0, 0,    d180);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFBO[i]);
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -453,8 +475,7 @@ static void _cl_r_loadBoneMatrices(rg_Shader shader, rg_object_t* obj) {
 }
 
 void cl_r_doRender(double dt) {
-
-	_time += dt;
+	double _time = rg_getRunningTime();
 
 	cl_display_setMouseGrabbed(g_cursor);
 

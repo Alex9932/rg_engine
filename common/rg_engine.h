@@ -49,11 +49,6 @@ typedef struct rg_Event {
 	SDL_Event event;
 } rg_Event;
 
-typedef struct rg_Resource {
-	Uint32 length;
-	void* data;
-} rg_Resource;
-
 typedef void (*UpdateFunc)(double);
 typedef bool (*EventCallback)(rg_Event*);
 
@@ -83,11 +78,10 @@ void rg_start();
 void rg_stop();
 bool rg_isRunning();
 
+double rg_getRunningTime();
+
 void rg_registerEventHandler(EventCallback callback);
 void rg_pushEvent(rg_Event* event);
-
-rg_Resource* rg_loadResource(rg_string file);
-void rg_freeResource(rg_Resource* res);
 void rg_buildResourcePath(const char* levelname, const char* name, char* dest, const char* type);
 
 #endif /* RG_ENGINE_H_ */

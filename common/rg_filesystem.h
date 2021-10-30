@@ -10,6 +10,7 @@
 
 #include <SDL2/SDL.h>
 #include "rg_engine.h"
+#include "rg_loader.h"
 
 /**
 

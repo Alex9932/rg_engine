@@ -11,6 +11,6 @@
 void cl_gui_showLoadingScreen();
 void cl_gui_hide();
 
-void cl_gui_draw(float dt);
+void cl_gui_draw(double dt);
 
 #endif /* CL_GUI_H_ */

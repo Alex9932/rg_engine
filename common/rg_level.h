@@ -11,6 +11,7 @@
 #include "rg_engine.h"
 #include "rg_vecmath.h"
 #include "rg_anim.h"
+#include "rg_loader.h"
 #include <vector>
 #include <cJSON.h>
 

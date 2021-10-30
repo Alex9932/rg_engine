@@ -7,9 +7,15 @@
 
 #include "cl_gui.h"
 
+#include <locale>
+#include <codecvt>
+#include <string>
+
 #include "cl_renderer2d.h"
 #include "cl_texture.h"
 #include "cl_display.h"
+#include "cl_renderer.h"
+#include "client.h"
 
 static bool is_render = false;
 
@@ -31,7 +37,7 @@ void cl_gui_hide() {
 
 static float angle = 0;
 
-void cl_gui_draw(float dt) {
+void cl_gui_draw(double dt) {
 	if(is_render) {
 		float w = cl_display_getWidth(), h = cl_display_getHeight();
 		cl_r2d_rotate({0, 0, 0});
@@ -47,7 +53,11 @@ void cl_gui_draw(float dt) {
 		cl_r2d_vertex({0, 0, 0, 0, 1, 1, 1, 1});
 		cl_r2d_end();
 
-		angle += 10.28f * dt;
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		std::wstring wide = converter.from_bytes(LOADING_STATUS);
+		cl_r2d_drawString(cl_r_getDefaultFont(), wide.c_str(), 15, 15, 0.5, 1, 1, 1, 1);
+
+		angle += 15.28f * dt;
 		cl_r2d_rotate({0, 0, angle});
 		cl_r2d_translate({100, 100});
 

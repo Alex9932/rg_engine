@@ -34,5 +34,6 @@ void cl_font_init();
 void cl_font_destroy();
 
 cl_font_t* cl_font_new(rg_string file, Uint32 size);
+void cl_font_delete(cl_font_t* font);
 
 #endif /* CL_FONT_H_ */

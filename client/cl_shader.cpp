@@ -9,6 +9,7 @@
 #include "cl_shader.h"
 
 #include <rg_engine.h>
+#include <rg_loader.h>
 #include <SDL2/SDL.h>
 #include <assert.h>
 

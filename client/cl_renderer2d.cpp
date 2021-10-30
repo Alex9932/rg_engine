@@ -11,7 +11,7 @@
 #include <rg_vecmath.h>
 #include <GL/glew.h>
 
-#define RG_GUI_MAX_VERTECES 512
+#define RG_GUI_MAX_VERTECES 1024
 
 static rg_Shader gui_shader;
 static GLuint vao;
@@ -125,4 +125,12 @@ void cl_r2d_drawString(cl_font_t* font, rg_wstring str, int x, int y, float size
 	}
 	cl_r2d_end();
 	shader_uniform_1i(shader_uniform_get(gui_shader, "is_text"), 0);
+}
+
+float cl_r2d_strlen(cl_font_t* font, rg_wstring str, float size) {
+	float len = 0;
+	for (Uint32 i = 0; i < wcslen(str); ++i) {
+		len += (font->chars[str[i]].advance_x >> 6) * size;
+	}
+	return len;
 }

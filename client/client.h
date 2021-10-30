@@ -10,6 +10,8 @@
 
 #include <rg_level.h>
 
+extern char* LOADING_STATUS;
+
 void cl_main();
 void cl_quit();
 void cl_update(double dt);

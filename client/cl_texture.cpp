@@ -6,11 +6,11 @@
  */
 
 #define STB_IMAGE_IMPLEMENTATION
-#define LOAD_FROM_RG_RESOURCE
 
 #include "cl_texture.h"
 #include <stb/stb_image.h>
 #include <GL/glew.h>
+#include <rg_loader.h>
 #include <map>
 
 //static std::map<rg_string, cl_texture_t> textures;
@@ -29,12 +29,8 @@ cl_texture_t cl_getTexture(rg_string path) {
 	int height = 0;
 	unsigned char* data = NULL;
 
-#ifdef LOAD_FROM_RG_RESOURCE
 	rg_Resource* res = rg_loadResource(path);
 	data = stbi_load_from_memory((stbi_uc const*)res->data, res->length, &width, &height, &channels, 0);
-#else
-	data = stbi_load(path, &width, &height, &channels, 0);
-#endif
 
 	if (data == NULL) {
 		SDL_Log("Unable to load texutre: %s", path);
@@ -73,9 +69,7 @@ cl_texture_t cl_getTexture(rg_string path) {
 
 	stbi_image_free(data);
 
-#ifdef LOAD_FROM_RG_RESOURCE
 	rg_freeResource(res);
-#endif
 
 //	textures[path] = texture;
 	return texture;

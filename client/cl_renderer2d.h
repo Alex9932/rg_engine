@@ -8,6 +8,7 @@
 #ifndef CL_RENDERER2D_H_
 #define CL_RENDERER2D_H_
 
+#include <rg_engine.h>
 #include <rg_vecmath.h>
 #include "cl_font.h"
 
@@ -35,5 +36,6 @@ void cl_r2d_vertex(cl_vertex2d_t vertex);
 // Misc
 void cl_r2d_bind(GLuint texture);
 void cl_r2d_drawString(cl_font_t* font, rg_wstring str, int x, int y, float size, float r, float g, float b, float a);
+float cl_r2d_strlen(cl_font_t* font, rg_wstring str, float size);
 
 #endif /* CL_RENDERER2D_H_ */

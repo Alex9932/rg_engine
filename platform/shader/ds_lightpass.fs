@@ -47,6 +47,8 @@ uniform float lradius_3;
 
 uniform samplerCube lsmap[4];
 
+uniform int allowShadows;
+
 PointLight _light0;
 PointLight _light1;
 PointLight _light2;
@@ -81,9 +83,13 @@ float calcShadow(vec3 vertex, PointLight light, samplerCube qmap, float far_plan
 //	float shadow = currentDepth - bias > closestDepth ? 0.0 : 1.0;
 //	return shadow;
 
+	if(allowShadows == 0) {
+		return 1;
+	}
+
 	vec3 fragToLight = vertex - light.position;
 	float mapped_depth = texture(qmap, fragToLight).r * far_plane;
-	float bias = 0.03;
+	float bias = 0.05;
 	if(length(fragToLight) - bias > mapped_depth) {
 		return 0;
 	}

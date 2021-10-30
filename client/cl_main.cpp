@@ -24,13 +24,18 @@
 
 #include "cl_freecam.h"
 #include "cl_player.h"
+#include "cl_democam.h"
 
-#include <rg_animloader.h>
+#include <rg_loader.h>
 
-static TCPsocket socket;
+#include <rg_demo.h>
 
-static char _discbyclient[] = "Disconnected by client!";
-static char _GET[] = "GET";
+char* LOADING_STATUS;
+
+//static TCPsocket socket;
+
+//static char _discbyclient[] = "Disconnected by client!";
+//static char _GET[] = "GET";
 
 static bool _load_materials = false;
 static bool _unloadlevel = false;
@@ -44,12 +49,12 @@ static bool _cl_event_handler(rg_Event* event) {
 
 	switch (event->type) {
 		case RG_EVENT_SHUTDOWN: {
-			SDL_LogInfo(SDL_LOG_CATEGORY_SERVER, "Disconnecting...");
-			rg_NetPackage pkg;
-			pkg.pkg_type = RG_NET_PKG_TYPE_DISCONNECT;
-			pkg.length = strlen(_discbyclient);
-			pkg.data = _discbyclient;
-			rg_netSend(socket, &pkg);
+//			SDL_LogInfo(SDL_LOG_CATEGORY_SERVER, "Disconnecting...");
+//			rg_NetPackage pkg;
+//			pkg.pkg_type = RG_NET_PKG_TYPE_DISCONNECT;
+//			pkg.length = strlen(_discbyclient);
+//			pkg.data = _discbyclient;
+//			rg_netSend(socket, &pkg);
 			break;
 		}
 		case RG_EVENT_LOADLEVEL: {
@@ -71,11 +76,15 @@ static bool _cl_event_handler(rg_Event* event) {
 					case SDL_SCANCODE_F2:
 						if(rg_level == NULL){
 							rg_level = rg_newLevel();
-							if(rg_loadLevel(rg_level, "rg_test") == -1) {
+							if(rg_loadLevel(rg_level, "rg_sponza") == -1) {
 								rg_freeLevel(rg_level);
 								rg_level = NULL;
 							}
 						}
+						break;
+					case SDL_SCANCODE_F3:
+						rg_demo_load("nope");
+						cl_democam_start();
 						break;
 					default:
 						break;
@@ -108,78 +117,61 @@ static bool _cl_event_handler(rg_Event* event) {
 	return true;
 }
 
-//static float rot = 0;
-
-//static float prot = 0;
-//static float crot = 0;
-//
-//static float ca = 0;
-//static float cb = 0;
-//static float cc = 0;
-
 static mat4 IDENTITY_MATRIX;
 
-static int cl_net_handler(void* data) {
-	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "NET: starting");
-	rg_NetPackage s_pkg;
-	Uint32 ip = 0;
-	bool sendPlayer = false;
-
-	while(rg_isRunning()) {
-		ip++;
-
-		if(sendPlayer) {
-			s_pkg.pkg_type = RG_NET_PKG_TYPE_DATA;
-			s_pkg.length = sizeof(vec4);
-			s_pkg.data = &_player;
-			sendPlayer = false;
-		} else {
-			if((ip % 5) == 0) {
-				s_pkg.pkg_type = RG_NET_PKG_TYPE_DATA;
-				s_pkg.length = 6;
-				s_pkg.data = (char*)"PLAYER";
-			} else {
-				s_pkg.pkg_type = RG_NET_PKG_TYPE_DATA;
-				s_pkg.length = SDL_strlen(_GET);
-				s_pkg.data = _GET;
-			}
-		}
-
-		rg_netSend(socket, &s_pkg); // Send request
-
-		rg_NetPackage* pkg = rg_netRecv(socket); // Get response
-		if(pkg->pkg_type == RG_NET_PKG_TYPE_FAILED) {
-			SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Server closed!");
-			rg_stop();
-		}
-
-		if(pkg->pkg_type == RG_NET_PKG_TYPE_DATA) {
-			const char* str = (const char*)pkg->data;
-
-			if(rg_streql(str, "OK")) {
-				sendPlayer = true;
-			}
-//			SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Data: %d %f", pkg->pkg_type, *(float*)pkg->data);
-//			prot = crot;
-//			crot = std::stof((char*)pkg.data);
-//			crot = *(float*)pkg->data;
-//			cb = cc;
-//			cc = ca;
-		}
-
-		if(pkg->pkg_type == RG_NET_PKG_TYPE_DISCONNECT) {
-			SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Disconnected: %s", (char*)pkg->data);
-			rg_stop();
-		}
-
-		rg_netFreePackage(pkg);
-		//SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "x0: %f, y0: %f, x1: %f, y1: %f, x3: %f, y3: %f", x0, y0, x1, y1, xp, rot);
-		//rot = ;
-	}
-	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "NET: quit");
-
-	return 0;
-}
+//static int cl_net_handler(void* data) {
+//	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "NET: starting");
+//	rg_NetPackage s_pkg;
+//	Uint32 ip = 0;
+//	bool sendPlayer = false;
+//
+//	while(rg_isRunning()) {
+//		ip++;
+//
+//		if(sendPlayer) {
+//			s_pkg.pkg_type = RG_NET_PKG_TYPE_DATA;
+//			s_pkg.length = sizeof(vec4);
+//			s_pkg.data = &_player;
+//			sendPlayer = false;
+//		} else {
+//			if((ip % 5) == 0) {
+//				s_pkg.pkg_type = RG_NET_PKG_TYPE_DATA;
+//				s_pkg.length = 6;
+//				s_pkg.data = (char*)"PLAYER";
+//			} else {
+//				s_pkg.pkg_type = RG_NET_PKG_TYPE_DATA;
+//				s_pkg.length = SDL_strlen(_GET);
+//				s_pkg.data = _GET;
+//			}
+//		}
+//
+//		rg_netSend(socket, &s_pkg); // Send request
+//
+//		rg_NetPackage* pkg = rg_netRecv(socket); // Get response
+//		if(pkg->pkg_type == RG_NET_PKG_TYPE_FAILED) {
+//			SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Server closed!");
+//			rg_stop();
+//		}
+//
+//		if(pkg->pkg_type == RG_NET_PKG_TYPE_DATA) {
+//			const char* str = (const char*)pkg->data;
+//
+//			if(rg_streql(str, "OK")) {
+//				sendPlayer = true;
+//			}
+//		}
+//
+//		if(pkg->pkg_type == RG_NET_PKG_TYPE_DISCONNECT) {
+//			SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Disconnected: %s", (char*)pkg->data);
+//			rg_stop();
+//		}
+//
+//		rg_netFreePackage(pkg);
+//	}
+//	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "NET: quit");
+//
+//	return 0;
+//}
 
 static SoundSource* src;
 static Animation* anim;
@@ -189,13 +181,14 @@ void cl_main() {
 
 	mat4_identity(&IDENTITY_MATRIX);
 
-	socket = rg_netConnect("localhost", 12345);
-	if(socket) {
-		SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Connected to server!");
-	} else {
-		SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Unable to connect!");
-	}
-	SDL_CreateThread(cl_net_handler, "Net handler", NULL);
+//	socket = rg_netConnect("localhost", 12345);
+//	if(socket) {
+//		SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Connected to server!");
+//	} else {
+//		SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Unable to connect!");
+//	}
+//	SDL_CreateThread(cl_net_handler, "Net handler", NULL);
+
 	cl_display_init();
 	cl_inputInit();
 	rg_registerEventHandler(_cl_event_handler);
@@ -203,6 +196,7 @@ void cl_main() {
 	cl_r_init();
 	cl_freecam_init(cl_r_getCamera());
 	cl_player_init(cl_r_getCamera());
+	cl_democam_init(cl_r_getCamera());
 
 //	rg_Resource* res = rg_loadResource("gamedata/anims/wolf.anim"); // Load animation
 	rg_Resource* res = rg_loadResource("gamedata/anims/vampire.anim"); // Load animation
@@ -255,14 +249,7 @@ static void cl_prepareLoadQueue() {
 	do_load = true;
 }
 
-static void _cl_vec3_mix(vec3* dest, vec3* src0, vec3* src1, double factor) {
-	dest->x = src0->x * (1.0 - factor) + src1->x * factor;
-	dest->y = src0->y * (1.0 - factor) + src1->y * factor;
-	dest->z = src0->z * (1.0 - factor) + src1->z * factor;
-}
-
 static float a = 0;
-static double time = 0;
 static double animation_time = 0;
 
 static void _cl_calcBoneTransform(rg_object_t* obj, rg_Bone* bone, mat4* parent_transform) {
@@ -293,8 +280,6 @@ static void _cl_calcBoneTransform(rg_object_t* obj, rg_Bone* bone, mat4* parent_
 }
 
 void cl_update(double dt) {
-	time += dt;
-
 //	ca += dt;
 //
 //	float x0 = cb;
@@ -319,6 +304,7 @@ void cl_update(double dt) {
 		if(tex) { // Load textures
 			if(ti == 0) {
 				SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Loading textures");
+				LOADING_STATUS = (char*)"Loading textures";
 				cl_mat_unloadAll();
 			}
 			cl_mat_load(rg_level->materials[ti]);
@@ -332,6 +318,7 @@ void cl_update(double dt) {
 		} else { // Load geometry
 			if(gi == 0) {
 				SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Loading geometry");
+				LOADING_STATUS = (char*)"Loading geometry";
 				cl_r_unloadMeshes();
 			}
 //			SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Try to load: %s", rg_level->meshes[gi]);
@@ -347,11 +334,17 @@ void cl_update(double dt) {
 
 //	rot += dt * 5.9;
 
-	if(_cl_isFreecam) {
-		cl_freecam_update(dt);
+	if(rg_demo_running()) {
+		rg_demo_update(dt);
+		cl_democam_update();
 	} else {
-		cl_player_update(dt);
+		if(_cl_isFreecam) {
+			cl_freecam_update(dt);
+		} else {
+			cl_player_update(dt);
+		}
 	}
+
 	_player.x = cl_r_getCamera()->position.x;
 	_player.y = cl_r_getCamera()->position.y;
 	_player.z = cl_r_getCamera()->position.z;
@@ -411,8 +404,8 @@ if(anim_obj) {
 //		}
 
 		// Interpolate
-		_cl_vec3_mix(&transform.scale, &transform0.scale, &transform1.scale, anim_delta);
-		_cl_vec3_mix(&transform.position, &transform0.position, &transform1.position, anim_delta);
+		vec3_lerp(&transform.scale, &transform0.scale, &transform1.scale, anim_delta);
+		vec3_lerp(&transform.position, &transform0.position, &transform1.position, anim_delta);
 		quat_slerp(&transform.orientation, &transform0.orientation, &transform1.orientation, anim_delta);
 
 		mat4 translate; mat4_identity(&translate);

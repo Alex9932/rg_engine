@@ -8,7 +8,7 @@
 
 #include "rg_level.h"
 #include "rg_string.h"
-#include "rg_animmodelloader.h"
+#include "rg_loader.h"
 
 #include <SDL2/SDL.h>
 #include <string.h>

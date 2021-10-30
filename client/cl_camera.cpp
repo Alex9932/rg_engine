@@ -15,5 +15,8 @@ void cl_camera_recalcViewMatrix(cl_camera* camera) {
 //	mat4_mul(&camera->view, &translation, &rotation);
 
 //	mat4_view(&camera->view, -camera->position.x, -camera->position.y, -camera->position.z, camera->rotation.x, camera->rotation.y);
-	mat4_view(&camera->view, camera->position.x, camera->position.y, camera->position.z, camera->rotation.x, camera->rotation.y);
+
+//	mat4_view(&camera->view, camera->position.x, camera->position.y, camera->position.z, camera->rotation.x, camera->rotation.y);
+
+	mat4_viewZ(&camera->view, camera->position.x, camera->position.y, camera->position.z, camera->rotation.x, camera->rotation.y, camera->rotation.z);
 }

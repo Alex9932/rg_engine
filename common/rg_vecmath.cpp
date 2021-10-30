@@ -80,6 +80,11 @@ void vec2_negate(vec2* dest, vec2* a) {
 	dest->y = -a->y;
 }
 
+void vec2_lerp(vec2* dest, vec2* a, vec2* b, double delta) {
+	dest->x = a->x * (1.0 - delta) + b->x * delta;
+	dest->y = a->y * (1.0 - delta) + b->y * delta;
+}
+
 // vec3
 void vec3_clone(vec3* dest, vec3* src) {
 	dest->x = src->x;
@@ -139,6 +144,12 @@ void vec3_negate(vec3* dest, vec3* a) {
 	dest->x = -a->x;
 	dest->y = -a->y;
 	dest->z = -a->z;
+}
+
+void vec3_lerp(vec3* dest, vec3* a, vec3* b, double delta) {
+	dest->x = a->x * (1.0 - delta) + b->x * delta;
+	dest->y = a->y * (1.0 - delta) + b->y * delta;
+	dest->z = a->z * (1.0 - delta) + b->z * delta;
 }
 
 // vec4
@@ -202,6 +213,13 @@ void vec4_negate(vec4* dest, vec4* a) {
 	dest->y = -a->y;
 	dest->z = -a->z;
 	dest->w = -a->w;
+}
+
+void vec4_lerp(vec4* dest, vec4* a, vec4* b, double delta) {
+	dest->x = a->x * (1.0 - delta) + b->x * delta;
+	dest->y = a->y * (1.0 - delta) + b->y * delta;
+	dest->z = a->z * (1.0 - delta) + b->z * delta;
+	dest->w = a->w * (1.0 - delta) + b->w * delta;
 }
 
 
@@ -405,12 +423,14 @@ void mat4_rotz(mat4* mat, float angle) {
 }
 
 void mat4_rotate(mat4* mat, float anglex, float angley, float anglez) {
-	mat4 rx, ry, rz, rxy;
+	mat4 rx, ry, rz, ryz;
 	mat4_rotx(&rx, anglex);
 	mat4_roty(&ry, angley);
 	mat4_rotz(&rz, anglez);
-	mat4_mul(&rxy, &rx, &ry);
-	mat4_mul(mat, &rxy, &rz);
+	mat4_mul(&ryz, &ry, &rz);
+	mat4_mul(mat, &ryz, &rx);
+//	mat4_mul(&rxy, &rx, &ry);
+//	mat4_mul(mat, &rxy, &rz);
 }
 
 void mat4_quat(mat4* mat, quat* quat) {
@@ -674,6 +694,16 @@ double dvec2_dot(dvec2* a, dvec2* b) {
 	return q;
 }
 
+void dvec2_negate(dvec2* dest, dvec2* a) {
+	dest->x = -a->x;
+	dest->y = -a->y;
+}
+
+void dvec2_lerp(dvec2* dest, dvec2* a, dvec2* b, double delta) {
+	dest->x = a->x * (1.0 - delta) + b->x * delta;
+	dest->y = a->y * (1.0 - delta) + b->y * delta;
+}
+
 // dvec3
 void dvec3_clone(dvec3* dest, dvec3* src) {
 	dest->x = src->x;
@@ -727,6 +757,18 @@ double dvec3_dot(dvec3* a, dvec3* b) {
 		  q += a->y * b->y;
 		  q += a->z * b->z;
 	return q;
+}
+
+void dvec3_negate(dvec3* dest, dvec3* a) {
+	dest->x = -a->x;
+	dest->y = -a->y;
+	dest->z = -a->z;
+}
+
+void dvec3_lerp(dvec3* dest, dvec3* a, dvec3* b, double delta) {
+	dest->x = a->x * (1.0 - delta) + b->x * delta;
+	dest->y = a->y * (1.0 - delta) + b->y * delta;
+	dest->z = a->z * (1.0 - delta) + b->z * delta;
 }
 
 // dvec4
@@ -783,6 +825,20 @@ double dvec4_dot(dvec4* a, dvec4* b) {
 		  q += a->z * b->z;
 		  q += a->w * b->w;
 	return q;
+}
+
+void dvec4_negate(dvec4* dest, dvec4* a) {
+	dest->x = -a->x;
+	dest->y = -a->y;
+	dest->z = -a->z;
+	dest->w = -a->w;
+}
+
+void dvec4_lerp(dvec4* dest, dvec4* a, dvec4* b, double delta) {
+	dest->x = a->x * (1.0 - delta) + b->x * delta;
+	dest->y = a->y * (1.0 - delta) + b->y * delta;
+	dest->z = a->z * (1.0 - delta) + b->z * delta;
+	dest->w = a->w * (1.0 - delta) + b->w * delta;
 }
 
 

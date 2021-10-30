@@ -7,6 +7,7 @@
 
 #include "rg_filesystem.h"
 #include "rg_string.h"
+#include "rg_loader.h"
 #include <map>
 #include <stdio.h>
 

@@ -10,6 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include <rg_engine.h>
+#include <rg_loader.h>
 #include <stb/stb_vorbis.h>
 
 

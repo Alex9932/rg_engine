@@ -12,9 +12,12 @@
 #include <rg_vecmath.h>
 #include <rg_level.h>
 #include "cl_camera.h"
+#include "cl_font.h"
 
 void cl_r_init();
 void cl_r_destroy();
+
+cl_font_t* cl_r_getDefaultFont();
 
 void cl_r_canRender(bool cr);
 void cl_r_doRender(double dt);

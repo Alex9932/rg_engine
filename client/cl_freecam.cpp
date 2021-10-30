@@ -13,9 +13,9 @@
 static cl_camera* _camera;
 static vec3 delta;
 
-static const float S_SPEED = 0.003;
-static const float D_SPEED = 0.03;
-static const float B_SPEED = 3.3;
+static const float S_SPEED = 0.3;
+static const float D_SPEED = 3;
+static const float B_SPEED = 30;
 //static const float S_SPEED = 0.3;
 //static const float D_SPEED = 3;
 //static const float B_SPEED = 30;
@@ -41,6 +41,13 @@ void cl_freecam_update(double dt) {
 	_camera->rotation.x += cl_getMouseDX();
 	_camera->rotation.y += cl_getMouseDY();
 
+	if(cl_isKeyPressed(SDL_SCANCODE_Q)) {
+		_camera->rotation.z -= 0.9 * dt;
+	}
+
+	if(cl_isKeyPressed(SDL_SCANCODE_E)) {
+		_camera->rotation.z += 0.9 * dt;
+	}
 
 //	mat3 rot_mat;
 //	vec3 fwd_z = {0, 0, 1};
@@ -94,7 +101,8 @@ void cl_freecam_update(double dt) {
 	}
 
 	vec3_add(&_camera->position, &_camera->position, &delta);
-	vec3_mul(&delta, &delta, (float)(0.99));
+
+	vec3_mul(&delta, &delta, 0.0f);
 
 	//SDL_Log("Camera at: %f %f %f", _camera->position.x, _camera->position.y, _camera->position.z);
 }

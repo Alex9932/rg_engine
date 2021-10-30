@@ -77,6 +77,7 @@ void vec2_normalize(vec2* dest, vec2* a);
 float vec2_length(vec2* a);
 float vec2_dot(vec2* a, vec2* b);
 void vec2_negate(vec2* dest, vec2* a);
+void vec2_lerp(vec2* dest, vec2* a, vec2* b, double delta);
 
 // vec3
 void vec3_clone(vec3* dest, vec3* src);
@@ -89,6 +90,7 @@ void vec3_cross(vec3* dest, vec3* a, vec3* b);
 float vec3_length(vec3* a);
 float vec3_dot(vec3* a, vec3* b);
 void vec3_negate(vec3* dest, vec3* a);
+void vec3_lerp(vec3* dest, vec3* a, vec3* b, double delta);
 
 // vec4
 void vec4_clone(vec4* dest, vec4* src);
@@ -100,6 +102,7 @@ void vec4_normalize(vec4* dest, vec4* a);
 float vec4_length(vec4* a);
 float vec4_dot(vec4* a, vec4* b);
 void vec4_negate(vec4* dest, vec4* a);
+void vec4_lerp(vec4* dest, vec4* a, vec4* b, double delta);
 
 void quat_slerp(quat* dest, quat* q1, quat* q2, double lambda);
 
@@ -149,6 +152,8 @@ void dvec2_mul(dvec2* dest, dvec2* a, double b);
 void dvec2_normalize(dvec2* dest, dvec2* a);
 double dvec2_length(dvec2* a);
 double dvec2_dot(dvec2* a, dvec2* b);
+void dvec2_negate(dvec2* dest, dvec2* a);
+void dvec2_lerp(dvec2* dest, dvec2* a, dvec2* b, double delta);
 
 // vec3
 void dvec3_clone(dvec3* dest, dvec3* src);
@@ -160,6 +165,8 @@ void dvec3_normalize(dvec3* dest, dvec3* a);
 void dvec3_cross(dvec3* dest, dvec3* a, dvec3* b);
 double dvec3_length(dvec3* a);
 double dvec3_dot(dvec3* a, dvec3* b);
+void dvec3_negate(dvec3* dest, dvec3* a);
+void dvec3_lerp(dvec3* dest, dvec3* a, dvec3* b, double delta);
 
 // vec4
 void dvec4_clone(dvec4* dest, dvec4* src);
@@ -170,6 +177,8 @@ void dvec4_mul(dvec4* dest, dvec4* a, double b);
 void dvec4_normalize(dvec4* dest, dvec4* a);
 double dvec4_length(dvec4* a);
 double dvec4_dot(dvec4* a, dvec4* b);
+void dvec4_negate(dvec4* dest, dvec4* a);
+void dvec4_lerp(dvec4* dest, dvec4* a, dvec3* b, double delta);
 
 // mat3
 void dmat3_identity(dmat3* mat);

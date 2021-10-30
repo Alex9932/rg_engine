@@ -6,6 +6,7 @@
  */
 
 #include "cl_font.h"
+#include <rg_loader.h>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H

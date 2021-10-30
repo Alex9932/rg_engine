@@ -13,6 +13,7 @@
 #include <cJSON.h>
 #include "rg_net.h"
 #include "rg_string.h"
+#include "rg_loader.h"
 
 #include "rg_filesystem.h"
 
@@ -24,6 +25,7 @@ static bool running = false;
 static bool event_running = false;
 static double _wd_event_timer = 0;
 
+static double _time = 0;
 static double _fps[10];
 double rg_fps_avg = 0;
 double rg_fps_max = -1.0;
@@ -273,7 +275,11 @@ void rg_init(int argc, rg_string* argv) {
 	if(RG_CHECKFLAG(_flags, RG_DEBUG)) {
 		SDL_LogWarn(SDL_LOG_CATEGORY_SYSTEM, "~ ~ ~ ! ENGINE RUNNED IN DEBUG PROFILE ! ~ ~ ~");
 	}
-	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "SDL initialized with flags: %x", sdl_flags);
+	SDL_version ver;
+	SDL_GetVersion(&ver);
+
+	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "SDL version: %d.%d.%d", ver.major, ver.minor, ver.patch);
+//	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "SDL initialized with flags: %x", sdl_flags);
 	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "Platform: %s, %s CPU, line %d, %d Mb ram.", SDL_GetPlatform(), _e_getCpuName(SDL_GetCPUCount()), SDL_GetCPUCacheLineSize(), SDL_GetSystemRAM());
 
 	running = true;
@@ -331,6 +337,7 @@ static Uint64 st = SDL_GetPerformanceCounter();
 static double _frametime = 0;
 
 static void _rg_update() {
+	_time += _frametime;
 	g_update_func(_frametime);
 
 
@@ -386,51 +393,22 @@ bool rg_isRunning() {
 	return running;
 }
 
+double rg_getRunningTime() {
+	return _time;
+}
+
 void rg_registerEventHandler(EventCallback callback) {
-	SDL_LogInfo(SDL_LOG_CATEGORY_DEBUG, "REG: New handler %x", callback);
+//	SDL_LogInfo(SDL_LOG_CATEGORY_DEBUG, "REG: New handler %x", callback);
 	_callbacks.push_back(callback);
 }
 
 void rg_pushEvent(rg_Event* event) {
 	for (Uint32 i = 0; i < _callbacks.size(); ++i) {
-		if(event->type == RG_EVENT_SHUTDOWN) {
-			SDL_LogInfo(SDL_LOG_CATEGORY_DEBUG, "Event: %x", _callbacks[i]);
-		}
+//		if(event->type == RG_EVENT_SHUTDOWN) {
+//			SDL_LogInfo(SDL_LOG_CATEGORY_DEBUG, "Event: %x", _callbacks[i]);
+//		}
 		_callbacks[i](event);
 	}
-}
-
-rg_Resource* rg_loadResource(rg_string name) {
-	rg_Resource* res = rg_fs_getResource(name);
-
-	if(res != NULL) {
-		return res;
-	}
-
-	FILE* file = fopen(name, "rb");
-	if(!file) {
-		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "Resource %s not found!", name);
-		return NULL;
-	}
-
-	res = (rg_Resource*)rg_malloc(sizeof(rg_Resource));
-
-	fseek(file, 0, SEEK_END);
-	res->length = ftell(file);
-	rewind(file);
-	res->data = rg_malloc(res->length);
-	memset(res->data, ' ', res->length);
-	uint readed = fread(res->data, 1, res->length, file);
-	if(readed != res->length && !feof(file)) {
-		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "Error while reading file! Length/Readed: %d, %d", res->length, readed);
-	}
-	fclose(file);
-	return res;
-}
-
-void rg_freeResource(rg_Resource* res) {
-	rg_free(res->data);
-	rg_free(res);
 }
 
 void rg_buildResourcePath(const char* levelname, const char* name, char* dest, const char* type) {
