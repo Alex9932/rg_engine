@@ -8,40 +8,13 @@
 #include "rg_demo.h"
 #include "rg_loader.h"
 #include "rg_vecmath.h"
+#include "rg_level.h"
 
 static rg_demo* demo;
 
 static rg_demo_frame current_frame;
 static double demo_time;
 static bool is_demo = false;
-
-static rg_demo_frame prebuild_frames[] = {
-	{
-		0,         // Timestamp
-		0, 1, 0,   // XYZ
-		0, 0, 0,   // Rotation
-		0, 0, 0, 0 // Color
-	},
-	{
-		1,         // Timestamp
-		0, 1, 2,   // XYZ
-		0, 0, 3.14,   // Rotation
-		0, 0, 0, 0 // Color
-	},
-	{
-		2,         // Timestamp
-		0, 1, 0,   // XYZ
-		0, 0, 0,   // Rotation
-		0, 0, 0, 0 // Color
-	}
-};
-
-static rg_demo prebuild_demo = {
-	2.0,
-	3,
-	prebuild_frames
-};
-
 
 void rg_demo_update(double dt) {
 	if(demo == NULL)
@@ -51,6 +24,7 @@ void rg_demo_update(double dt) {
 	if(demo_time > demo->duration) {
 		SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "Demo ended!");
 		rg_demo_unload();
+		return;
 	}
 
 	int f0 = 0;
@@ -78,8 +52,6 @@ void rg_demo_update(double dt) {
 }
 
 void rg_demo_load(rg_string path) {
-//	demo = &prebuild_demo;
-
 	rg_Resource* res = rg_loadResource(path);
 	if(!res)
 		return;
@@ -97,8 +69,7 @@ void rg_demo_load(rg_string path) {
 }
 
 void rg_demo_unload() {
-	rg_free(demo->frames);
-	rg_free(demo);
+	rg_demo_free(demo);
 	demo = NULL;
 	is_demo = false;
 }
@@ -109,4 +80,27 @@ rg_demo_frame* rg_demo_currentFrame() {
 
 bool rg_demo_running() {
 	return is_demo;
+}
+
+void rg_demo_write(rg_demo* demo, rg_string file) {
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Saving demo t: %lf, kf: %d", demo->duration, demo->keyframes);
+
+	FILE* f = fopen(file, "wb");
+
+	rg_demo_header header;
+	header.duration = demo->duration;
+	header.magic[0] = 'r'; header.magic[1] = 'd'; header.magic[2] = 'e'; header.magic[3] = 'm';
+	header.keyframes = demo->keyframes;
+	memset(header.level_name, '\0', 128);
+	strcpy(header.level_name, rg_level->levelname);
+
+	fwrite(&header, sizeof(rg_demo_header), 1, f);
+	fwrite(demo->frames, sizeof(rg_demo_frame), demo->keyframes, f);
+
+	fclose(f);
+}
+
+void rg_demo_free(rg_demo* demo) {
+	rg_free(demo->frames);
+	rg_free(demo);
 }

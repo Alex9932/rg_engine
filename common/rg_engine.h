@@ -52,8 +52,9 @@ typedef struct rg_Event {
 typedef void (*UpdateFunc)(double);
 typedef bool (*EventCallback)(rg_Event*);
 
-typedef const char*    rg_string;
-typedef const wchar_t* rg_wstring;
+typedef wchar_t      wchar;
+typedef const char*  rg_string;
+typedef const wchar* rg_wstring;
 
 
 extern bool rg_isDebug;

@@ -74,19 +74,29 @@ static bool _cl_event_handler(rg_Event* event) {
 						_cl_isFreecam = !_cl_isFreecam;
 						break;
 					case SDL_SCANCODE_F2:
-						if(rg_level == NULL){
+						if(rg_level == NULL) {
 							rg_level = rg_newLevel();
-							if(rg_loadLevel(rg_level, "rg_sponza") == -1) {
+							if(rg_loadLevel(rg_level, "rg_house") == -1) {
 								rg_freeLevel(rg_level);
 								rg_level = NULL;
 							}
 						}
 						break;
 					case SDL_SCANCODE_F3:
-						rg_demo_load("nope");
+						rg_demo_load("record.rdem");
 						cl_democam_start();
 						break;
-					default:
+					case SDL_SCANCODE_R:
+						cl_freecam_addFrame();
+						break;
+					case SDL_SCANCODE_F10:
+						cl_freecam_recordDemo();
+						break;
+					case SDL_SCANCODE_F9:
+						cl_freecam_stopDemo();
+						rg_demo* demo = cl_freecam_getDemo();
+						rg_demo_write(demo, "record.rdem");
+						rg_demo_free(demo);
 						break;
 				}
 			}

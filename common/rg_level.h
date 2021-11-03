@@ -12,6 +12,7 @@
 #include "rg_vecmath.h"
 #include "rg_anim.h"
 #include "rg_loader.h"
+#include "rg_script.h"
 #include <vector>
 #include <cJSON.h>
 
@@ -62,6 +63,7 @@ typedef struct rg_level_t {
 	cJSON* config;
 	char levelname[64];
 	rg_Resource* level_res;
+	jsState js_state;
 } rg_level_t;
 
 rg_level_t* rg_newLevel();

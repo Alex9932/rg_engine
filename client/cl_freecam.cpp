@@ -10,8 +10,14 @@
 #include <rg_engine.h>
 #include <rg_vecmath.h>
 
+#include <vector>
+
 static cl_camera* _camera;
 static vec3 delta;
+
+static bool demo_record = false;
+static double demo_time = 0;
+static std::vector<rg_demo_frame> demo_frames;
 
 static const float S_SPEED = 0.3;
 static const float D_SPEED = 3;
@@ -38,6 +44,9 @@ void cl_freecam_init(cl_camera* cam) {
 //}
 
 void cl_freecam_update(double dt) {
+	if(demo_record)
+		demo_time += dt;
+
 	_camera->rotation.x += cl_getMouseDX();
 	_camera->rotation.y += cl_getMouseDY();
 
@@ -105,4 +114,45 @@ void cl_freecam_update(double dt) {
 	vec3_mul(&delta, &delta, 0.0f);
 
 	//SDL_Log("Camera at: %f %f %f", _camera->position.x, _camera->position.y, _camera->position.z);
+}
+
+void cl_freecam_recordDemo() {
+	demo_frames.clear();
+	demo_time = 0;
+	demo_record = true;
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Demo recording started!");
+}
+
+void cl_freecam_stopDemo() {
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Demo recording ended! Time: %lf", demo_time);
+	demo_record = false;
+}
+
+void cl_freecam_addFrame() {
+	if(!demo_record)
+		return;
+
+	rg_demo_frame frame;
+	frame.time_stamp = demo_time;
+	frame.color = {1, 1, 1, 1};
+	frame.position = _camera->position;
+	frame.rotation = _camera->rotation;
+	demo_frames.push_back(frame);
+}
+
+rg_demo* cl_freecam_getDemo() {
+	if(demo_record)
+		return NULL;
+
+	rg_demo* demo = (rg_demo*)rg_malloc(sizeof(rg_demo));
+
+	demo->duration = demo_time;
+	demo->keyframes = demo_frames.size();
+	demo->frames = (rg_demo_frame*)rg_malloc(sizeof(rg_demo_frame) * demo->keyframes);
+
+	for (size_t i = 0; i < demo->keyframes; ++i) {
+		demo->frames[i] = demo_frames[i];
+	}
+
+	return demo;
 }

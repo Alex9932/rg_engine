@@ -1,0 +1,2512 @@
+{
+	"meshes": [
+		[
+			"&geometry/House_roof_windows_01_Mesh.rgm", 0
+		],
+		[
+			"&geometry/House_roof_part_01_Mesh.001.rgm", 0
+		],
+		[
+			"&geometry/House_windows_02_Mesh.002.rgm", 0
+		],
+		[
+			"&geometry/House_roof_windows_02_Mesh.003.rgm", 0
+		],
+		[
+			"&geometry/polySurface529_Mesh.004.rgm", 0
+		],
+		[
+			"&geometry/polySurface522_Mesh.005.rgm", 0
+		],
+		[
+			"&geometry/polySurface527_Mesh.006.rgm", 0
+		],
+		[
+			"&geometry/polySurface523_Mesh.007.rgm", 0
+		],
+		[
+			"&geometry/polySurface521_Mesh.008.rgm", 0
+		],
+		[
+			"&geometry/polySurface525_Mesh.009.rgm", 0
+		],
+		[
+			"&geometry/polySurface524_Mesh.010.rgm", 0
+		],
+		[
+			"&geometry/polySurface517_Mesh.011.rgm", 0
+		],
+		[
+			"&geometry/polySurface516_Mesh.012.rgm", 0
+		],
+		[
+			"&geometry/polySurface515_Mesh.013.rgm", 0
+		],
+		[
+			"&geometry/polySurface520_Mesh.014.rgm", 0
+		],
+		[
+			"&geometry/polySurface518_Mesh.015.rgm", 0
+		],
+		[
+			"&geometry/polySurface224_Mesh.016.rgm", 0
+		],
+		[
+			"&geometry/polySurface220_Mesh.017.rgm", 0
+		],
+		[
+			"&geometry/polySurface219_Mesh.018.rgm", 0
+		],
+		[
+			"&geometry/polySurface223_Mesh.019.rgm", 0
+		],
+		[
+			"&geometry/polySurface222_Mesh.020.rgm", 0
+		],
+		[
+			"&geometry/polySurface221_Mesh.021.rgm", 0
+		],
+		[
+			"&geometry/polySurface387_Mesh.022.rgm", 0
+		],
+		[
+			"&geometry/polySurface355_Mesh.023.rgm", 0
+		],
+		[
+			"&geometry/House_beam_01_Mesh.024.rgm", 0
+		],
+		[
+			"&geometry/House_stairs_Mesh.025.rgm", 0
+		],
+		[
+			"&geometry/House_smallroof_02_Mesh.026.rgm", 0
+		],
+		[
+			"&geometry/House_door_Mesh.027.rgm", 0
+		],
+		[
+			"&geometry/House_beam_02_Mesh.028.rgm", 0
+		],
+		[
+			"&geometry/polySurface272_Mesh.029.rgm", 0
+		],
+		[
+			"&geometry/polySurface271_Mesh.030.rgm", 0
+		],
+		[
+			"&geometry/polySurface268_Mesh.031.rgm", 0
+		],
+		[
+			"&geometry/polySurface267_Mesh.032.rgm", 0
+		],
+		[
+			"&geometry/polySurface266_Mesh.033.rgm", 0
+		],
+		[
+			"&geometry/polySurface270_Mesh.034.rgm", 0
+		],
+		[
+			"&geometry/polySurface269_Mesh.035.rgm", 0
+		],
+		[
+			"&geometry/polySurface215_Mesh.036.rgm", 0
+		],
+		[
+			"&geometry/polySurface214_Mesh.037.rgm", 0
+		],
+		[
+			"&geometry/polySurface218_Mesh.038.rgm", 0
+		],
+		[
+			"&geometry/polySurface217_Mesh.039.rgm", 0
+		],
+		[
+			"&geometry/polySurface216_Mesh.040.rgm", 0
+		],
+		[
+			"&geometry/polySurface225_Mesh.041.rgm", 0
+		],
+		[
+			"&geometry/polySurface212_Mesh.042.rgm", 0
+		],
+		[
+			"&geometry/polySurface208_Mesh.043.rgm", 0
+		],
+		[
+			"&geometry/polySurface620_Mesh.044.rgm", 0
+		],
+		[
+			"&geometry/polySurface618_Mesh.045.rgm", 0
+		],
+		[
+			"&geometry/polySurface621_Mesh.046.rgm", 0
+		],
+		[
+			"&geometry/polySurface617_Mesh.047.rgm", 0
+		],
+		[
+			"&geometry/polySurface614_Mesh.048.rgm", 0
+		],
+		[
+			"&geometry/polySurface610_Mesh.049.rgm", 0
+		],
+		[
+			"&geometry/polySurface613_Mesh.050.rgm", 0
+		],
+		[
+			"&geometry/polySurface612_Mesh.051.rgm", 0
+		],
+		[
+			"&geometry/polySurface559_Mesh.052.rgm", 0
+		],
+		[
+			"&geometry/polySurface558_Mesh.053.rgm", 0
+		],
+		[
+			"&geometry/polySurface609_Mesh.054.rgm", 0
+		],
+		[
+			"&geometry/polySurface561_Mesh.055.rgm", 0
+		],
+		[
+			"&geometry/polySurface560_Mesh.056.rgm", 0
+		],
+		[
+			"&geometry/polySurface213_Mesh.057.rgm", 0
+		],
+		[
+			"&geometry/polySurface209_Mesh.058.rgm", 0
+		],
+		[
+			"&geometry/polySurface228_Mesh.059.rgm", 0
+		],
+		[
+			"&geometry/polySurface226_Mesh.060.rgm", 0
+		],
+		[
+			"&geometry/polySurface179_Mesh.061.rgm", 0
+		],
+		[
+			"&geometry/House_window_01_Mesh.062.rgm", 0
+		],
+		[
+			"&geometry/Garage_door_Mesh.063.rgm", 0
+		],
+		[
+			"&geometry/House_base_Mesh.064.rgm", 0
+		],
+		[
+			"&geometry/polySurface363_Mesh.065.rgm", 0
+		],
+		[
+			"&geometry/polySurface362_Mesh.066.rgm", 0
+		],
+		[
+			"&geometry/polySurface365_Mesh.067.rgm", 0
+		],
+		[
+			"&geometry/polySurface364_Mesh.068.rgm", 0
+		],
+		[
+			"&geometry/polySurface361_Mesh.069.rgm", 0
+		],
+		[
+			"&geometry/polySurface510_Mesh.070.rgm", 0
+		],
+		[
+			"&geometry/polySurface509_Mesh.071.rgm", 0
+		],
+		[
+			"&geometry/polySurface573_Mesh.072.rgm", 0
+		],
+		[
+			"&geometry/polySurface557_Mesh.073.rgm", 0
+		],
+		[
+			"&geometry/polySurface556_Mesh.074.rgm", 0
+		],
+		[
+			"&geometry/polySurface555_Mesh.075.rgm", 0
+		],
+		[
+			"&geometry/polySurface571_Mesh.076.rgm", 0
+		],
+		[
+			"&geometry/polySurface569_Mesh.077.rgm", 0
+		],
+		[
+			"&geometry/polySurface502_Mesh.078.rgm", 0
+		],
+		[
+			"&geometry/polySurface501_Mesh.079.rgm", 0
+		],
+		[
+			"&geometry/polySurface551_Mesh.080.rgm", 0
+		],
+		[
+			"&geometry/polySurface508_Mesh.081.rgm", 0
+		],
+		[
+			"&geometry/polySurface506_Mesh.082.rgm", 0
+		],
+		[
+			"&geometry/polySurface497_Mesh.083.rgm", 0
+		],
+		[
+			"&geometry/polySurface496_Mesh.084.rgm", 0
+		],
+		[
+			"&geometry/polySurface500_Mesh.085.rgm", 0
+		],
+		[
+			"&geometry/polySurface499_Mesh.086.rgm", 0
+		],
+		[
+			"&geometry/polySurface498_Mesh.087.rgm", 0
+		],
+		[
+			"&geometry/polySurface601_Mesh.088.rgm", 0
+		],
+		[
+			"&geometry/polySurface600_Mesh.089.rgm", 0
+		],
+		[
+			"&geometry/polySurface599_Mesh.090.rgm", 0
+		],
+		[
+			"&geometry/polySurface605_Mesh.091.rgm", 0
+		],
+		[
+			"&geometry/polySurface602_Mesh.092.rgm", 0
+		],
+		[
+			"&geometry/polySurface596_Mesh.093.rgm", 0
+		],
+		[
+			"&geometry/polySurface595_Mesh.094.rgm", 0
+		],
+		[
+			"&geometry/polySurface594_Mesh.095.rgm", 0
+		],
+		[
+			"&geometry/polySurface598_Mesh.096.rgm", 0
+		],
+		[
+			"&geometry/polySurface597_Mesh.097.rgm", 0
+		],
+		[
+			"&geometry/polySurface591_Mesh.098.rgm", 0
+		],
+		[
+			"&geometry/polySurface590_Mesh.099.rgm", 0
+		],
+		[
+			"&geometry/polySurface589_Mesh.100.rgm", 0
+		],
+		[
+			"&geometry/polySurface593_Mesh.101.rgm", 0
+		],
+		[
+			"&geometry/polySurface592_Mesh.102.rgm", 0
+		],
+		[
+			"&geometry/polySurface197_Mesh.103.rgm", 0
+		],
+		[
+			"&geometry/polySurface200_Mesh.104.rgm", 0
+		],
+		[
+			"&geometry/polySurface199_Mesh.105.rgm", 0
+		],
+		[
+			"&geometry/polySurface198_Mesh.106.rgm", 0
+		],
+		[
+			"&geometry/polySurface227_Mesh.107.rgm", 0
+		],
+		[
+			"&geometry/polySurface284_Mesh.108.rgm", 0
+		],
+		[
+			"&geometry/polySurface459_Mesh.109.rgm", 0
+		],
+		[
+			"&geometry/polySurface458_Mesh.110.rgm", 0
+		],
+		[
+			"&geometry/polySurface462_Mesh.111.rgm", 0
+		],
+		[
+			"&geometry/polySurface461_Mesh.112.rgm", 0
+		],
+		[
+			"&geometry/polySurface460_Mesh.113.rgm", 0
+		],
+		[
+			"&geometry/polySurface455_Mesh.114.rgm", 0
+		],
+		[
+			"&geometry/polySurface635_Mesh.115.rgm", 0
+		],
+		[
+			"&geometry/House_roof_part_02_Mesh.116.rgm", 0
+		],
+		[
+			"&geometry/House_windows_06_Mesh.117.rgm", 0
+		],
+		[
+			"&geometry/polySurface258_Mesh.118.rgm", 0
+		],
+		[
+			"&geometry/polySurface257_Mesh.119.rgm", 0
+		],
+		[
+			"&geometry/polySurface256_Mesh.120.rgm", 0
+		],
+		[
+			"&geometry/polySurface253_Mesh.121.rgm", 0
+		],
+		[
+			"&geometry/polySurface252_Mesh.122.rgm", 0
+		],
+		[
+			"&geometry/polySurface251_Mesh.123.rgm", 0
+		],
+		[
+			"&geometry/polySurface255_Mesh.124.rgm", 0
+		],
+		[
+			"&geometry/polySurface254_Mesh.125.rgm", 0
+		],
+		[
+			"&geometry/polySurface585_Mesh.126.rgm", 0
+		],
+		[
+			"&geometry/polySurface584_Mesh.127.rgm", 0
+		],
+		[
+			"&geometry/polySurface583_Mesh.128.rgm", 0
+		],
+		[
+			"&geometry/polySurface588_Mesh.129.rgm", 0
+		],
+		[
+			"&geometry/polySurface587_Mesh.130.rgm", 0
+		],
+		[
+			"&geometry/polySurface582_Mesh.131.rgm", 0
+		],
+		[
+			"&geometry/polySurface581_Mesh.132.rgm", 0
+		],
+		[
+			"&geometry/polySurface577_Mesh.133.rgm", 0
+		],
+		[
+			"&geometry/polySurface576_Mesh.134.rgm", 0
+		],
+		[
+			"&geometry/polySurface580_Mesh.135.rgm", 0
+		],
+		[
+			"&geometry/polySurface579_Mesh.136.rgm", 0
+		],
+		[
+			"&geometry/polySurface578_Mesh.137.rgm", 0
+		],
+		[
+			"&geometry/polySurface464_Mesh.138.rgm", 0
+		],
+		[
+			"&geometry/polySurface463_Mesh.139.rgm", 0
+		],
+		[
+			"&geometry/polySurface466_Mesh.140.rgm", 0
+		],
+		[
+			"&geometry/polySurface465_Mesh.141.rgm", 0
+		],
+		[
+			"&geometry/polySurface443_Mesh.142.rgm", 0
+		],
+		[
+			"&geometry/polySurface442_Mesh.143.rgm", 0
+		],
+		[
+			"&geometry/polySurface446_Mesh.144.rgm", 0
+		],
+		[
+			"&geometry/polySurface445_Mesh.145.rgm", 0
+		],
+		[
+			"&geometry/polySurface444_Mesh.146.rgm", 0
+		],
+		[
+			"&geometry/polySurface437_Mesh.147.rgm", 0
+		],
+		[
+			"&geometry/polySurface413_Mesh.148.rgm", 0
+		],
+		[
+			"&geometry/polySurface441_Mesh.149.rgm", 0
+		],
+		[
+			"&geometry/polySurface440_Mesh.150.rgm", 0
+		],
+		[
+			"&geometry/polySurface439_Mesh.151.rgm", 0
+		],
+		[
+			"&geometry/initialShadingGrouppolySurface116_polySurface3_Mesh.152.rgm", 0
+		],
+		[
+			"&geometry/polySurface360_Mesh.153.rgm", 0
+		],
+		[
+			"&geometry/polySurface636_Mesh.154.rgm", 0
+		],
+		[
+			"&geometry/polySurface238_Mesh.155.rgm", 0
+		],
+		[
+			"&geometry/polySurface575_Mesh.156.rgm", 0
+		],
+		[
+			"&geometry/polySurface547_Mesh.157.rgm", 0
+		],
+		[
+			"&geometry/polySurface546_Mesh.158.rgm", 0
+		],
+		[
+			"&geometry/polySurface545_Mesh.159.rgm", 0
+		],
+		[
+			"&geometry/polySurface549_Mesh.160.rgm", 0
+		],
+		[
+			"&geometry/polySurface544_Mesh.161.rgm", 0
+		],
+		[
+			"&geometry/polySurface543_Mesh.162.rgm", 0
+		],
+		[
+			"&geometry/polySurface631_Mesh.163.rgm", 0
+		],
+		[
+			"&geometry/polySurface630_Mesh.164.rgm", 0
+		],
+		[
+			"&geometry/polySurface634_Mesh.165.rgm", 0
+		],
+		[
+			"&geometry/polySurface633_Mesh.166.rgm", 0
+		],
+		[
+			"&geometry/polySurface632_Mesh.167.rgm", 0
+		],
+		[
+			"&geometry/polySurface626_Mesh.168.rgm", 0
+		],
+		[
+			"&geometry/polySurface625_Mesh.169.rgm", 0
+		],
+		[
+			"&geometry/polySurface629_Mesh.170.rgm", 0
+		],
+		[
+			"&geometry/polySurface628_Mesh.171.rgm", 0
+		],
+		[
+			"&geometry/polySurface627_Mesh.172.rgm", 0
+		],
+		[
+			"&geometry/polySurface616_Mesh.173.rgm", 0
+		],
+		[
+			"&geometry/polySurface615_Mesh.174.rgm", 0
+		],
+		[
+			"&geometry/polySurface624_Mesh.175.rgm", 0
+		],
+		[
+			"&geometry/polySurface623_Mesh.176.rgm", 0
+		],
+		[
+			"&geometry/polySurface622_Mesh.177.rgm", 0
+		],
+		[
+			"&geometry/polySurface608_Mesh.178.rgm", 0
+		],
+		[
+			"&geometry/polySurface607_Mesh.179.rgm", 0
+		],
+		[
+			"&geometry/polySurface606_Mesh.180.rgm", 0
+		],
+		[
+			"&geometry/polySurface512_Mesh.181.rgm", 0
+		],
+		[
+			"&geometry/polySurface511_Mesh.182.rgm", 0
+		],
+		[
+			"&geometry/polySurface505_Mesh.183.rgm", 0
+		],
+		[
+			"&geometry/polySurface514_Mesh.184.rgm", 0
+		],
+		[
+			"&geometry/polySurface513_Mesh.185.rgm", 0
+		],
+		[
+			"&geometry/polySurface451_Mesh.186.rgm", 0
+		],
+		[
+			"&geometry/polySurface450_Mesh.187.rgm", 0
+		],
+		[
+			"&geometry/polySurface449_Mesh.188.rgm", 0
+		],
+		[
+			"&geometry/polySurface504_Mesh.189.rgm", 0
+		],
+		[
+			"&geometry/polySurface503_Mesh.190.rgm", 0
+		],
+		[
+			"&geometry/polySurface448_Mesh.191.rgm", 0
+		],
+		[
+			"&geometry/polySurface447_Mesh.192.rgm", 0
+		],
+		[
+			"&geometry/polySurface539_Mesh.193.rgm", 0
+		],
+		[
+			"&geometry/polySurface530_Mesh.194.rgm", 0
+		],
+		[
+			"&geometry/polySurface542_Mesh.195.rgm", 0
+		],
+		[
+			"&geometry/polySurface541_Mesh.196.rgm", 0
+		],
+		[
+			"&geometry/polySurface540_Mesh.197.rgm", 0
+		],
+		[
+			"&geometry/polySurface566_Mesh.198.rgm", 0
+		],
+		[
+			"&geometry/polySurface565_Mesh.199.rgm", 0
+		],
+		[
+			"&geometry/polySurface574_Mesh.200.rgm", 0
+		],
+		[
+			"&geometry/polySurface568_Mesh.201.rgm", 0
+		],
+		[
+			"&geometry/polySurface567_Mesh.202.rgm", 0
+		],
+		[
+			"&geometry/polySurface564_Mesh.203.rgm", 0
+		],
+		[
+			"&geometry/polySurface563_Mesh.204.rgm", 0
+		],
+		[
+			"&geometry/polySurface562_Mesh.205.rgm", 0
+		],
+		[
+			"&geometry/polySurface240_Mesh.206.rgm", 0
+		],
+		[
+			"&geometry/polySurface239_Mesh.207.rgm", 0
+		],
+		[
+			"&geometry/polySurface232_Mesh.208.rgm", 0
+		],
+		[
+			"&geometry/polySurface229_Mesh.209.rgm", 0
+		],
+		[
+			"&geometry/polySurface233_Mesh.210.rgm", 0
+		],
+		[
+			"&geometry/polySurface248_Mesh.211.rgm", 0
+		],
+		[
+			"&geometry/polySurface250_Mesh.212.rgm", 0
+		],
+		[
+			"&geometry/polySurface249_Mesh.213.rgm", 0
+		],
+		[
+			"&geometry/polySurface244_Mesh.214.rgm", 0
+		],
+		[
+			"&geometry/polySurface243_Mesh.215.rgm", 0
+		],
+		[
+			"&geometry/polySurface246_Mesh.216.rgm", 0
+		],
+		[
+			"&geometry/polySurface245_Mesh.217.rgm", 0
+		],
+		[
+			"&geometry/polySurface281_Mesh.218.rgm", 0
+		],
+		[
+			"&geometry/polySurface279_Mesh.219.rgm", 0
+		],
+		[
+			"&geometry/polySurface282_Mesh.220.rgm", 0
+		],
+		[
+			"&geometry/polySurface275_Mesh.221.rgm", 0
+		],
+		[
+			"&geometry/polySurface274_Mesh.222.rgm", 0
+		],
+		[
+			"&geometry/polySurface278_Mesh.223.rgm", 0
+		],
+		[
+			"&geometry/polySurface277_Mesh.224.rgm", 0
+		],
+		[
+			"&geometry/polySurface276_Mesh.225.rgm", 0
+		],
+		[
+			"&geometry/House_beam_06_Mesh.226.rgm", 0
+		],
+		[
+			"&geometry/House_beam_05_Mesh.227.rgm", 0
+		],
+		[
+			"&geometry/House_windows_05_Mesh.228.rgm", 0
+		],
+		[
+			"&geometry/House_windows_04_Mesh.229.rgm", 0
+		],
+		[
+			"&geometry/polySurface397_Mesh.230.rgm", 0
+		],
+		[
+			"&geometry/House_veranda_Mesh.231.rgm", 0
+		],
+		[
+			"&geometry/polySurface637_Mesh.232.rgm", 0
+		],
+		[
+			"&geometry/polySurface638_Mesh.233.rgm", 0
+		],
+		[
+			"&geometry/polySurface491_Mesh.234.rgm", 0
+		],
+		[
+			"&geometry/polySurface490_Mesh.235.rgm", 0
+		],
+		[
+			"&geometry/polySurface494_Mesh.236.rgm", 0
+		],
+		[
+			"&geometry/polySurface493_Mesh.237.rgm", 0
+		],
+		[
+			"&geometry/polySurface492_Mesh.238.rgm", 0
+		],
+		[
+			"&geometry/polySurface489_Mesh.239.rgm", 0
+		],
+		[
+			"&geometry/polySurface488_Mesh.240.rgm", 0
+		],
+		[
+			"&geometry/polySurface487_Mesh.241.rgm", 0
+		],
+		[
+			"&geometry/polySurface484_Mesh.242.rgm", 0
+		],
+		[
+			"&geometry/polySurface483_Mesh.243.rgm", 0
+		],
+		[
+			"&geometry/polySurface482_Mesh.244.rgm", 0
+		],
+		[
+			"&geometry/polySurface486_Mesh.245.rgm", 0
+		],
+		[
+			"&geometry/polySurface485_Mesh.246.rgm", 0
+		],
+		[
+			"&geometry/polySurface479_Mesh.247.rgm", 0
+		],
+		[
+			"&geometry/polySurface478_Mesh.248.rgm", 0
+		],
+		[
+			"&geometry/polySurface477_Mesh.249.rgm", 0
+		],
+		[
+			"&geometry/polySurface481_Mesh.250.rgm", 0
+		],
+		[
+			"&geometry/polySurface480_Mesh.251.rgm", 0
+		],
+		[
+			"&geometry/polySurface265_Mesh.252.rgm", 0
+		],
+		[
+			"&geometry/polySurface264_Mesh.253.rgm", 0
+		],
+		[
+			"&geometry/polySurface260_Mesh.254.rgm", 0
+		],
+		[
+			"&geometry/polySurface259_Mesh.255.rgm", 0
+		],
+		[
+			"&geometry/polySurface263_Mesh.256.rgm", 0
+		],
+		[
+			"&geometry/polySurface262_Mesh.257.rgm", 0
+		],
+		[
+			"&geometry/polySurface261_Mesh.258.rgm", 0
+		],
+		[
+			"&geometry/polySurface470_Mesh.259.rgm", 0
+		],
+		[
+			"&geometry/polySurface469_Mesh.260.rgm", 0
+		],
+		[
+			"&geometry/polySurface468_Mesh.261.rgm", 0
+		],
+		[
+			"&geometry/polySurface476_Mesh.262.rgm", 0
+		],
+		[
+			"&geometry/polySurface471_Mesh.263.rgm", 0
+		],
+		[
+			"&geometry/polySurface467_Mesh.264.rgm", 0
+		],
+		[
+			"&geometry/polySurface453_Mesh.265.rgm", 0
+		],
+		[
+			"&geometry/polySurface398_Mesh.266.rgm", 0
+		],
+		[
+			"&geometry/polySurface396_Mesh.267.rgm", 0
+		],
+		[
+			"&geometry/polySurface401_Mesh.268.rgm", 0
+		],
+		[
+			"&geometry/polySurface400_Mesh.269.rgm", 0
+		],
+		[
+			"&geometry/polySurface399_Mesh.270.rgm", 0
+		],
+		[
+			"&geometry/polySurface392_Mesh.271.rgm", 0
+		],
+		[
+			"&geometry/polySurface391_Mesh.272.rgm", 0
+		],
+		[
+			"&geometry/polySurface395_Mesh.273.rgm", 0
+		],
+		[
+			"&geometry/polySurface394_Mesh.274.rgm", 0
+		],
+		[
+			"&geometry/polySurface393_Mesh.275.rgm", 0
+		]
+	],
+	"materials": [
+		"&House_part01_mat",
+		"&lambert18",
+		"&lambert17",
+		"&lambert16",
+		"&lambert15",
+		"&lambert14"
+	],
+	"entitys": [
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 0,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 1,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 2,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 3,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 4,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 5,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 6,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 7,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 8,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 9,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 10,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 11,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 12,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 13,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 14,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 15,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 16,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 17,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 18,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 19,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 20,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 21,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 22,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 23,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 24,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 25,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 26,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 27,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 28,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 29,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 30,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 31,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 32,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 33,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 34,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 35,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 36,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 37,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 38,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 39,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 40,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 41,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 42,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 43,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 44,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 45,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 46,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 47,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 48,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 49,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 50,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 51,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 52,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 53,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 54,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 55,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 56,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 57,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 58,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 59,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 60,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 61,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 62,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 63,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 64,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 65,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 66,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 67,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 68,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 69,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 70,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 71,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 72,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 73,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 74,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 75,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 76,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 77,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 78,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 79,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 80,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 81,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 82,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 83,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 84,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 85,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 86,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 87,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 88,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 89,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 90,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 91,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 92,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 93,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 94,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 95,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 96,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 97,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 98,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 99,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 100,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 101,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 102,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 103,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 104,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 105,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 106,
+			"material": 0
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 107,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 108,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 109,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 110,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 111,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 112,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 113,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 114,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 115,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 116,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 117,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 118,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 119,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 120,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 121,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 122,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 123,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 124,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 125,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 126,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 127,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 128,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 129,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 130,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 131,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 132,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 133,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 134,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 135,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 136,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 137,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 138,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 139,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 140,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 141,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 142,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 143,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 144,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 145,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 146,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 147,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 148,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 149,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 150,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 151,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 152,
+			"material": 2
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 153,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 154,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 155,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 156,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 157,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 158,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 159,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 160,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 161,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 162,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 163,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 164,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 165,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 166,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 167,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 168,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 169,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 170,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 171,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 172,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 173,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 174,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 175,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 176,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 177,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 178,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 179,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 180,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 181,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 182,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 183,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 184,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 185,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 186,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 187,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 188,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 189,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 190,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 191,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 192,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 193,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 194,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 195,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 196,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 197,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 198,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 199,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 200,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 201,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 202,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 203,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 204,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 205,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 206,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 207,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 208,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 209,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 210,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 211,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 212,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 213,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 214,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 215,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 216,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 217,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 218,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 219,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 220,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 221,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 222,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 223,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 224,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 225,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 226,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 227,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 228,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 229,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 230,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 231,
+			"material": 3
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 232,
+			"material": 4
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 233,
+			"material": 1
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 234,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 235,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 236,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 237,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 238,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 239,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 240,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 241,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 242,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 243,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 244,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 245,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 246,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 247,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 248,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 249,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 250,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 251,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 252,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 253,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 254,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 255,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 256,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 257,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 258,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 259,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 260,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 261,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 262,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 263,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 264,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 265,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 266,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 267,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 268,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 269,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 270,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 271,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 272,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 273,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 274,
+			"material": 5
+		},
+		{
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"mesh": 275,
+			"material": 5
+		}
+	],
+	"terrains": [
+	],
+	"lights": [
+		{
+			"position": [3, 3, 3],
+			"color": [0, 0.5, 1],
+			"attenuation": [1, 0.06, 0.028]
+		},
+		{
+			"position": [3, 4, 3],
+			"color": [1, 0.5, 0],
+			"attenuation": [1, 0.06, 0.028]
+		}
+	]
+}

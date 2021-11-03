@@ -69,3 +69,39 @@ void rg_strfree(rg_string_t* str) {
 void rg_strprint(rg_string_t* str, FILE* f) {
 	fprintf(f, "%ls\n", str->data);
 }
+
+size_t rg_strfind(rg_string str, char c) {
+	for (size_t i = 0; i < SDL_strlen(str); ++i) {
+		if(str[i] == c)
+			return i;
+	}
+
+	return 0;
+}
+
+size_t rg_strfind_end(rg_string str, char c) {
+	for (size_t i = SDL_strlen(str); i >= 0; --i) {
+		if(str[i] == c)
+			return i;
+	}
+
+	return 0;
+}
+
+size_t rg_wstrfind(rg_wstring str, wchar c) {
+	for (size_t i = 0; i < SDL_wcslen(str); ++i) {
+		if(str[i] == c)
+			return i;
+	}
+
+	return 0;
+}
+
+size_t rg_wstrfind_end(rg_wstring str, wchar c) {
+	for (size_t i = SDL_wcslen(str); i >= 0; --i) {
+		if(str[i] == c)
+			return i;
+	}
+
+	return 0;
+}

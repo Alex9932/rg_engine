@@ -149,6 +149,14 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 	strcpy(path_leveljson, path);
 	strcat(path_leveljson, "level.json");
 
+	char path_levelscript[128];
+	memset(path_levelscript, '\0', 128);
+	strcpy(path_levelscript, path);
+	strcat(path_levelscript, "level.js");
+
+	level->js_state = js_makeDefaultState();
+	js_execute(&level->js_state, path_levelscript);
+
 	level->level_res = rg_loadResource(path_leveljson);
 	level->config = cJSON_Parse((rg_string)level->level_res->data);
 	rg_string error = cJSON_GetErrorPtr();

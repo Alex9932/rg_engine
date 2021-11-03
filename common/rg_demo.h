@@ -40,4 +40,7 @@ void rg_demo_unload();
 rg_demo_frame* rg_demo_currentFrame();
 bool rg_demo_running();
 
+void rg_demo_write(rg_demo* demo, rg_string file);
+void rg_demo_free(rg_demo* demo);
+
 #endif /* RG_DEMO_H_ */

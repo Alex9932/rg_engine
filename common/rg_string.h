@@ -28,4 +28,9 @@ Uint16 rg_strlen(rg_string_t* str);
 void rg_strfree(rg_string_t* str);
 void rg_strprint(rg_string_t* str, FILE* f);
 
+size_t rg_strfind(rg_string str, char c);
+size_t rg_strfind_end(rg_string str, char c);
+size_t rg_wstrfind(rg_wstring str, wchar c);
+size_t rg_wstrfind_end(rg_wstring str, wchar c);
+
 #endif /* RG_STRING_H_ */

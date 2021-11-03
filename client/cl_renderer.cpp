@@ -582,12 +582,12 @@ void cl_r_doRender(double dt) {
 //		rg_level->lights[1].position.z = SDL_sin(PI/2 + _time*0.8)*4;
 //		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.7;
 
-		rg_level->lights[0].position.x = SDL_cos(_time*0.8)*6;
-		rg_level->lights[0].position.z = 0;
+		rg_level->lights[0].position.z = SDL_cos(_time*0.8)*6;
+		rg_level->lights[0].position.x = 0;
 		rg_level->lights[0].position.y = 4 + SDL_sin(_time*2)*0.2;
 
-		rg_level->lights[1].position.x = SDL_cos(PI/2 + _time*0.8)*6;
-		rg_level->lights[1].position.z = 0;
+		rg_level->lights[1].position.z = SDL_cos(PI/2 + _time*0.8)*6;
+		rg_level->lights[1].position.x = 0;
 		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.2;
 
 
