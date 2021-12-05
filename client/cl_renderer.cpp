@@ -22,6 +22,8 @@
 #include "cl_gui.h"
 
 #include "cl_renderer2d.h"
+#include "cl_renderer_line3d.h"
+
 #include "cl_material.h"
 #include "cl_particle.h"
 
@@ -45,7 +47,7 @@ static const rg_vertex_t vtx[] = {
 	{ -1.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
 };
 
-static cl_camera camera;
+static Camera camera;
 
 static Framebuffer* gbuffer;
 static rg_Shader s_gbuffer;
@@ -82,8 +84,9 @@ static std::vector<cl_particle> particles;
 
 static bool _changeViewport = false;
 static bool _wireframe = false;
-static bool _doAnimation = false;
-static bool _allowShadows = false;
+static bool _doAnimation = true;
+static bool _allowShadows = true;
+static bool _drawAxis = true;
 
 static bool allbright = false;
 static bool g_cursor = true;
@@ -114,6 +117,12 @@ static bool _r_handler(rg_Event* event) {
 		_wireframe = !_wireframe;
 	}
 
+	if(event->type == RG_EVENT_SDL && event->event.type == SDL_KEYDOWN && event->event.key.keysym.scancode == SDL_SCANCODE_F8) { // @suppress("Field cannot be resolved")
+		_drawAxis = !_drawAxis;
+	}
+
+
+
 
 
 	// Handle events
@@ -124,6 +133,10 @@ static cl_font_t* font;
 
 static mat4 model_mat;
 static std::vector<cl_VAO*> meshes;
+
+void cl_r_makeProjection(Camera* camera) {
+	mat4_frustum(&camera->projection, camera->aspect, camera->fov, camera->near, camera->far);
+}
 
 void cl_r_init() {
 
@@ -176,9 +189,15 @@ void cl_r_init() {
 	camera.rotation.y = 0;
 	camera.rotation.z = 0;
 
-	mat4_frustum(&camera.projection, cl_display_getAspect(), 75, 0.1, 3000);
+	camera.aspect = cl_display_getAspect();
+	camera.fov = 75;
+	camera.near = 0.1;
+	camera.far = 3000;
+
+	cl_r_makeProjection(&camera);
 
 	cl_r2d_init();
+	cl_rl3d_init();
 	font = cl_font_new("platform/f_gui.ttf", 42);
 	cl_gui_console_init();
 
@@ -264,7 +283,9 @@ void cl_r_destroy() {
 	shader_delete(s_dbg_light);
 
 	cl_gui_console_destroy();
+
 	cl_r2d_destroy();
+	cl_rl3d_destroy();
 }
 
 
@@ -272,10 +293,6 @@ void cl_r_destroy() {
 // GUI (panels, buttons, scroll bars, progress bars, etc)
 // Implement in near future:
 //
-// Outhers:
-//     VVVVVVVVVVVVVVVVVV
-// >>> Skeletal animation <<<
-//     ^^^^^^^^^^^^^^^^^^
 // SSLR reflections?
 // Water
 
@@ -319,42 +336,137 @@ static void _r_draw2d(double dt) {
 
 	cl_r2d_bind(0);
 	cl_r2d_begin();
-	cl_r2d_vertex({0,   0,  0, 0, 0, 0, 0, 0.5});
-	cl_r2d_vertex({140, 0,  1, 0, 0, 0, 0, 0.5});
-	cl_r2d_vertex({140, 45, 1, 1, 0, 0, 0, 0.5});
-	cl_r2d_vertex({140, 45, 1, 1, 0, 0, 0, 0.5});
-	cl_r2d_vertex({0,   45, 0, 1, 0, 0, 0, 0.5});
-	cl_r2d_vertex({0,   0,  0, 0, 0, 0, 0, 0.5});
+	cl_r2d_vertex({0,   -60,  0, 0, 0, 0, 0, 0.5});
+	cl_r2d_vertex({140, -60,  1, 0, 0, 0, 0, 0.5});
+	cl_r2d_vertex({140,  45, 1, 1, 0, 0, 0, 0.5});
+	cl_r2d_vertex({140,  45, 1, 1, 0, 0, 0, 0.5});
+	cl_r2d_vertex({0,    45, 0, 1, 0, 0, 0, 0.5});
+	cl_r2d_vertex({0,   -60,  0, 0, 0, 0, 0, 0.5});
 	cl_r2d_end();
 
 	cl_r2d_translate({5, cl_display_getHeight() - 27});
-	cl_r2d_drawString(font, L"Fps", 5, 5, 0.25, 0, 1, 0, 1);
-	cl_r2d_drawString(font, std::to_wstring((int)rg_fps_avg).c_str(), 35, 5, 0.28, 0, 1, 0, 1);
-	cl_r2d_drawString(font, L"Mem len", 5, -15, 0.25, 0, 1, 0, 1);
-	cl_r2d_drawString(font, std::to_wstring(rg_getAllocatedMem()).c_str(), 55, -15, 0.28, 0, 1, 0, 1);
+	cl_r2d_drawString(font, L"Fps", 5, 5, 0.25, 1, 1, 1, 1);
+	cl_r2d_drawString(font, std::to_wstring((int)rg_fps_avg).c_str(), 35, 5, 0.28, 1, 1, 1, 1);
+	cl_r2d_drawString(font, L"Mem len", 5, -15, 0.25, 1, 1, 1, 1);
+	cl_r2d_drawString(font, std::to_wstring(rg_getAllocatedMem()).c_str(), 55, -15, 0.28, 1, 1, 1, 1);
+
+	cl_r2d_drawString(font, L"Camera:", 5, -30, 0.25, 1, 1, 1, 1);
+	cl_r2d_drawString(font, std::to_wstring(camera.position.x).c_str(), 5, -45, 0.28, 1, 1, 1, 1);
+	cl_r2d_drawString(font, std::to_wstring(camera.position.y).c_str(), 5, -60, 0.28, 1, 1, 1, 1);
+	cl_r2d_drawString(font, std::to_wstring(camera.position.z).c_str(), 5, -75, 0.28, 1, 1, 1, 1);
 
 	cl_gui_console_update(dt);
+}
+
+static void _r_drawaxis(float s) {
+	cl_rl3d_begin();
+	cl_rl3d_vertex({0, 0, 0, 1, 0, 0, 1});
+	cl_rl3d_vertex({s, 0, 0, 1, 0, 0, 1});
+	cl_rl3d_vertex({0, 0, 0, 0, 1, 0, 1});
+	cl_rl3d_vertex({0, s, 0, 0, 1, 0, 1});
+	cl_rl3d_vertex({0, 0, 0, 0, 0, 1, 1});
+	cl_rl3d_vertex({0, 0, s, 0, 0, 1, 1});
+	cl_rl3d_end();
+}
+
+static void _r_drawBone(GameObject* anim_obj, rg_Bone* bone) {
+	vec4 p_new_pos;
+	vec4 p_pos = {
+		anim_obj->global_transforms[bone->id].m03,
+		anim_obj->global_transforms[bone->id].m13,
+		anim_obj->global_transforms[bone->id].m23,
+		0
+	};
+
+	mat4_mul(&p_new_pos, &p_pos, &anim_obj->transform);
+
+//	p_new_pos.x /= p_new_pos.w;
+//	p_new_pos.y /= p_new_pos.w;
+//	p_new_pos.z /= p_new_pos.w;
+
+	for (size_t i = 0; i < bone->child_count; ++i) {
+		rg_Bone* b = &bone->childs[i];
+		vec4 new_pos;
+		vec4 pos = {
+			anim_obj->global_transforms[b->id].m03,
+			anim_obj->global_transforms[b->id].m13,
+			anim_obj->global_transforms[b->id].m23,
+			0
+		};
+
+		mat4_mul(&new_pos, &pos, &anim_obj->transform);
+//		new_pos.x /= new_pos.w;
+//		new_pos.y /= new_pos.w;
+//		new_pos.z /= new_pos.w;
+
+//		float _x = anim_obj->global_transforms[b->id].m03;
+//		float _y = anim_obj->global_transforms[b->id].m13;
+//		float _z = anim_obj->global_transforms[b->id].m23;
+
+		cl_rl3d_begin();
+		cl_rl3d_vertex({p_new_pos.x, p_new_pos.y, p_new_pos.z, 1, 0, 0, 1});
+		cl_rl3d_vertex({new_pos.x, new_pos.y, new_pos.z, 1, 0, 0, 1});
+		cl_rl3d_end();
+		_r_drawBone(anim_obj, b);
+	}
+}
+
+static void _r_drawSkeleton(GameObject* anim_obj) {
+//	_r_drawBone(anim_obj, &anim_obj->skel.root_bone);
+}
+
+static void _r_draw3d(double dt) {
+	if(r_canRender) {
+		if(_drawAxis) {
+			_r_drawaxis(3);
+
+			for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
+				GameObject* obj = rg_level->objects[i];
+				if(obj != NULL) {
+					cl_rl3d_applyMatrix(&obj->transform);
+					_r_drawaxis(1);
+				}
+			}
+		}
+
+		if(_drawAxis) {
+			for (size_t i = 0; i < rg_level->objects.size(); ++i) {
+				if(rg_level->objects[i]->type == RG_OBJECT_ANIMATED) {
+					GameObject* anim_obj = rg_level->objects[i];
+
+					_r_drawSkeleton(anim_obj);
+
+					for (size_t b = 0; b < anim_obj->skel.bone_count; ++b) {
+						mat4 mat;
+						mat4_mul(&mat, &anim_obj->transform, &anim_obj->global_transforms[b]);
+						cl_rl3d_applyMatrix(&mat);
+						_r_drawaxis(5.5);
+					}
+				}
+			}
+		}
+	}
 }
 
 cl_font_t* cl_r_getDefaultFont() {
 	return font;
 }
 
-RG_INLINE cl_VAO* _cl_r_getMesh(Uint32 id) {
+static RG_INLINE cl_VAO* _cl_r_getMesh(Uint32 id) {
 	if(meshes.size() < id) {
 		return NULL;
 	}
 	return meshes[id];
 }
 
-rg_string luniform[4][4] = {
-	{"lposition_0", "lcolor_0", "lattenuation_0", "lradius_0"},
-	{"lposition_1", "lcolor_1", "lattenuation_1", "lradius_1"},
-	{"lposition_2", "lcolor_2", "lattenuation_2", "lradius_2"},
-	{"lposition_3", "lcolor_3", "lattenuation_3", "lradius_3"}
+static rg_string luniform[4][4] = {
+	{"lights[0].position", "lights[0].color", "lights[0].attenuation", "lights[0].radius"},
+	{"lights[1].position", "lights[1].color", "lights[1].attenuation", "lights[1].radius"},
+	{"lights[2].position", "lights[2].color", "lights[2].attenuation", "lights[2].radius"},
+	{"lights[3].position", "lights[3].color", "lights[3].attenuation", "lights[3].radius"}
 };
 
-void _cl_r_loadLight(rg_Shader shader, cl_PointLight** light) {
+static void _cl_r_loadLight(rg_Shader shader, PointLight** light) {
 	for (Uint32 i = 0; i < 4; ++i) {
 		if(light[i] != NULL) {
 			shader_uniform_3fp(shader_uniform_get(shader, luniform[i][0]), (float*)&light[i]->position);
@@ -367,7 +479,7 @@ void _cl_r_loadLight(rg_Shader shader, cl_PointLight** light) {
 	}
 }
 
-RG_INLINE void _cl_r_beginLightShader() {
+static RG_INLINE void _cl_r_beginLightShader() {
 	shader_start(s_lpbuffer);
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "diffuse"), 0);
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "normal"), 1);
@@ -399,7 +511,36 @@ RG_INLINE void _cl_r_beginLightShader() {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[3]);
 }
 
-void _cl_r_calcShadowQmaps(cl_PointLight** light) {
+static void _cl_r_loadBoneOffset(rg_Shader shader, GameObject* obj, rg_Bone* bone) {
+	char ou_name[128];
+	strcpy(ou_name, "bonesOffsets[");
+	std::stringstream ss; // mb rewrite this?
+	ss << bone->id;
+	strcat(ou_name, ss.str().c_str());
+	strcat(ou_name, "]");
+	shader_uniform_mat4f(shader_uniform_get(shader, ou_name), (float*)&bone->offset);
+
+	for (size_t i = 0; i < bone->child_count; ++i) {
+		_cl_r_loadBoneOffset(shader, obj, &bone->childs[i]);
+	}
+}
+
+static void _cl_r_loadBoneMatrices(rg_Shader shader, GameObject* obj) {
+	char mu_name[128];
+
+	for (size_t i = 0; i < obj->skel.bone_count; ++i) {
+		strcpy(mu_name, "bonesMatrices[");
+		std::stringstream ss; // mb rewrite this?
+		ss << i;
+		strcat(mu_name, ss.str().c_str());
+		strcat(mu_name, "]");
+		shader_uniform_mat4f(shader_uniform_get(shader, mu_name), (float*)&obj->global_transforms[i]);
+	}
+
+	_cl_r_loadBoneOffset(shader, obj, &obj->skel.root_bone);
+}
+
+static void _cl_r_calcShadowQmaps(PointLight** light) {
 	if(!_allowShadows)
 		return;
 
@@ -418,13 +559,6 @@ void _cl_r_calcShadowQmaps(cl_PointLight** light) {
 		mat4_viewZ(&view[4], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180, 0,    d180);
 		mat4_viewZ(&view[5], light[i]->position.x, light[i]->position.y, light[i]->position.z,    0, 0,    d180);
 
-//		mat4_viewZ(&view[0], 0, 3, 0,  d90, 0,    d180);
-//		mat4_viewZ(&view[1], 0, 3, 0, -d90, 0,    d180);
-//		mat4_viewZ(&view[2], 0, 3, 0, d180,  d90, d180);
-//		mat4_viewZ(&view[3], 0, 3, 0, d180, -d90, d180);
-//		mat4_viewZ(&view[4], 0, 3, 0, d180, 0,    d180);
-//		mat4_viewZ(&view[5], 0, 3, 0,    0, 0,    d180);
-
 		glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFBO[i]);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		shader_start(s_shadowqmap);
@@ -434,44 +568,29 @@ void _cl_r_calcShadowQmaps(cl_PointLight** light) {
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[3]"), (float*)&view[3]);
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[4]"), (float*)&view[4]);
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[5]"), (float*)&view[5]);
+
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "proj"), (float*)&proj);
 		shader_uniform_3fp(shader_uniform_get(s_shadowqmap, "lightPos"), (float*)&light[i]->position);
 		shader_uniform_1f(shader_uniform_get(s_shadowqmap, "far_plane"), light[i]->radius);
 		for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
-			rg_object_t* obj = rg_level->objects[i];
-			mat4_model(&model_mat, obj->position.x, obj->position.y, obj->position.z, obj->rotation.x, obj->rotation.y, obj->rotation.z);
-			shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "model"), (float*)&model_mat);
+			GameObject* obj = rg_level->objects[i];
+			shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "model"), (float*)&obj->transform);
 			cl_VAO* mesh = _cl_r_getMesh(obj->mesh_id);
+
 			SDL_assert_always(mesh);
+
+			if(!mesh->anim) {
+				shader_uniform_1i(shader_uniform_get(s_shadowqmap, "anim"), 0);
+			} else {
+				if(_doAnimation) {
+					shader_uniform_1i(shader_uniform_get(s_shadowqmap, "anim"), 1);
+					_cl_r_loadBoneMatrices(s_shadowqmap, obj);
+				}
+			}
 			cl_drawVAO(mesh);
 		}
 	}
 	glViewport(0, 0, cl_display_getWidth(), cl_display_getHeight());
-}
-
-static void _cl_r_loadBoneMatrices(rg_Shader shader, rg_object_t* obj) {
-	char u_name[128];
-
-//	mat4_rotate(obj->bone_matrices[3], SDL_sin(a), 0, 0);
-
-	for (size_t i = 0; i < obj->skel.bone_count; ++i) {
-		strcpy(u_name, "bonesMatrices[");
-		std::stringstream ss; // mb rewrite this?
-		ss << i;
-		strcat(u_name, ss.str().c_str());
-		strcat(u_name, "]");
-//		printf("Load matrix: %s\n", u_name);
-//		mat4 matrix = obj->bone_local_transform[i];
-
-//		printf("~~~~~~ %d ~~~~~~ 0x%x\n", i, &matrix);
-//		printf("%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n%f %f %f %f\n",
-//				matrix.m00, matrix.m01, matrix.m02, matrix.m03,
-//				matrix.m10, matrix.m11, matrix.m12, matrix.m13,
-//				matrix.m20, matrix.m21, matrix.m22, matrix.m23,
-//				matrix.m30, matrix.m31, matrix.m32, matrix.m33);
-
-		shader_uniform_mat4f(shader_uniform_get(shader, u_name), (float*)&obj->global_transforms[i]);
-	}
 }
 
 void cl_r_doRender(double dt) {
@@ -501,8 +620,8 @@ void cl_r_doRender(double dt) {
 	glDisable(GL_BLEND);
 	glPolygonMode(GL_FRONT_AND_BACK, _wireframe ? GL_LINE : GL_FILL);
 
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+//	glEnable(GL_CULL_FACE);
+//	glCullFace(GL_BACK);
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 	//                               GEOMETRY  PASS                               //
@@ -512,20 +631,21 @@ void cl_r_doRender(double dt) {
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear gbuffer
 
+
 	shader_start(s_gbuffer);
 	shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "proj"), (float*)&camera.projection);
 	shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "view"), (float*)&camera.view);
+
 	shader_uniform_1i(shader_uniform_get(s_gbuffer, "diffuse"), 0);
 	shader_uniform_1i(shader_uniform_get(s_gbuffer, "normal"), 1);
+	shader_uniform_1i(shader_uniform_get(s_gbuffer, "roughness"), 2);
+	shader_uniform_1i(shader_uniform_get(s_gbuffer, "metallic"), 3);
 	shader_uniform_1f(shader_uniform_get(s_gbuffer, "tiling"), 1);
 	shader_uniform_1f(shader_uniform_get(s_gbuffer, "time"), _time);
 	shader_uniform_3fp(shader_uniform_get(s_gbuffer, "cam_pos"), (float*)&camera.position);
 
 
 	// Render objects
-
-//	if(rg_level != NULL) {
-
 	if(r_canRender) {
 		cl_skybox_render(s_gbuffer);
 		cl_grass_render(dt, s_gbuffer);
@@ -534,17 +654,20 @@ void cl_r_doRender(double dt) {
 		shader_uniform_1i(shader_uniform_get(s_gbuffer, "surface_type"), SURFACE_DEFAULT);
 //		SDL_Log("Objects to render: %ld", rg_level->objects.size());
 		for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
-			rg_object_t* obj = rg_level->objects[i];
+			GameObject* obj = rg_level->objects[i];
 
 			if(obj != NULL) {
-				mat4_model(&model_mat, obj->position.x, obj->position.y, obj->position.z, obj->rotation.x, obj->rotation.y, obj->rotation.z);
-				shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "model"), (float*)&model_mat);
+				shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "model"), (float*)&obj->transform);
 				rg_material_t* mat = cl_mat_get(obj->mat_id);
 				if(mat != NULL) {
 					glActiveTexture(GL_TEXTURE0);
 					glBindTexture(GL_TEXTURE_2D, mat->diffuse);
 					glActiveTexture(GL_TEXTURE1);
 					glBindTexture(GL_TEXTURE_2D, mat->normal);
+					glActiveTexture(GL_TEXTURE2);
+					glBindTexture(GL_TEXTURE_2D, mat->roughness);
+					glActiveTexture(GL_TEXTURE3);
+					glBindTexture(GL_TEXTURE_2D, mat->metallic);
 					cl_VAO* mesh = _cl_r_getMesh(obj->mesh_id);
 					if(mesh != NULL) {
 						if(!mesh->anim) {
@@ -582,12 +705,12 @@ void cl_r_doRender(double dt) {
 //		rg_level->lights[1].position.z = SDL_sin(PI/2 + _time*0.8)*4;
 //		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.7;
 
-		rg_level->lights[0].position.z = SDL_cos(_time*0.8)*6;
-		rg_level->lights[0].position.x = 0;
+		rg_level->lights[0].position.x = SDL_cos(_time*0.8)*6;
+		rg_level->lights[0].position.z = 4;
 		rg_level->lights[0].position.y = 4 + SDL_sin(_time*2)*0.2;
 
-		rg_level->lights[1].position.z = SDL_cos(PI/2 + _time*0.8)*6;
-		rg_level->lights[1].position.x = 0;
+		rg_level->lights[1].position.x = SDL_cos(PI/2 + _time*0.8)*6;
+		rg_level->lights[1].position.z = 4;
 		rg_level->lights[1].position.y = 4 + SDL_sin(PI/2 + _time*2)*0.2;
 
 
@@ -595,7 +718,7 @@ void cl_r_doRender(double dt) {
 		cl_fboBind(lp_buffer);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		cl_PointLight* plight[4];
+		PointLight* plight[4];
 		Uint32 i = 0;
 		for (; i < rg_level->lights.size() / 4; ++i) {
 			plight[0] = &rg_level->lights[i*4];
@@ -690,6 +813,10 @@ void cl_r_doRender(double dt) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear default framebuffer
 
 	cl_r2d_doRender(dt, _r_draw2d);
+
+	glDisable(GL_CULL_FACE);
+	cl_rl3d_doRender(dt, _r_draw3d, &camera);
+
 	glEnable(GL_DEPTH_TEST);
 
 
@@ -755,6 +882,6 @@ void cl_r_loadMesh(rg_mesh mesh) {
 	rg_freeResource(res);
 }
 
-cl_camera* cl_r_getCamera() {
+Camera* cl_r_getCamera() {
 	return &camera;
 }

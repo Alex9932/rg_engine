@@ -6,8 +6,8 @@
 - Level loading
 - GUI
 - Audio
-- ~~Skeletal animation~~ (not work)
-- ~~Screen-space reflections~~ (not work)
+- Skeletal animation
+- ~~Screen-space reflections~~ (broken)
 ### Todo:
 - Demo
 - Physics

@@ -27,7 +27,8 @@ rg_Resource* rg_loadResource(rg_string name) {
 	fseek(file, 0, SEEK_END);
 	res->length = ftell(file);
 	rewind(file);
-	res->data = rg_malloc(res->length);
+	res->data = rg_malloc(res->length + 1);
+	((char*)res->data)[res->length] = '\0';
 	memset(res->data, ' ', res->length);
 	uint readed = fread(res->data, 1, res->length, file);
 	if(readed != res->length && !feof(file)) {
@@ -40,6 +41,14 @@ rg_Resource* rg_loadResource(rg_string name) {
 void rg_freeResource(rg_Resource* res) {
 	rg_free(res->data);
 	rg_free(res);
+}
+
+Animation* rg_loadAnimation(rg_string name) {
+	rg_Resource* res = rg_loadResource(name);
+	Animation* anim = rg_convertAnimation(res->data);
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Loaded animation %s: %lf s.", name, anim->duration);
+	rg_freeResource(res);
+	return anim;
 }
 
 Animation* rg_convertAnimation(void* data) {

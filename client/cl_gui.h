@@ -8,6 +8,8 @@
 #ifndef CL_GUI_H_
 #define CL_GUI_H_
 
+void cl_guiInit();
+
 void cl_gui_showLoadingScreen();
 void cl_gui_hide();
 

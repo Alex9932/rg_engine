@@ -17,6 +17,7 @@
 void cl_r_init();
 void cl_r_destroy();
 
+void cl_r_makeProjection(Camera* camera);
 cl_font_t* cl_r_getDefaultFont();
 
 void cl_r_canRender(bool cr);
@@ -25,6 +26,6 @@ void cl_r_doRender(double dt);
 void cl_r_unloadMeshes();
 void cl_r_loadMesh(rg_mesh mesh);
 
-cl_camera* cl_r_getCamera();
+Camera* cl_r_getCamera();
 
 #endif /* CL_RENDERER_H_ */

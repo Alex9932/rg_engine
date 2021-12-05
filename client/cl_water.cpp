@@ -64,12 +64,13 @@ void cl_water_destroy() {
 	cl_deleteTexture(t_norm);
 }
 
-static double time = 0;
+static double _time = 0;
 
 void cl_water_render(double delta, rg_Shader shader) {
-	time += delta;
-
 	return;
+
+	_time += delta;
+
 
 	shader_uniform_1i(shader_uniform_get(shader, "surface_type"), SURFACE_WATER);
 //	shader_uniform_1i(shader_uniform_get(shader, "surface_type"), SURFACE_DEFAULT);

@@ -3,8 +3,18 @@
 // (c) alex9932 02.11.2021
 //
 
-include("level_scene.js");
+include(exec_path + "level_scene.js");
 
 function update(nDelta) {
 	print("Updated!");
 }
+
+function main() {
+	//var a = "Hello";
+	//print(a + ", Clock: " + clock());
+	print("Clock: " + clock());
+	
+	print("First script!");
+}
+
+main();

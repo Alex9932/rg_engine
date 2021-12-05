@@ -9,11 +9,11 @@
 #include <rg_engine.h>
 #include <rg_demo.h>
 
-static cl_camera* _camera;
+static Camera* _camera;
 static vec3 origin_pos;
 static vec3 origin_rot;
 
-void cl_democam_init(cl_camera* cam) {
+void cl_democam_init(Camera* cam) {
 	_camera = cam;
 }
 

@@ -9,7 +9,7 @@
 #include "cl_input.h"
 #include <rg_engine.h>
 
-static cl_camera* _camera;
+static Camera* _camera;
 static vec3 delta;
 static float _rotation_x = 0;
 
@@ -34,7 +34,7 @@ static bool _cl_event(rg_Event* event) {
 	return true;
 }
 
-void cl_player_init(cl_camera* cam) {
+void cl_player_init(Camera* cam) {
 	rg_registerEventHandler(_cl_event);
 	_camera = cam;
 }

@@ -17,6 +17,8 @@ typedef struct rg_material_t {
 	Uint32 mat_id;
 	cl_texture_t diffuse;
 	cl_texture_t normal;
+	cl_texture_t roughness;
+	cl_texture_t metallic;
 } rg_material_t;
 
 void cl_mat_load(rg_string name);

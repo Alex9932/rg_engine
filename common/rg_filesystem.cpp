@@ -41,6 +41,12 @@ Uint32 rg_fs_mount(rg_string file) {
 		rg_filesystem* fs = (rg_filesystem*)rg_malloc(sizeof(rg_filesystem));
 		fs->file_stream = f;
 		fread(&fs->header, sizeof(rg_fs_header), 1, fs->file_stream);
+
+		if(fs->header.magic[0] != 'r' || fs->header.magic[1] != 'f' || fs->header.magic[2] != 's') {
+			SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "Invalid header at %s!", file);
+			rg_assert(NULL);
+		}
+
 		SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "Mounting %s files %d", file, fs->header.files);
 		fs->files = (rg_fs_file*)rg_malloc(sizeof(rg_fs_file) * fs->header.files);
 		fread(fs->files, sizeof(rg_fs_file), fs->header.files, fs->file_stream);
@@ -73,7 +79,8 @@ rg_Resource* rg_fs_getResource(rg_string file) {
 	rg_Resource* res = (rg_Resource*)rg_malloc(sizeof(rg_Resource));
 	res->length = ffs.file.length;
 	res->data = rg_malloc(ffs.file.length + 1);
-	memset(res->data, 0, ffs.file.length + 1);
+	((char*)res->data)[ffs.file.length] = '\0';
+//	memset(res->data, 0, ffs.file.length + 1);
 	fseek(ffs.filesystem->file_stream, ffs.file.offset, SEEK_SET);
 	fread(res->data, 1, ffs.file.length, ffs.filesystem->file_stream);
 	return res;

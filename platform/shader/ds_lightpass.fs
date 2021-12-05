@@ -1,5 +1,7 @@
 #version 330 core
 
+#define LIGHT_SOURCES 4
+
 in vec2 _coords;
 
 out vec4 color;
@@ -12,9 +14,9 @@ uniform sampler2D prew;
 uniform vec3 camera_pos;
 
 // "SUN" light
-//vec3 lightColor = vec3(0.93, 0.89, 0.71);
-vec3 lightColor = vec3(0, 0, 0);
-vec3 lightDir = normalize(vec3(0.1, 1, 0.5));
+vec3 lightColor = vec3(0.93, 0.89, 0.71);
+//vec3 lightColor = vec3(0, 0, 0);
+vec3 lightDir = normalize(vec3(1, 1, -1));
 
 //float ambientStrength = 0.4;
 float ambientStrength = 0.1;
@@ -23,38 +25,15 @@ struct PointLight {
 	vec3 position;
 	vec3 color;
 	vec3 attenuation;
+	float radius;
 };
 
-uniform vec3 lposition_0;
-uniform vec3 lcolor_0;
-uniform vec3 lattenuation_0;
-uniform float lradius_0;
-
-uniform vec3 lposition_1;
-uniform vec3 lcolor_1;
-uniform vec3 lattenuation_1;
-uniform float lradius_1;
-
-uniform vec3 lposition_2;
-uniform vec3 lcolor_2;
-uniform vec3 lattenuation_2;
-uniform float lradius_2;
-
-uniform vec3 lposition_3;
-uniform vec3 lcolor_3;
-uniform vec3 lattenuation_3;
-uniform float lradius_3;
-
-uniform samplerCube lsmap[4];
+uniform PointLight lights[LIGHT_SOURCES];
+uniform samplerCube lsmap[LIGHT_SOURCES];
 
 uniform int allowShadows;
 
-PointLight _light0;
-PointLight _light1;
-PointLight _light2;
-PointLight _light3;
-
-vec3 calcLight(PointLight light, vec3 vertex, vec3 normal) {
+vec3 calcLight(PointLight light, vec3 vertex, vec3 normal, float metallic, float roughness) {
 	vec3 lightDir = normalize(light.position - vertex);
 	vec3 l_color = max(dot(normal, lightDir), 0.0) * light.color;
 	
@@ -64,59 +43,80 @@ vec3 calcLight(PointLight light, vec3 vertex, vec3 normal) {
 	vec3 halfwayDir = normalize(lightDir + viewDir);  
 	float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
 	
-	float specularStrength = 0.5;
+	float specularStrength = 1 - roughness;
 	vec3 l_specular = specularStrength * spec * light.color;
 	
 	float distance    = length(light.position - vertex);
 	float attenuation = 1.0 / (light.attenuation.x + light.attenuation.y * distance + light.attenuation.z * (distance * distance));
 	
 	return (l_color + l_specular) * attenuation;
-	//return l_color*attenuation + l_specular*attenuation;
+	
+	////return l_color*attenuation + l_specular*attenuation;
 }
 
-float calcShadow(vec3 vertex, PointLight light, samplerCube qmap, float far_plane) {
+//float calcShadow(vec3 vertex, PointLight light, samplerCube qmap, float far_plane) {
+//	if(allowShadows == 0) {
+//		return 1;
+//	}
+//
 //	vec3 fragToLight = vertex - light.position;
-//	float closestDepth = texture(qmap, fragToLight).r;
-//	closestDepth *= far_plane;
-//	float currentDepth = length(fragToLight);
-//	float bias = 0.005;
-//	float shadow = currentDepth - bias > closestDepth ? 0.0 : 1.0;
-//	return shadow;
+//	float mapped_depth = texture(qmap, fragToLight).r * far_plane;
+//	float bias = 0.05;
+//	if(length(fragToLight) - bias > mapped_depth) {
+//		return 0;
+//	}
+//	
+//	return 1;
+//}
 
+vec3 sampleOffsetDirections[20] = vec3[] (
+   vec3( 1,  1,  1), vec3( 1, -1,  1), vec3(-1, -1,  1), vec3(-1,  1,  1), 
+   vec3( 1,  1, -1), vec3( 1, -1, -1), vec3(-1, -1, -1), vec3(-1,  1, -1),
+   vec3( 1,  1,  0), vec3( 1, -1,  0), vec3(-1, -1,  0), vec3(-1,  1,  0),
+   vec3( 1,  0,  1), vec3(-1,  0,  1), vec3( 1,  0, -1), vec3(-1,  0, -1),
+   vec3( 0,  1,  1), vec3( 0, -1,  1), vec3( 0, -1, -1), vec3( 0,  1, -1)
+);  
+
+float calcShadow(vec3 vertex, PointLight light, samplerCube qmap) {
 	if(allowShadows == 0) {
 		return 1;
 	}
-
+	
+	float far_plane = light.radius;
 	vec3 fragToLight = vertex - light.position;
-	float mapped_depth = texture(qmap, fragToLight).r * far_plane;
-	float bias = 0.05;
-	if(length(fragToLight) - bias > mapped_depth) {
-		return 0;
+	float bias = 0.15;
+	float shadow = 0.0;
+	int samples  = 20;
+	
+	float viewDistance = length(camera_pos - vertex);
+	float diskRadius = (1.0 + (viewDistance / far_plane)) / 25.0;
+	//float diskRadius = length(vertex - light.position) / far_plane / 2;
+	
+	for(int i = 0; i < samples; ++i) {
+		float closestDepth = texture(qmap, fragToLight + sampleOffsetDirections[i] * diskRadius).r;
+		closestDepth *= far_plane;
+		if(length(fragToLight) - bias > closestDepth) {
+			shadow += 1.0;
+		}
 	}
 	
-	return 1;
+	return 1.0 - (shadow / float(samples));
 }
 
 void main () {
-	_light0.position = lposition_0;
-	_light0.color = lcolor_0;
-	_light0.attenuation = lattenuation_0;
-	_light1.position = lposition_1;
-	_light1.color = lcolor_1;
-	_light1.attenuation = lattenuation_1;
-	_light2.position = lposition_2;
-	_light2.color = lcolor_2;
-	_light2.attenuation = lattenuation_2;
-	_light3.position = lposition_3;
-	_light3.color = lcolor_3;
-	_light3.attenuation = lattenuation_3;
-	
 	vec4 t_prew   = texture(prew, _coords);
-	vec3 t_color  = texture(diffuse, _coords).rgb;
-	vec3 t_normal = texture(normal, _coords).rgb;
-	vec3 t_vertex = texture(vertex, _coords).rgb;
 	
-	float surface_type = texture(vertex, _coords).a;
+	vec4 _vertex  = texture(vertex,  _coords);
+	vec4 _diffuse = texture(diffuse, _coords);
+	vec4 _normal  = texture(normal,  _coords);
+	
+	vec3 t_color    = _diffuse.rgb;
+	vec3 t_normal   = _normal.rgb;
+	vec3 t_vertex   = _vertex.rgb;
+	float metallic  = _diffuse.a;
+	float roughness = _normal.a;
+	
+	float surface_type = _vertex.a;
 	
 	vec3 ambient = vec3(ambientStrength);
 	
@@ -124,18 +124,10 @@ void main () {
 	vec3 diff = max(dot(t_normal, lightDir), 0.0) * lightColor;
 	
 	// Calculate point lights
-	
-	if(lradius_0 > length(t_vertex - lposition_0)) {
-		diff += calcLight(_light0, t_vertex, t_normal) * calcShadow(t_vertex, _light0, lsmap[0], lradius_0);
-	}
-	if(lradius_1 > length(t_vertex - lposition_1)) {
-		diff += calcLight(_light1, t_vertex, t_normal) * calcShadow(t_vertex, _light1, lsmap[1], lradius_1);
-	}
-	if(lradius_2 > length(t_vertex - lposition_2)) {
-		diff += calcLight(_light2, t_vertex, t_normal) * calcShadow(t_vertex, _light2, lsmap[2], lradius_2);
-	}
-	if(lradius_3 > length(t_vertex - lposition_3)) {
-		diff += calcLight(_light3, t_vertex, t_normal) * calcShadow(t_vertex, _light3, lsmap[3], lradius_3);
+	for(int i = 0; i < LIGHT_SOURCES; i++) {
+		if(lights[i].radius > length(t_vertex - lights[i].position)) {
+			diff += calcLight(lights[i], t_vertex, t_normal, metallic, roughness) * calcShadow(t_vertex, lights[i], lsmap[i]);
+		}
 	}
 	
 	vec3 result = ambient + diff;

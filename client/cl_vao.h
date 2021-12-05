@@ -9,7 +9,7 @@
 #define CL_VAO_H_
 
 #include <GL/glew.h>
-#include <rg_anim.h>
+#include <rg_animation.h>
 #include <rg_mesh.h>
 
 typedef struct cl_VAO {

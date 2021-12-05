@@ -8,7 +8,7 @@
 #ifndef RG_LOADER_H_
 #define RG_LOADER_H_
 
-#include "rg_anim.h"
+#include <rg_animation.h>
 #include "rg_engine.h"
 #include <SDL2/SDL.h>
 
@@ -36,6 +36,7 @@ typedef struct AnimHeader {
 rg_Resource* rg_loadResource(rg_string file);
 void rg_freeResource(rg_Resource* res);
 
+Animation* rg_loadAnimation(rg_string name);
 Animation* rg_convertAnimation(void* data);
 void rg_writeAnimation(rg_string file, Animation* data);
 void rg_freeAnimation(Animation* anim);

@@ -12,7 +12,7 @@
 
 #include <vector>
 
-static cl_camera* _camera;
+static Camera* _camera;
 static vec3 delta;
 
 static bool demo_record = false;
@@ -21,10 +21,8 @@ static std::vector<rg_demo_frame> demo_frames;
 
 static const float S_SPEED = 0.3;
 static const float D_SPEED = 3;
-static const float B_SPEED = 30;
-//static const float S_SPEED = 0.3;
-//static const float D_SPEED = 3;
 //static const float B_SPEED = 30;
+static const float B_SPEED = 70;
 static float SPEED = 0.03;
 
 static bool _cl_event(rg_Event* event) {
@@ -32,16 +30,10 @@ static bool _cl_event(rg_Event* event) {
 	return true;
 }
 
-void cl_freecam_init(cl_camera* cam) {
+void cl_freecam_init(Camera* cam) {
 	rg_registerEventHandler(_cl_event);
 	_camera = cam;
 }
-
-//static void _cl_tomat3(mat3* dest, mat4* src) {
-//	dest->m00 = src->m00; dest->m01 = src->m01; dest->m02 = src->m02;
-//	dest->m10 = src->m10; dest->m11 = src->m11; dest->m12 = src->m12;
-//	dest->m20 = src->m20; dest->m21 = src->m21; dest->m22 = src->m22;
-//}
 
 void cl_freecam_update(double dt) {
 	if(demo_record)
@@ -58,21 +50,22 @@ void cl_freecam_update(double dt) {
 		_camera->rotation.z += 0.9 * dt;
 	}
 
-//	mat3 rot_mat;
-//	vec3 fwd_z = {0, 0, 1};
 	vec3 up_y = {0, 1, 0};
 	vec3 up;
 	vec3 fwd;
 	vec3 left;
 	vec3 neg;
 
-	math_getForward(&fwd, (vec2*)&_camera->rotation);
+//	vec4 dir;
+//	vec4 dirTemp = {0, 0, -1};
+//	mat4 r_matrix;
+//	mat4_rotate(&r_matrix, _camera->rotation.y, _camera->rotation.x, 0);
+//	mat4_mul(&dir, &dirTemp, &r_matrix);
+//	fwd.x = dir.x;
+//	fwd.y = dir.y;
+//	fwd.z = dir.z;
 
-//	_cl_tomat3(&rot_mat, &_camera->view);
-//
-//	mat3_mul(&fwd, &fwd_z, &rot_mat);
-//	mat3_mul(&up, &up_y, &rot_mat);
-//	vec3_cross(&left, &up, &fwd);
+	math_getForward(&fwd, (vec2*)&_camera->rotation);
 	vec3_cross(&left, &up_y, &fwd);
 
 	vec3_normalize(&up, &up);

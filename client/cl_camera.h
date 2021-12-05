@@ -10,13 +10,19 @@
 
 #include <rg_vecmath.h>
 
-typedef struct cl_camera {
+typedef struct Camera {
 	vec3 position;
 	vec3 rotation;
 	mat4 projection;
 	mat4 view;
-} cl_camera;
+	float aspect;
+	float near;
+	float far;
+	float fov;
+} Camera;
 
-void cl_camera_recalcViewMatrix(cl_camera* camera);
+void cl_camera_recalcViewMatrix(Camera* camera);
+void cl_camera_update(Camera* camera);
+
 
 #endif /* CL_CAMERA_H_ */

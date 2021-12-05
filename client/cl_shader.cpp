@@ -11,7 +11,6 @@
 #include <rg_engine.h>
 #include <rg_loader.h>
 #include <SDL2/SDL.h>
-#include <assert.h>
 
 static void __shader_make(rg_string shader_file, rg_string name, GLuint shader, GLuint program) {
 	rg_Resource* data = rg_loadResource(shader_file);
@@ -37,8 +36,8 @@ static void __shader_make(rg_string shader_file, rg_string name, GLuint shader, 
 /** PUBLIC **/
 
 rg_Shader shader_create(rg_string vs, rg_string fs, rg_string gs) {
-	assert(vs);
-	assert(fs);
+	rg_assert(vs);
+	rg_assert(fs);
 
 	rg_Shader shader = glCreateProgram();
 	uint g_vs, g_fs, g_gs;

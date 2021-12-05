@@ -11,7 +11,7 @@
 #include "cl_camera.h"
 #include <rg_demo.h>
 
-void cl_freecam_init(cl_camera* cam);
+void cl_freecam_init(Camera* cam);
 void cl_freecam_update(double dt);
 
 // Demo

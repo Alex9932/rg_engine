@@ -8,6 +8,8 @@
 #ifndef RG_VECMATH_H_
 #define RG_VECMATH_H_
 
+//#define DOUBLE_MATH
+
 #include "rg_engine.h"
 
 #ifndef PI
@@ -17,15 +19,20 @@
 typedef struct vec2 { float x; float y; } vec2;
 typedef struct vec3 { float x; float y; float z; } vec3;
 typedef struct vec4 { float x; float y; float z; float w; } vec4;
+
+#ifdef DOUBLE_MATH
 typedef struct dvec2 { double x; float y; } dvec2;
 typedef struct dvec3 { double x; float y; float z; } dvec3;
 typedef struct dvec4 { double x; float y; float z; float w; } dvec4;
+#endif
 
 typedef vec4 quat;
 
 //typedef struct quat { float w; float x; float y; float z; } quat;
 
+#ifdef DOUBLE_MATH
 typedef dvec4 dquat;
+#endif
 
 typedef struct mat3 { float m00; float m10; float m20;
 					  float m01; float m11; float m21;
@@ -36,6 +43,7 @@ typedef struct mat4 { float m00; float m10; float m20; float m30;
 					  float m02; float m12; float m22; float m32;
 					  float m03; float m13; float m23; float m33; } mat4;
 
+#ifdef DOUBLE_MATH
 typedef struct dmat3 { double m00; double m10; double m20;
 					   double m01; double m11; double m21;
 					   double m02; double m12; double m22; } dmat3;
@@ -44,6 +52,7 @@ typedef struct dmat4 { double m00; double m10; double m20; double m30;
 					   double m01; double m11; double m21; double m31;
 					   double m02; double m12; double m22; double m32;
 					   double m03; double m13; double m23; double m33; } dmat4;
+#endif
 
 RG_INLINE double math_toradians(double angle) {
 	return (angle * (PI / 180.0));
@@ -58,11 +67,13 @@ RG_INLINE vec3* math_newVec3() { return (vec3*)rg_malloc(sizeof(vec3)); }
 RG_INLINE vec4* math_newVec4() { return (vec4*)rg_malloc(sizeof(vec4)); }
 RG_INLINE mat3* math_newMat3() { return (mat3*)rg_malloc(sizeof(mat3)); }
 RG_INLINE mat4* math_newMat4() { return (mat4*)rg_malloc(sizeof(mat4)); }
+#ifdef DOUBLE_MATH
 RG_INLINE dvec2* math_newDVec2() { return (dvec2*)rg_malloc(sizeof(dvec2)); }
 RG_INLINE dvec3* math_newDVec3() { return (dvec3*)rg_malloc(sizeof(dvec3)); }
 RG_INLINE dvec4* math_newDVec4() { return (dvec4*)rg_malloc(sizeof(dvec4)); }
 RG_INLINE dmat3* math_newDMat3() { return (dmat3*)rg_malloc(sizeof(dmat3)); }
 RG_INLINE dmat4* math_newDMat4() { return (dmat4*)rg_malloc(sizeof(dmat4)); }
+#endif
 RG_INLINE void math_delete(void* ptr) { rg_free(ptr); }
 
 void math_getForward(vec3* vec, vec2* angles);
@@ -143,6 +154,7 @@ void mat4_lookat(mat4* mat, vec3 pos, vec3 target, vec3 up);
 void mat4_invert(mat4* dest, mat4* src);
 //////////////////////////////////////////////
 
+#ifdef DOUBLE_MATH
 // vec2
 void dvec2_clone(dvec2* dest, dvec2* src);
 void dvec2_add(dvec2* dest, dvec2* a, dvec2* b);
@@ -223,5 +235,6 @@ void math_toDmat3(dmat3* dest, mat3* src);
 void math_toDmat4(dmat4* dest, mat4* src);
 void math_toMat3(mat3* dest, dmat3* src);
 void math_toMat4(mat4* dest, dmat4* src);
+#endif
 
 #endif /* RG_VECMATH_H_ */

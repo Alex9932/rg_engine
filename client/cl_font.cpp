@@ -40,8 +40,8 @@ cl_font_t* cl_font_new(rg_string file, Uint32 size) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, font->f_size * F_ATLAS_WIDTH, font->f_size * F_ATLAS_HEIGHT, 0, GL_RED, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	for (wchar_t i = 0; i < F_ATLAS_WIDTH * F_ATLAS_HEIGHT; i++) {
 		if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {

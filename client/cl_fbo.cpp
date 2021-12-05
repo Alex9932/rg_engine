@@ -46,7 +46,8 @@ Framebuffer* cl_fboNew(Uint32 width, Uint32 height, Uint8 attachments, char flag
 			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, fbo->width, fbo->height);
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, fbo->depth);
 		} else {
-			fbo->depth = _fbo_makeTexAttachment(GL_DEPTH_ATTACHMENT, fbo->width, fbo->height, GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT, GL_FLOAT);
+//			fbo->depth = _fbo_makeTexAttachment(GL_DEPTH_ATTACHMENT, fbo->width, fbo->height, GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT, GL_FLOAT);
+			fbo->depth = _fbo_makeTexAttachment(GL_DEPTH_ATTACHMENT, fbo->width, fbo->height, GL_DEPTH_COMPONENT32, GL_DEPTH_COMPONENT, GL_FLOAT);
 		}
 	}
 

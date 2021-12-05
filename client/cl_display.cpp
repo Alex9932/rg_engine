@@ -14,12 +14,12 @@ static SDL_Window* _startup_window = NULL;
 static SDL_Window* _w_window_ptr   = NULL;
 static SDL_GLContext _w_glcontext  = NULL;
 
-//static uint _w_init_width     = 800;
-//static uint _w_init_height    = 600;
+//static Uint32 _w_init_width     = 800;
+//static Uint32 _w_init_height    = 600;
 static uint _w_init_width     = 1280;
 static uint _w_init_height    = 720;
-static uint _w_current_width  = 0;
-static uint _w_current_height = 0;
+static Uint32 _w_current_width  = 0;
+static Uint32 _w_current_height = 0;
 static bool _w_fullscreen = false;
 static bool _m_grabbed = false;
 
@@ -57,7 +57,7 @@ void cl_display_open() {
 	SDL_assert(_w_window_ptr);
 	_w_glcontext = SDL_GL_CreateContext(_w_window_ptr);
 	if (!_w_glcontext) {
-		SDL_Log("[engine] Error!");
+		SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "OpenGL context error!");
 	}
 	SDL_GL_SwapWindow(_w_window_ptr);
 
@@ -69,7 +69,7 @@ void cl_display_open() {
 	glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK) {
-		SDL_Log("[engine] Error initializing GLEW! %s", glewGetErrorString(glewError));
+		SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Error initializing GLEW! %s", glewGetErrorString(glewError));
 	}
 
 	SDL_SetWindowSize(_w_window_ptr, _w_current_width, _w_current_height);

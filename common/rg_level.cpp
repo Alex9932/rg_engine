@@ -13,11 +13,14 @@
 #include <SDL2/SDL.h>
 #include <string.h>
 
-rg_level_t* rg_newLevel() {
-	return new rg_level_t;
+#include "rg_animator.h"
+
+Level* rg_newLevel() {
+	return new Level;
 }
 
-void rg_freeLevel(rg_level_t* level) {
+void rg_freeLevel(Level* level) {
+	rg_phys_clearWorld();
 	cJSON_Delete(level->config);
 	rg_freeResource(level->level_res);
 //	for (Uint32 i = 0; i < level->materials.size(); ++i) {
@@ -32,9 +35,10 @@ void rg_freeLevel(rg_level_t* level) {
 	delete level;
 }
 
-rg_object_t* rg_newGameobject() {
-	rg_object_t* obj = (rg_object_t*)rg_malloc(sizeof(rg_object_t));
-	SDL_memset(obj, 0, sizeof(rg_object_t));
+GameObject* rg_newGameobject() {
+	GameObject* obj = (GameObject*)rg_malloc(sizeof(GameObject));
+	SDL_memset(obj, 0, sizeof(GameObject));
+	obj->scale = {1, 1, 1};
 	return obj;
 }
 
@@ -47,11 +51,14 @@ static void _rg_freeBone(rg_Bone* bone) {
 	}
 }
 
-void rg_freeGameobject(rg_object_t* ptr) {
+void rg_freeGameobject(GameObject* ptr) {
 	if(ptr->type == RG_OBJECT_ANIMATED) {
 		rg_free(ptr->local_transforms);
 		rg_free(ptr->global_transforms);
 		_rg_freeBone(&ptr->skel.root_bone);
+
+		// TODO: REMOVE THIS !!! (temporary solution)
+		rg_freeAnimation(ptr->animation_current);
 	}
 	rg_free(ptr);
 }
@@ -60,19 +67,6 @@ struct _Bone {
 	Sint32 id;
 	std::vector<_Bone> childs;
 };
-
-static Uint32 depth = 0;
-
-static void _rg_showSkeleton(_Bone* parent) {
-	for (size_t i = 0; i < depth; ++i) { printf(" "); }
-	printf("%d\n", parent->id);
-
-	for (size_t i = 0; i < parent->childs.size(); ++i) {
-		depth++;
-		_rg_showSkeleton(&parent->childs[i]);
-		depth--;
-	}
-}
 
 static void _rg_findChilds(AnimatedMesh* am, _Bone* parent) {
 	for (size_t i = 0; i < am->skeleton.bone_count; ++i) {
@@ -85,31 +79,23 @@ static void _rg_findChilds(AnimatedMesh* am, _Bone* parent) {
 	}
 }
 
-static void _rg_convertSkeleton(rg_object_t* obj, AnimatedMesh* am, rg_Bone* bone, _Bone* parent, mat4* parentBindTransform) {
+static void _rg_convertSkeleton(GameObject* obj, AnimatedMesh* am, rg_Bone* bone, _Bone* parent, mat4* parentBindTransform) {
 	bone->id = parent->id;
 	bone->child_count = parent->childs.size();
 	Bone b;
 	for (size_t i = 0; i < am->skeleton.bone_count; ++i) {
 		if(am->skeleton.bones[i].id == bone->id) { b = am->skeleton.bones[i]; break; }
 	}
-
-//	SDL_memcpy(&bone->offset, &b.matrix, sizeof(mat4)); // mb? bone->offset = b.matrix;
 	mat4 bind_matrix;
-//	mat4_mul(&bind_matrix, parentBindTransform, &b.matrix);
-//	mat4_invert(&bone->offset, &bind_matrix);
-//	mat4_invert(&bone->offset, &b.matrix);
-
 	bone->offset = b.matrix;
-
 	if(bone->child_count == 0) { return; }
-
 	bone->childs = (rg_Bone*)rg_malloc(sizeof(rg_Bone) * bone->child_count);
 	for (size_t i = 0; i < bone->child_count; ++i) {
 		_rg_convertSkeleton(obj, am, &bone->childs[i], &parent->childs[i], &bind_matrix);
 	}
 }
 
-static void _rg_processAnimation(rg_object_t* obj, AnimatedMesh* am) {
+static void _rg_processAnimation(GameObject* obj, AnimatedMesh* am) {
 	obj->skel.bone_count = am->skeleton.bone_count;
 	obj->global_transforms = (mat4*)rg_malloc(sizeof(mat4) * obj->skel.bone_count);
 	obj->local_transforms = (mat4*)rg_malloc(sizeof(mat4) * obj->skel.bone_count);
@@ -127,13 +113,12 @@ static void _rg_processAnimation(rg_object_t* obj, AnimatedMesh* am) {
 	}
 
 	_rg_findChilds(am, &root);
-//	_rg_showSkeleton(&root);
 	mat4 IDENTITY;
 	mat4_identity(&IDENTITY);
 	_rg_convertSkeleton(obj, am, &obj->skel.root_bone, &root, &IDENTITY);
 }
 
-int rg_loadLevel(rg_level_t* level, rg_string level_name) {
+int rg_loadLevel(Level* level, rg_string level_name) {
 	memset(level->levelname, '\0', 64);
 	memcpy(level->levelname, level_name, strlen(level_name));
 	char path[128];
@@ -154,8 +139,8 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 	strcpy(path_levelscript, path);
 	strcat(path_levelscript, "level.js");
 
-	level->js_state = js_makeDefaultState();
-	js_execute(&level->js_state, path_levelscript);
+	level->js_state = rg_js_makeDefaultState();
+	rg_js_execute(&level->js_state, path_levelscript);
 
 	level->level_res = rg_loadResource(path_leveljson);
 	level->config = cJSON_Parse((rg_string)level->level_res->data);
@@ -194,7 +179,7 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 
 	for (int i = 0; i < c; ++i) {
 		cJSON* _entity = cJSON_GetArrayItem(_entitys, i);
-		rg_object_t* obj = rg_newGameobject();
+		GameObject* obj = rg_newGameobject();
 		cJSON* __pos = cJSON_GetObjectItem(_entity, "position");
 		obj->position.x = cJSON_GetNumberValue(cJSON_GetArrayItem(__pos, 0));
 		obj->position.y = cJSON_GetNumberValue(cJSON_GetArrayItem(__pos, 1));
@@ -206,6 +191,11 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 		obj->mesh_id = (Uint32)cJSON_GetNumberValue(cJSON_GetObjectItem(_entity, "mesh"));
 		obj->mat_id = (Uint32)cJSON_GetNumberValue(cJSON_GetObjectItem(_entity, "material"));
 
+//		obj->phys_body = rg_phys_createBox(
+//				obj->position.x, obj->position.y, obj->position.z,
+//				2, 2, 2,
+//				5);
+
 		if(level->meshes[obj->mesh_id].isAnimated) {
 			char path[128];
 			rg_buildResourcePath(level->levelname, level->meshes[obj->mesh_id].name, path, "meshes");
@@ -216,6 +206,8 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 			rg_freeResource(mres);
 
 			obj->type = RG_OBJECT_ANIMATED;
+
+			obj->animation_current = rg_loadAnimation("gamedata/anims/vampire.anim");
 		} else {
 			obj->skel.bone_count = 0;
 			obj->type = RG_OBJECT_STATIC;
@@ -225,7 +217,7 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 
 	for (int i = 0; i < d; ++i) {
 		cJSON* _terrain = cJSON_GetArrayItem(_terrains, i);
-		rg_object_t* obj = rg_newGameobject();
+		GameObject* obj = rg_newGameobject();
 		cJSON* __pos = cJSON_GetObjectItem(_terrain, "position");
 		obj->position.x = cJSON_GetNumberValue(cJSON_GetArrayItem(__pos, 0));
 		obj->position.y = cJSON_GetNumberValue(cJSON_GetArrayItem(__pos, 1));
@@ -243,7 +235,7 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 //	SDL_Log("level: light");
 	for (int i = 0; i < e; ++i) {
 		cJSON* _light = cJSON_GetArrayItem(_lights, i);
-		cl_PointLight light;
+		PointLight light;
 		cJSON* __pos = cJSON_GetObjectItem(_light, "position");
 		light.position.x = cJSON_GetNumberValue(cJSON_GetArrayItem(__pos, 0));
 		light.position.y = cJSON_GetNumberValue(cJSON_GetArrayItem(__pos, 1));
@@ -260,7 +252,7 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 		float lightMax = std::fmaxf(std::fmaxf(light.color.x, light.color.y), light.color.z);
 		light.radius   = (-light.attenuation.y +  SDL_sqrtf(light.attenuation.y * light.attenuation.y - 4 * light.attenuation.z * (light.attenuation.x - (256.0 / 5.0) * lightMax))) / (2 * light.attenuation.z);
 
-		light.type = RG_LIGHT_STATIC;
+		light.type = RG_LIGHTSOURCE_STATIC;
 		level->lights.push_back(light);
 	}
 
@@ -268,4 +260,32 @@ int rg_loadLevel(rg_level_t* level, rg_string level_name) {
 	loadlevel_event.type = RG_EVENT_LOADLEVEL;
 	rg_pushEvent(&loadlevel_event);
 	return 0;
+}
+
+void rg_updateLevel(Level* level, double dt) {
+	for (size_t i = 0; i < level->objects.size(); ++i) {
+		GameObject* obj = level->objects[i];
+
+		if(obj->phys_body == NULL) {
+			mat4 scale_matrix;
+			mat4 model_matrix;
+			mat4_identity(&scale_matrix, &obj->scale);
+
+			mat4_model(&model_matrix,
+					obj->position.x, obj->position.y, obj->position.z,
+					obj->rotation.x, obj->rotation.y, obj->rotation.z);
+
+			mat4_mul(&obj->transform, &model_matrix, &scale_matrix);
+//			mat4_mul(&obj->transform, &scale_matrix, &model_matrix);
+		} else {
+			rg_phys_getMatrix(&obj->transform, obj->phys_body);
+		}
+
+		if(obj->type == RG_OBJECT_ANIMATED) {
+			obj->scale.x = 0.03f;
+			obj->scale.y = 0.03f;
+			obj->scale.z = 0.03f;
+			rg_updateAnimation(dt, obj);
+		}
+	}
 }

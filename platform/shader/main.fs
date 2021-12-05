@@ -15,6 +15,8 @@ layout (location = 2) out vec4 o_vertex;
 
 uniform sampler2D diffuse;
 uniform sampler2D normal;
+uniform sampler2D roughness;
+uniform sampler2D metallic;
 
 uniform vec3 cam_pos;
 uniform float tiling;
@@ -80,8 +82,8 @@ vec4 calcSkyColor() {
 
 	//float sunAngle = cos(time * 0.3) * 3.14159;
 	//float sunAngle = time * 0.3;
-	//float sunAngle = 1.5;
-	float sunAngle = 1.7;
+	float sunAngle = 1.5;
+	//float sunAngle = 1.7;
 
 	sun = vec3(160, 150 * cos(sunAngle), 150 * sin(sunAngle));
 	//sun = vec3(150, 0, 150);
@@ -118,17 +120,20 @@ vec4 calcSkyColor() {
 
 void main() {
 	vec4 t_color = texture(diffuse, _t_coord * tiling);
-	
 	if(t_color.a < 0.9) {
 		discard;
 	}
 	
-	vec3 t_normal = texture(normal, _t_coord * tiling).xyz * 2 - 1;
-	vec4 t_o_normal = vec4(_tg_space * t_normal, 1);
-	//t_o_normal = vec4(_normal, 1); // DISABLE NORMAL MAPPING
+	vec3  t_normal     = texture(normal   , _t_coord * tiling).xyz * 2 - 1;
+	float t_roughness  = texture(roughness, _t_coord * tiling).r;
+	float t_metallic   = texture(metallic , _t_coord * tiling).r;
 	
-	o_color  = t_color;
-	o_normal = t_o_normal;
+	vec3 t_o_color = t_color.rgb;
+	vec3 t_o_normal = _tg_space * t_normal;
+	//t_o_normal = _normal // DISABLE NORMAL MAPPING
+	
+	o_color  = vec4(t_o_color, t_metallic);
+	o_normal = vec4(t_o_normal, t_roughness);
 	o_vertex = vec4(_vertex, _surface_type);
 	
 	if(_surface_type == 1) {
@@ -136,6 +141,7 @@ void main() {
 	}
 	
 	if(_surface_type == 3) {
-		o_color = vec4(0, 0, 0, 1);
+		o_color = vec4(0, 0, 0.8, 1);
+		o_normal.a = 0;
 	}
 }

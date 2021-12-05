@@ -7,7 +7,7 @@
 
 #include "cl_camera.h"
 
-void cl_camera_recalcViewMatrix(cl_camera* camera) {
+void cl_camera_recalcViewMatrix(Camera* camera) {
 //	mat4 rotation, translation;
 //	mat4_identity(&translation);
 //	mat4_euler_rotation(&rotation, camera->rotation.x, camera->rotation.y, camera->rotation.z);

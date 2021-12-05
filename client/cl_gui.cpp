@@ -25,10 +25,13 @@ static cl_texture_t l_bg;
 static cl_texture_t l_prog;
 /////////////
 
-void cl_gui_showLoadingScreen() {
-	is_render = true;
+void cl_guiInit() {
 	l_bg = cl_getTexture("gamedata/textures/gui/load_bg.png");
 	l_prog = cl_getTexture("gamedata/textures/gui/loading.png");
+}
+
+void cl_gui_showLoadingScreen() {
+	is_render = true;
 }
 
 void cl_gui_hide() {

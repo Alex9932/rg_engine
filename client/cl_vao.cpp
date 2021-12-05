@@ -51,8 +51,8 @@ cl_VAO* cl_makeAVAO(AnimatedMesh* mesh) {
 	glGenBuffers(1, &vao->wvbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vao->wvbo);
 	glBufferData(GL_ARRAY_BUFFER, mesh->mesh.vertex_count * weight_size, mesh->weights, GL_STATIC_DRAW);
-	glVertexAttribIPointer(4, 3, GL_INT, weight_size, (GLvoid*)(sizeof(Sint32) * 0)); // bone ids
-	glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, weight_size, (GLvoid*)(sizeof(float) * 4)); // weights
+	glVertexAttribIPointer(4, 4, GL_INT, weight_size, (GLvoid*)(sizeof(Sint32) * 0)); // bone ids
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, weight_size, (GLvoid*)(sizeof(float) * 4)); // weights
 	glEnableVertexAttribArray(4);
 	glEnableVertexAttribArray(5);
 

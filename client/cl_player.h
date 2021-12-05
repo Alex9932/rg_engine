@@ -11,7 +11,7 @@
 #include "cl_camera.h"
 #include <rg_vecmath.h>
 
-void cl_player_init(cl_camera* cam);
+void cl_player_init(Camera* cam);
 void cl_player_update(double dt);
 
 

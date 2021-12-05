@@ -20,9 +20,11 @@ static float math_inv_sqrt(float x) {
 	return 1.0f / (float)SDL_sqrt(x);
 }
 
+#ifdef DOUBLE_MATH
 static double math_inv_dsqrt(double x) {
 	return 1.0 / SDL_sqrt(x);
 }
+#endif
 
 //////////
 
@@ -226,41 +228,43 @@ void vec4_lerp(vec4* dest, vec4* a, vec4* b, double delta) {
 
 void quat_slerp(quat* dest, quat* q1, quat* q2, double lambda) {
 
-//	double omega = acos(HeliMath::saturate(q0.mData[0]*q1.mData[0] +
-//	                                           q0.mData[1]*q1.mData[1] +
-//	                                           q0.mData[2]*q1.mData[2] +
-//	                                           q0.mData[3]*q1.mData[3], -1,1));
-//	    if (fabs(omega) < 1e-10) {
-//	      omega = 1e-10;
-//	    }
-//	    double som = sin(omega);
-//	    double st0 = sin((1-t) * omega) / som;
-//	    double st1 = sin(t * omega) / som;
+//	float dot = q1->w * q2->w + q1->x * q2->x + q1->y * q2->y + q1->z * q2->z;
 //
-//	    return Quaternion(q0.mData[0]*st0 + q1.mData[0]*st1,
-//	                      q0.mData[1]*st0 + q1.mData[1]*st1,
-//	                      q0.mData[2]*st0 + q1.mData[2]*st1,
-//	                      q0.mData[3]*st0 + q1.mData[3]*st1);
+//	float blendI = 1.0f - lambda;
+//	if (dot < 0) {
+//		dest->w = blendI * q1->w + lambda * -q2->w;
+//		dest->x = blendI * q1->x + lambda * -q2->x;
+//		dest->y = blendI * q1->y + lambda * -q2->y;
+//		dest->z = blendI * q1->z + lambda * -q2->z;
+//	} else {
+//		dest->w = blendI * q1->w + lambda * q2->w;
+//		dest->x = blendI * q1->x + lambda * q2->x;
+//		dest->y = blendI * q1->y + lambda * q2->y;
+//		dest->z = blendI * q1->z + lambda * q2->z;
+//	}
 
-	float dotproduct = q1->x * q2->x + q1->y * q2->y + q1->z * q2->z + q1->w * q2->w;
-	float theta, st, sut, sout, coeff1, coeff2;
+//	vec4_normalize(dest, dest);
 
-	// algorithm adapted from Shoemake's paper
-//	lambda=lambda/2.0;
 
-	theta = (float) acos(dotproduct);
-	if (theta<0.0) theta=-theta;
-
-	st = (float) sin(theta);
-	sut = (float) sin(lambda*theta);
-	sout = (float) sin((1-lambda)*theta);
-	coeff1 = sout/st;
-	coeff2 = sut/st;
-
-	dest->x = coeff1*q1->x + coeff2*q2->x;
-	dest->y = coeff1*q1->y + coeff2*q2->y;
-	dest->z = coeff1*q1->z + coeff2*q2->z;
-	dest->w = coeff1*q1->w + coeff2*q2->w;
+//	float dotproduct = q1->x * q2->x + q1->y * q2->y + q1->z * q2->z + q1->w * q2->w;
+//	float theta, st, sut, sout, coeff1, coeff2;
+//
+//	// algorithm adapted from Shoemake's paper
+////	lambda=lambda/2.0;
+//
+//	theta = (float) acos(dotproduct);
+//	if (theta<0.0) theta=-theta;
+//
+//	st = (float) sin(theta);
+//	sut = (float) sin(lambda*theta);
+//	sout = (float) sin((1-lambda)*theta);
+//	coeff1 = sout/st;
+//	coeff2 = sut/st;
+//
+//	dest->x = coeff1*q1->x + coeff2*q2->x;
+//	dest->y = coeff1*q1->y + coeff2*q2->y;
+//	dest->z = coeff1*q1->z + coeff2*q2->z;
+//	dest->w = coeff1*q1->w + coeff2*q2->w;
 
 
 	glm::quat x, y;
@@ -369,8 +373,9 @@ void mat4_mul(vec4* dest, vec4* left, mat4* right) {
 
 void mat4_mul(mat4* dest, mat4* left, mat4* right) {
 	float* a = (float*)dest;
-	float* b = (float*)left;
-	float* c = (float*)right;
+	float* b = (float*)right;
+	float* c = (float*)left;
+
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			float sum = 0.0;
@@ -380,25 +385,6 @@ void mat4_mul(mat4* dest, mat4* left, mat4* right) {
 			a[i * 4 + j] = sum;
 		}
 	}
-
-
-//	mat->m00 = m[0][0];
-//	mat->m10 = m[1][0];
-//	mat->m20 = m[2][0];
-//	mat->m30 = m[3][0];
-//	mat->m01 = m[0][1];
-//	mat->m11 = m[1][1];
-//	mat->m21 = m[2][1];
-//	mat->m31 = m[3][1];
-//	mat->m02 = m[0][2];
-//	mat->m12 = m[1][2];
-//	mat->m22 = m[2][2];
-//	mat->m32 = m[3][2];
-//	mat->m03 = m[0][3];
-//	mat->m13 = m[1][3];
-//	mat->m23 = m[2][3];
-//	mat->m33 = m[3][3];
-
 }
 
 void mat4_rotx(mat4* mat, float angle) {
@@ -427,48 +413,37 @@ void mat4_rotate(mat4* mat, float anglex, float angley, float anglez) {
 	mat4_rotx(&rx, anglex);
 	mat4_roty(&ry, angley);
 	mat4_rotz(&rz, anglez);
-	mat4_mul(&ryz, &ry, &rz);
-	mat4_mul(mat, &ryz, &rx);
+	mat4_mul(&ryz, &rz, &ry);
+	mat4_mul(mat, &rx, &ryz);
 //	mat4_mul(&rxy, &rx, &ry);
 //	mat4_mul(mat, &rxy, &rz);
 }
 
 void mat4_quat(mat4* mat, quat* quat) {
-	mat->m00 = 1.0f - 2.0f*quat->y*quat->y + 2.0f*quat->z*quat->z;
-	mat->m10 =        2.0f*quat->x*quat->y + 2.0f*quat->w*quat->z;
-	mat->m20 =        2.0f*quat->x*quat->z - 2.0f*quat->w*quat->y;
-
-	mat->m01 =        2.0f*quat->x*quat->y - 2.0f*quat->w*quat->z;
-	mat->m11 = 1.0f - 2.0f*quat->x*quat->x + 2.0f*quat->z*quat->z;
-	mat->m21 =        2.0f*quat->y*quat->z + 2.0f*quat->w*quat->x;
-
-	mat->m02 =        2.0f*quat->x*quat->z + 2.0f*quat->w*quat->y;
-	mat->m12 =        2.0f*quat->y*quat->z - 2.0f*quat->w*quat->x;
-	mat->m22 = 1.0f - 2.0f*quat->x*quat->x + 2.0f*quat->y*quat->y;
-
+//	mat->m00 = 1.0f - 2.0f*quat->y*quat->y + 2.0f*quat->z*quat->z;
+//	mat->m10 =        2.0f*quat->x*quat->y + 2.0f*quat->w*quat->z;
+//	mat->m20 =        2.0f*quat->x*quat->z - 2.0f*quat->w*quat->y;
+//
+//	mat->m01 =        2.0f*quat->x*quat->y - 2.0f*quat->w*quat->z;
+//	mat->m11 = 1.0f - 2.0f*quat->x*quat->x + 2.0f*quat->z*quat->z;
+//	mat->m21 =        2.0f*quat->y*quat->z + 2.0f*quat->w*quat->x;
+//
+//	mat->m02 =        2.0f*quat->x*quat->z + 2.0f*quat->w*quat->y;
+//	mat->m12 =        2.0f*quat->y*quat->z - 2.0f*quat->w*quat->x;
+//	mat->m22 = 1.0f - 2.0f*quat->x*quat->x + 2.0f*quat->y*quat->y;
 	glm::quat q;
-	q.w = quat->w;
 	q.x = quat->x;
 	q.y = quat->y;
 	q.z = quat->z;
+	q.w = quat->w;
 	glm::mat4 m = glm::toMat4(q);
-	float* glm_m = &m[0][0];
-	mat->m00 = glm_m[0];
-	mat->m10 = glm_m[1];
-	mat->m20 = glm_m[2];
-	mat->m30 = glm_m[3];
-	mat->m01 = glm_m[4];
-	mat->m11 = glm_m[5];
-	mat->m21 = glm_m[6];
-	mat->m31 = glm_m[7];
-	mat->m02 = glm_m[8];
-	mat->m12 = glm_m[9];
-	mat->m22 = glm_m[10];
-	mat->m32 = glm_m[11];
-	mat->m03 = glm_m[12];
-	mat->m13 = glm_m[13];
-	mat->m23 = glm_m[14];
-	mat->m33 = glm_m[15];
+
+	float* m_ptr = &m[0][0];
+	float* mat_ptr = (float*)mat;
+
+	for (size_t i = 0; i < 16; ++i) {
+		mat_ptr[i] = m_ptr[i];
+	}
 }
 
 void mat4_translate(mat4* mat, float x, float y, float z) {
@@ -503,8 +478,8 @@ void mat4_view(mat4* mat, float x, float y, float z, float anglex, float angley)
 	mat4_roty(&rx, anglex);
 	mat4_rotx(&ry, angley);
 	mat4_translate(&translation, -x, -y, -z);
-	mat4_mul(&rotation, &rx, &ry);
-	mat4_mul(mat, &translation, &rotation);
+	mat4_mul(&rotation, &ry, &rx);
+	mat4_mul(mat, &rotation, &translation);
 }
 
 void mat4_viewZ(mat4* mat, float x, float y, float z, float anglex, float angley, float anglez) {
@@ -513,7 +488,7 @@ void mat4_viewZ(mat4* mat, float x, float y, float z, float anglex, float angley
 	mat4_identity(&translation);
 	mat4_rotate(&rotation, angley, anglex, anglez);
 	mat4_translate(&translation, -x, -y, -z);
-	mat4_mul(mat, &translation, &rotation);
+	mat4_mul(mat, &rotation, &translation);
 }
 
 void mat4_view_ruf(mat4* mat, vec3* right, vec3* up, vec3* forward, vec3* xyz) {
@@ -538,7 +513,7 @@ void mat4_model(mat4* mat, float x, float y, float z, float anglex, float angley
 	mat4_identity(&translation, scale);
 	mat4_rotate(&rotation, anglex, angley, anglez);
 	mat4_translate(&translation, x, y, z);
-	mat4_mul(mat, &rotation, &translation);
+	mat4_mul(mat, &translation, &rotation);
 }
 
 void mat4_model(mat4* mat, float x, float y, float z, float anglex, float angley, float anglez) {
@@ -583,75 +558,76 @@ void mat4_lookat(mat4* mat, vec3 pos, vec3 target, vec3 up) {
 	rotation.m30 = 0;   rotation.m31 = 0;   rotation.m32 = 0;   rotation.m33 = 1;
 	mat4 translation;
 	mat4_translate(&translation, pos.x, pos.y, pos.z);
-	mat4_mul(mat, &rotation, &translation);
+	mat4_mul(mat, &translation, &rotation);
 }
 
 void mat4_invert(mat4* dest, mat4* src) {
-//	float* m = (float*)src;
-//	float* _dest = (float*)dest;
-//	float inv[16];
-//	inv[0]  =  m[5] * m[10] * m[15] - m[5] * m[11] * m[14] - m[9] * m[6] * m[15] + m[9] * m[7] * m[14] + m[13] * m[6] * m[11] - m[13] * m[7] * m[10];
-//	inv[4]  = -m[4] * m[10] * m[15] + m[4] * m[11] * m[14] + m[8] * m[6] * m[15] - m[8] * m[7] * m[14] - m[12] * m[6] * m[11] + m[12] * m[7] * m[10];
-//	inv[8]  =  m[4] * m[9]  * m[15] - m[4] * m[11] * m[13] - m[8] * m[5] * m[15] + m[8] * m[7] * m[13] + m[12] * m[5] * m[11] - m[12] * m[7] * m[9];
-//	inv[12] = -m[4] * m[9]  * m[14] + m[4] * m[10] * m[13] + m[8] * m[5] * m[14] - m[8] * m[6] * m[13] - m[12] * m[5] * m[10] + m[12] * m[6] * m[9];
-//	inv[1]  = -m[1] * m[10] * m[15] + m[1] * m[11] * m[14] + m[9] * m[2] * m[15] - m[9] * m[3] * m[14] - m[13] * m[2] * m[11] + m[13] * m[3] * m[10];
-//	inv[5]  =  m[0] * m[10] * m[15] - m[0] * m[11] * m[14] - m[8] * m[2] * m[15] + m[8] * m[3] * m[14] + m[12] * m[2] * m[11] - m[12] * m[3] * m[10];
-//	inv[9]  = -m[0] * m[9]  * m[15] + m[0] * m[11] * m[13] + m[8] * m[1] * m[15] - m[8] * m[3] * m[13] - m[12] * m[1] * m[11] + m[12] * m[3] * m[9];
-//	inv[13] =  m[0] * m[9]  * m[14] - m[0] * m[10] * m[13] - m[8] * m[1] * m[14] + m[8] * m[2] * m[13] + m[12] * m[1] * m[10] - m[12] * m[2] * m[9];
-//	inv[2]  =  m[1] * m[6]  * m[15] - m[1] * m[7]  * m[14] - m[5] * m[2] * m[15] + m[5] * m[3] * m[14] + m[13] * m[2] * m[7]  - m[13] * m[3] * m[6];
-//	inv[6]  = -m[0] * m[6]  * m[15] + m[0] * m[7]  * m[14] + m[4] * m[2] * m[15] - m[4] * m[3] * m[14] - m[12] * m[2] * m[7]  + m[12] * m[3] * m[6];
-//	inv[10] =  m[0] * m[5]  * m[15] - m[0] * m[7]  * m[13] - m[4] * m[1] * m[15] + m[4] * m[3] * m[13] + m[12] * m[1] * m[7]  - m[12] * m[3] * m[5];
-//	inv[14] = -m[0] * m[5]  * m[14] + m[0] * m[6]  * m[13] + m[4] * m[1] * m[14] - m[4] * m[2] * m[13] - m[12] * m[1] * m[6]  + m[12] * m[2] * m[5];
-//	inv[3]  = -m[1] * m[6]  * m[11] + m[1] * m[7]  * m[10] + m[5] * m[2] * m[11] - m[5] * m[3] * m[10] - m[9]  * m[2] * m[7]  + m[9]  * m[3] * m[6];
-//	inv[7]  =  m[0] * m[6]  * m[11] - m[0] * m[7]  * m[10] - m[4] * m[2] * m[11] + m[4] * m[3] * m[10] + m[8]  * m[2] * m[7]  - m[8]  * m[3] * m[6];
-//	inv[11] = -m[0] * m[5]  * m[11] + m[0] * m[7]  * m[9]  + m[4] * m[1] * m[11] - m[4] * m[3] * m[9]  - m[8]  * m[1] * m[7]  + m[8]  * m[3] * m[5];
-//	inv[15] =  m[0] * m[5]  * m[10] - m[0] * m[6]  * m[9]  - m[4] * m[1] * m[10] + m[4] * m[2] * m[9]  + m[8]  * m[1] * m[6]  - m[8]  * m[2] * m[5];
-//
-//	float det = 1.0 / (m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12]);
-//
-//	for (size_t i = 0; i < 16; i++) {
-//		_dest[i] = inv[i] * det;
-//	}
+	float* m = (float*)src;
+	float* _dest = (float*)dest;
+	float inv[16];
+	inv[0]  =  m[5] * m[10] * m[15] - m[5] * m[11] * m[14] - m[9] * m[6] * m[15] + m[9] * m[7] * m[14] + m[13] * m[6] * m[11] - m[13] * m[7] * m[10];
+	inv[4]  = -m[4] * m[10] * m[15] + m[4] * m[11] * m[14] + m[8] * m[6] * m[15] - m[8] * m[7] * m[14] - m[12] * m[6] * m[11] + m[12] * m[7] * m[10];
+	inv[8]  =  m[4] * m[9]  * m[15] - m[4] * m[11] * m[13] - m[8] * m[5] * m[15] + m[8] * m[7] * m[13] + m[12] * m[5] * m[11] - m[12] * m[7] * m[9];
+	inv[12] = -m[4] * m[9]  * m[14] + m[4] * m[10] * m[13] + m[8] * m[5] * m[14] - m[8] * m[6] * m[13] - m[12] * m[5] * m[10] + m[12] * m[6] * m[9];
+	inv[1]  = -m[1] * m[10] * m[15] + m[1] * m[11] * m[14] + m[9] * m[2] * m[15] - m[9] * m[3] * m[14] - m[13] * m[2] * m[11] + m[13] * m[3] * m[10];
+	inv[5]  =  m[0] * m[10] * m[15] - m[0] * m[11] * m[14] - m[8] * m[2] * m[15] + m[8] * m[3] * m[14] + m[12] * m[2] * m[11] - m[12] * m[3] * m[10];
+	inv[9]  = -m[0] * m[9]  * m[15] + m[0] * m[11] * m[13] + m[8] * m[1] * m[15] - m[8] * m[3] * m[13] - m[12] * m[1] * m[11] + m[12] * m[3] * m[9];
+	inv[13] =  m[0] * m[9]  * m[14] - m[0] * m[10] * m[13] - m[8] * m[1] * m[14] + m[8] * m[2] * m[13] + m[12] * m[1] * m[10] - m[12] * m[2] * m[9];
+	inv[2]  =  m[1] * m[6]  * m[15] - m[1] * m[7]  * m[14] - m[5] * m[2] * m[15] + m[5] * m[3] * m[14] + m[13] * m[2] * m[7]  - m[13] * m[3] * m[6];
+	inv[6]  = -m[0] * m[6]  * m[15] + m[0] * m[7]  * m[14] + m[4] * m[2] * m[15] - m[4] * m[3] * m[14] - m[12] * m[2] * m[7]  + m[12] * m[3] * m[6];
+	inv[10] =  m[0] * m[5]  * m[15] - m[0] * m[7]  * m[13] - m[4] * m[1] * m[15] + m[4] * m[3] * m[13] + m[12] * m[1] * m[7]  - m[12] * m[3] * m[5];
+	inv[14] = -m[0] * m[5]  * m[14] + m[0] * m[6]  * m[13] + m[4] * m[1] * m[14] - m[4] * m[2] * m[13] - m[12] * m[1] * m[6]  + m[12] * m[2] * m[5];
+	inv[3]  = -m[1] * m[6]  * m[11] + m[1] * m[7]  * m[10] + m[5] * m[2] * m[11] - m[5] * m[3] * m[10] - m[9]  * m[2] * m[7]  + m[9]  * m[3] * m[6];
+	inv[7]  =  m[0] * m[6]  * m[11] - m[0] * m[7]  * m[10] - m[4] * m[2] * m[11] + m[4] * m[3] * m[10] + m[8]  * m[2] * m[7]  - m[8]  * m[3] * m[6];
+	inv[11] = -m[0] * m[5]  * m[11] + m[0] * m[7]  * m[9]  + m[4] * m[1] * m[11] - m[4] * m[3] * m[9]  - m[8]  * m[1] * m[7]  + m[8]  * m[3] * m[5];
+	inv[15] =  m[0] * m[5]  * m[10] - m[0] * m[6]  * m[9]  - m[4] * m[1] * m[10] + m[4] * m[2] * m[9]  + m[8]  * m[1] * m[6]  - m[8]  * m[2] * m[5];
 
-	glm::mat4 mat;
-	float* glmm = &mat[0][0];
-	glmm[0] = src->m00;
-	glmm[1] = src->m10;
-	glmm[2] = src->m20;
-	glmm[3] = src->m30;
-	glmm[4] = src->m01;
-	glmm[5] = src->m11;
-	glmm[6] = src->m21;
-	glmm[7] = src->m31;
-	glmm[8] = src->m02;
-	glmm[9] = src->m12;
-	glmm[10] = src->m22;
-	glmm[11] = src->m32;
-	glmm[12] = src->m03;
-	glmm[13] = src->m13;
-	glmm[14] = src->m23;
-	glmm[15] = src->m33;
-	glm::mat4 inv = glm::inverse(mat);
-	float* glm_m = &inv[0][0];
-	dest->m00 = glm_m[0];
-	dest->m10 = glm_m[1];
-	dest->m20 = glm_m[2];
-	dest->m30 = glm_m[3];
-	dest->m01 = glm_m[4];
-	dest->m11 = glm_m[5];
-	dest->m21 = glm_m[6];
-	dest->m31 = glm_m[7];
-	dest->m02 = glm_m[8];
-	dest->m12 = glm_m[9];
-	dest->m22 = glm_m[10];
-	dest->m32 = glm_m[11];
-	dest->m03 = glm_m[12];
-	dest->m13 = glm_m[13];
-	dest->m23 = glm_m[14];
-	dest->m33 = glm_m[15];
+	float det = 1.0 / (m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12]);
+
+	for (size_t i = 0; i < 16; i++) {
+		_dest[i] = inv[i] * det;
+	}
+
+//	glm::mat4 mat;
+//	float* glmm = &mat[0][0];
+//	glmm[0] = src->m00;
+//	glmm[1] = src->m10;
+//	glmm[2] = src->m20;
+//	glmm[3] = src->m30;
+//	glmm[4] = src->m01;
+//	glmm[5] = src->m11;
+//	glmm[6] = src->m21;
+//	glmm[7] = src->m31;
+//	glmm[8] = src->m02;
+//	glmm[9] = src->m12;
+//	glmm[10] = src->m22;
+//	glmm[11] = src->m32;
+//	glmm[12] = src->m03;
+//	glmm[13] = src->m13;
+//	glmm[14] = src->m23;
+//	glmm[15] = src->m33;
+//	glm::mat4 inv = glm::inverse(mat);
+//	float* glm_m = &inv[0][0];
+//	dest->m00 = glm_m[0];
+//	dest->m10 = glm_m[1];
+//	dest->m20 = glm_m[2];
+//	dest->m30 = glm_m[3];
+//	dest->m01 = glm_m[4];
+//	dest->m11 = glm_m[5];
+//	dest->m21 = glm_m[6];
+//	dest->m31 = glm_m[7];
+//	dest->m02 = glm_m[8];
+//	dest->m12 = glm_m[9];
+//	dest->m22 = glm_m[10];
+//	dest->m32 = glm_m[11];
+//	dest->m03 = glm_m[12];
+//	dest->m13 = glm_m[13];
+//	dest->m23 = glm_m[14];
+//	dest->m33 = glm_m[15];
 
 }
 
+#ifdef DOUBLE_MATH
 // dvec2
 void dvec2_clone(dvec2* dest, dvec2* src) {
 	dest->x = src->x;
@@ -1109,3 +1085,4 @@ void math_toMat4(mat4* dest, dmat4* src) {
 		_dest[i] = (float)_src[i];
 	}
 }
+#endif

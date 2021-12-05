@@ -14,6 +14,7 @@
 #include "rg_net.h"
 #include "rg_string.h"
 #include "rg_loader.h"
+#include "rg_physics.h"
 
 #include "rg_filesystem.h"
 
@@ -35,7 +36,7 @@ rg_string rg_s_port;
 rg_string rg_c_addr;
 rg_string rg__level;
 
-struct rg_level_t* rg_level = NULL;
+struct Level* rg_level = NULL;
 
 // RG_CLIENT | RG_DEBUG
 static Uint32 _flags = 0;
@@ -105,7 +106,7 @@ static const char* _e_log_getCat(int category) {
 	switch(category) {
 		case SDL_LOG_CATEGORY_APPLICATION: return " game ";
 		case SDL_LOG_CATEGORY_TEST:        return " test ";
-		case SDL_LOG_CATEGORY_CUSTOM:      return " game ";
+		case SDL_LOG_CATEGORY_PHYSICS:     return " phys ";
 		case SDL_LOG_CATEGORY_ASSERT:      return "assert";
 		case SDL_LOG_CATEGORY_SYSTEM:      return "system";
 		case SDL_LOG_CATEGORY_RENDER:      return "render";
@@ -135,16 +136,16 @@ static const char* _e_log_getPriority(SDL_LogPriority priority) {
 
 static const char* _e_getCpuName(int cores) {
 	switch(cores) {
-		case 0: return "WTF?";
-		case 1: return "Single-core";
-		case 2: return "Dual-core";
-		case 3: return "Triple-core";
-		case 4: return "Quad-core";
-		case 5: return "5 cores";
-		case 6: return "6 cores";
-		case 7: return "7 cores";
-		case 8: return "Octal-core";
-		case 9: return "9 cores";
+		case 0:  return "WTF?";
+		case 1:  return "Single-core";
+		case 2:  return "Dual-core";
+		case 3:  return "Triple-core";
+		case 4:  return "Quad-core";
+		case 5:  return "5 cores";
+		case 6:  return "6 cores";
+		case 7:  return "7 cores";
+		case 8:  return "Octal-core";
+		case 9:  return "9 cores";
 		case 10: return "10 cores";
 		case 11: return "11 cores";
 		case 12: return "12 cores";
@@ -222,7 +223,7 @@ static int e_thr_wd(void* data) {
 			SDL_LogInfo(SDL_LOG_CATEGORY_ERROR, "EVENT WD_TIMEOUT!");
 		}
 
-//		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Fps: %lf", avg_fps);
+//		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Fps: %lf", rg_fps_avg);
 	}
 	return 0;
 }
@@ -241,6 +242,7 @@ void _rg_processArgs(int argc, rg_string* argv) {
 
 		} else if(rg_streql(arg, L"-debug")) {
 			rg_isDebug = true;
+			_flags |= RG_DEBUG;
 		} else if(rg_streql(arg, L"-port") && argc >= i+1) { // port arg
 			rg_s_port = argv[i + 1];
 		} else if(rg_streql(arg, L"-fs") && argc >= i+1) { // fs config
@@ -273,7 +275,7 @@ void rg_init(int argc, rg_string* argv) {
 	SDL_LogSetOutputFunction(_e_log_func, NULL);
 	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "rgEngine v%s (%s), %s, cJSON v%s", RG_VERSION, RG_BUILD_DATE, RG_CHECKFLAG(_flags, RG_CLIENT) ? "client" : "server", cJSON_Version());
 	if(RG_CHECKFLAG(_flags, RG_DEBUG)) {
-		SDL_LogWarn(SDL_LOG_CATEGORY_SYSTEM, "~ ~ ~ ! ENGINE RUNNED IN DEBUG PROFILE ! ~ ~ ~");
+		SDL_LogWarn(SDL_LOG_CATEGORY_SYSTEM, "~ ~ ~ ! ENGINE IS RUNNING IN DEBUG PROFILE ! ~ ~ ~");
 	}
 	SDL_version ver;
 	SDL_GetVersion(&ver);
@@ -305,6 +307,8 @@ void rg_init(int argc, rg_string* argv) {
 
 	rg_netInit();
 
+	rg_phys_init();
+
 	if(RG_CHECKFLAG(_flags, RG_CLIENT)) {
 		g_update_func = cl_update;
 		cl_main();
@@ -324,6 +328,7 @@ static void _rg_shutdown() {
 	}
 
 	event_running = false;
+	rg_phys_destroy();
 	rg_netQuit();
 	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "Engine: Shutting down...");
 	SDL_Quit();
@@ -340,8 +345,14 @@ static void _rg_update() {
 	_time += _frametime;
 	g_update_func(_frametime);
 
+	if(rg_level != NULL) {
+		rg_updateLevel(rg_level, _frametime);
+	}
 
-	// !!! rewrite this !!! (use array pointer)
+	rg_phys_update(_frametime);
+
+
+	// TODO !!! rewrite this !!! (use array pointer)
 	for(Uint32 i = 9; i > 0; i--) {
 		_fps[i] = _fps[i - 1];
 	}
@@ -411,6 +422,8 @@ void rg_pushEvent(rg_Event* event) {
 	}
 }
 
+//          TODO          REMOVE
+//                         VVVV
 void rg_buildResourcePath(const char* levelname, const char* name, char* dest, const char* type) {
 	bool isLevelDir = name[0] == '&';
 	SDL_memset(dest, '\0', 128);

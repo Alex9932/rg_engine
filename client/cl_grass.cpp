@@ -78,13 +78,13 @@ void cl_grass_destroy() {
 	cl_deleteTexture(t_norm);
 }
 
-static double time = 0;
+static double _time = 0;
 
 void cl_grass_render(double delta, rg_Shader shader) {
-
 	return;
 
-	time += delta;
+
+	_time += delta;
 
 	rg_vertex_t* new_verts = VERTICES;
 

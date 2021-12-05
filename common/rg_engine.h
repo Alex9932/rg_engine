@@ -12,9 +12,8 @@
 #include <SDL2/SDL.h>
 //#include "rg_level.h"
 
-#define RG_VERSION    "0.04.1"
-//#define RG_BUILD_DATE "30.05.2021 at 13:02"
-#define RG_BUILD_DATE "20.10.2021 at 20:07"
+#define RG_VERSION    "0.5.0"
+#define RG_BUILD_DATE "02.12.2021 at 09:00"
 
 #define RG_MESHES_DIR "meshes"
 #define RG_MATERIALS_DIR "materials"
@@ -22,10 +21,11 @@
 #define RG_CLIENT          0b00000001
 #define RG_DEBUG           0b10000000
 
-#define SDL_LOG_CATEGORY_CLIENT  SDL_LOG_CATEGORY_RESERVED1
-#define SDL_LOG_CATEGORY_SERVER  SDL_LOG_CATEGORY_RESERVED2
-#define SDL_LOG_CATEGORY_NETWORK SDL_LOG_CATEGORY_RESERVED3
-#define SDL_LOG_CATEGORY_DEBUG   SDL_LOG_CATEGORY_RESERVED4
+#define SDL_LOG_CATEGORY_CLIENT  SDL_LOG_CATEGORY_CUSTOM
+#define SDL_LOG_CATEGORY_SERVER  SDL_LOG_CATEGORY_CUSTOM + 1
+#define SDL_LOG_CATEGORY_NETWORK SDL_LOG_CATEGORY_CUSTOM + 2
+#define SDL_LOG_CATEGORY_DEBUG   SDL_LOG_CATEGORY_CUSTOM + 3
+#define SDL_LOG_CATEGORY_PHYSICS SDL_LOG_CATEGORY_CUSTOM + 4
 
 #ifdef _WIN32
 #define RG_INLINE inline
@@ -60,7 +60,7 @@ typedef const wchar* rg_wstring;
 extern bool rg_isDebug;
 extern double rg_fps_avg;
 extern double rg_fps_max;
-extern struct rg_level_t* rg_level;
+extern struct Level* rg_level;
 extern rg_string rg_fsjson;
 extern rg_string rg_s_port;
 extern rg_string rg_c_addr;

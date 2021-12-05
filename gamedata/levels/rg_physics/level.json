@@ -1,0 +1,85 @@
+{
+    "meshes": [
+        [
+            "&level.rgm",
+            0
+        ],
+        [
+            "box.rgm",
+            0
+        ],
+        [
+            "toad.rgm",
+            0
+        ]
+    ],
+    
+    "materials": [
+        "metal",
+        "grass",
+        "toad"
+    ],
+    
+    "entitys": [
+        {
+            "position": [0, 2.0, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 1,
+            "material": 1
+        },
+        {
+            "position": [0.8, 5.0, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 1,
+            "material": 1
+        },
+        {
+            "position": [1.6, 8.0, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 1,
+            "material": 1
+        },
+        {
+            "position": [2.4, 11.0, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 1,
+            "material": 1
+        },
+        {
+            "position": [3.2, 14.0, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 1,
+            "material": 1
+        },
+        {
+            "position": [-6.2, 3.0, 2],
+            "rotation": [0, 0, 0],
+            "mesh": 2,
+            "material": 2
+        }
+    ],
+    
+    "terrains": [
+        {
+            "position": [0, -1.37, 0],
+            "rotation": [0, 0, 0],
+            "mesh": 0,
+            "material": 0
+        }
+    ],
+    
+    "lights": [
+        {
+            "position": [3, 3, 3],
+            "color": [0, 0.5, 1],
+            "color1": [0, 0.5, 1],
+            "attenuation": [1, 0.06, 0.028]
+        },
+        {
+            "position": [3, 3, 3],
+            "color": [1, 0.5, 0],
+            "color1": [0, 0.5, 1],
+            "attenuation": [1, 0.06, 0.028]
+        }
+    ]
+}
