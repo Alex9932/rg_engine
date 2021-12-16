@@ -28,6 +28,7 @@ static double _wd_event_timer = 0;
 
 static double _time = 0;
 static double _fps[10];
+static Uint32 _fps_ptr = 0;
 double rg_fps_avg = 0;
 double rg_fps_max = -1.0;
 bool rg_isDebug;
@@ -166,20 +167,21 @@ static void _e_log_func(void* userdata, int category, SDL_LogPriority priority, 
 
 	const char* cat = _e_log_getCat(category);
 	const char* p = _e_log_getPriority(priority);
-//	printf("%s [engine] [%s] %s\n", p, cat, message);
 	printf("%s [%s] %s\n", p, cat, message);
-//	printf("[engine] [%s] %s %s\n", cat, p, message);
 	if(_e_log_file) {
-//		fprintf(_e_log_file, "%s [engine] [%s] %s\n", p, cat, message);
 		fprintf(_e_log_file, "%s [%s] %s\n", p, cat, message);
-//		fprintf(_e_log_file, "[engine] [%s] %s %s\n", cat, p, message);
 	}
 }
 
 static SDL_AssertState _rg_assertion_handler(const SDL_AssertData* data, void* userdata) {
-	SDL_LogError(SDL_LOG_CATEGORY_ASSERT, "Assertion detected!");
-	SDL_LogError(SDL_LOG_CATEGORY_ASSERT, "Info: %s at %s -> %s(%d)", data->condition, data->filename, data->function, data->linenum);
-	//printf("Assertion info: %s at %s -> %s(%d)\n", data->condition, data->filename, data->function, data->linenum);
+	SDL_LogError(SDL_LOG_CATEGORY_ASSERT, "Assertion failure at %s (%s:%d) '%s'", data->function, data->filename, data->linenum, data->condition);
+
+	if(RG_CHECKFLAG(_flags, RG_CLIENT)) {
+		char message[2048];
+		sprintf(message, "Assertion failure at %s (%s:%d) '%s'", data->function, data->filename, data->linenum, data->condition);
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "rg_engine", message, NULL);
+	}
+
 	return SDL_ASSERTION_BREAK;
 }
 
@@ -204,9 +206,6 @@ static int e_thr_event_func(void* data) {
 			}
 
 			rg_pushEvent(&eng_event);
-//			for (Uint32 i = 0; i < _callbacks.size(); ++i) {
-//				_callbacks[i](&eng_event);
-//			}
 		}
 
 		_wd_event_timer = 0;
@@ -281,7 +280,6 @@ void rg_init(int argc, rg_string* argv) {
 	SDL_GetVersion(&ver);
 
 	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "SDL version: %d.%d.%d", ver.major, ver.minor, ver.patch);
-//	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "SDL initialized with flags: %x", sdl_flags);
 	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "Platform: %s, %s CPU, line %d, %d Mb ram.", SDL_GetPlatform(), _e_getCpuName(SDL_GetCPUCount()), SDL_GetCPUCacheLineSize(), SDL_GetSystemRAM());
 
 	running = true;
@@ -294,6 +292,7 @@ void rg_init(int argc, rg_string* argv) {
 		SDL_LogError(SDL_LOG_CATEGORY_SYSTEM, "No fstab!");
 		rg_assert(rg_fsjson);
 	}
+
 	rg_Resource* fsgame = rg_loadResource(rg_fsjson);
 	rg_assert(fsgame);
 	cJSON* root = cJSON_Parse((rg_string)fsgame->data);
@@ -333,7 +332,7 @@ static void _rg_shutdown() {
 	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "Engine: Shutting down...");
 	SDL_Quit();
 	fclose(_e_log_file);
-	exit(0);
+//	exit(0);
 }
 
 static Uint64 st_limiter = SDL_GetPerformanceCounter();
@@ -351,15 +350,12 @@ static void _rg_update() {
 
 	rg_phys_update(_frametime);
 
-
-	// TODO !!! rewrite this !!! (use array pointer)
-	for(Uint32 i = 9; i > 0; i--) {
-		_fps[i] = _fps[i - 1];
+	_fps[_fps_ptr] = 1.0 / _frametime;
+	_fps_ptr++;
+	if(_fps_ptr >= 10) {
+		_fps_ptr = 0;
 	}
-	// !!! rewrite this !!!
 
-
-	_fps[0] = 1.0 / _frametime;
 	rg_fps_avg = (_fps[0] + _fps[1] + _fps[2] + _fps[3] + _fps[4] + _fps[5] + _fps[6] + _fps[7] + _fps[8] + _fps[9]) / 10.0;
 
 	_updatetime = (double)((SDL_GetPerformanceCounter() - st_limiter) / (double)SDL_GetPerformanceFrequency()) * 1000;
@@ -422,15 +418,14 @@ void rg_pushEvent(rg_Event* event) {
 	}
 }
 
-//          TODO          REMOVE
-//                         VVVV
-void rg_buildResourcePath(const char* levelname, const char* name, char* dest, const char* type) {
+void rg_buildResourcePath(const char* name, char* dest, const char* type) {
+	rg_assert_msg(rg_level, "Level in not loaded!");
 	bool isLevelDir = name[0] == '&';
 	SDL_memset(dest, '\0', 128);
 
 	if(isLevelDir) {
 		strcpy(dest, "gamedata/levels/");
-		strcat(dest, levelname);
+		strcat(dest, rg_level->levelname);
 		strcat(dest, "/");
 		strcat(dest, name+1);
 	} else {

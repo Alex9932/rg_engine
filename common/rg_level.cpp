@@ -5,6 +5,7 @@
  *      Author: alex9932
  */
 
+// TODO: !!! REWRITE THIS !!!
 
 #include "rg_level.h"
 #include "rg_string.h"
@@ -198,7 +199,7 @@ int rg_loadLevel(Level* level, rg_string level_name) {
 
 		if(level->meshes[obj->mesh_id].isAnimated) {
 			char path[128];
-			rg_buildResourcePath(level->levelname, level->meshes[obj->mesh_id].name, path, "meshes");
+			rg_buildResourcePath(level->meshes[obj->mesh_id].name, path, "meshes");
 			rg_Resource* mres = rg_loadResource(path);
 			AnimatedMesh* am = rg_armlConvert(mres->data);
 			_rg_processAnimation(obj, am);

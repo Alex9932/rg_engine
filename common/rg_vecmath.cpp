@@ -9,10 +9,10 @@
 #include "rg_engine.h"
 #include <SDL2/SDL.h>
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
-#include <glm/gtx/transform.hpp>
+//#define GLM_ENABLE_EXPERIMENTAL
+//#include <glm/glm.hpp>
+//#include <glm/gtx/quaternion.hpp>
+//#include <glm/gtx/transform.hpp>
 
 //////////
 
@@ -227,60 +227,20 @@ void vec4_lerp(vec4* dest, vec4* a, vec4* b, double delta) {
 
 
 void quat_slerp(quat* dest, quat* q1, quat* q2, double lambda) {
+	float dot = q1->w * q2->w + q1->x * q2->x + q1->y * q2->y + q1->z * q2->z;
+	float blendI = 1.0f - lambda;
 
-//	float dot = q1->w * q2->w + q1->x * q2->x + q1->y * q2->y + q1->z * q2->z;
-//
-//	float blendI = 1.0f - lambda;
-//	if (dot < 0) {
-//		dest->w = blendI * q1->w + lambda * -q2->w;
-//		dest->x = blendI * q1->x + lambda * -q2->x;
-//		dest->y = blendI * q1->y + lambda * -q2->y;
-//		dest->z = blendI * q1->z + lambda * -q2->z;
-//	} else {
-//		dest->w = blendI * q1->w + lambda * q2->w;
-//		dest->x = blendI * q1->x + lambda * q2->x;
-//		dest->y = blendI * q1->y + lambda * q2->y;
-//		dest->z = blendI * q1->z + lambda * q2->z;
-//	}
-
-//	vec4_normalize(dest, dest);
-
-
-//	float dotproduct = q1->x * q2->x + q1->y * q2->y + q1->z * q2->z + q1->w * q2->w;
-//	float theta, st, sut, sout, coeff1, coeff2;
-//
-//	// algorithm adapted from Shoemake's paper
-////	lambda=lambda/2.0;
-//
-//	theta = (float) acos(dotproduct);
-//	if (theta<0.0) theta=-theta;
-//
-//	st = (float) sin(theta);
-//	sut = (float) sin(lambda*theta);
-//	sout = (float) sin((1-lambda)*theta);
-//	coeff1 = sout/st;
-//	coeff2 = sut/st;
-//
-//	dest->x = coeff1*q1->x + coeff2*q2->x;
-//	dest->y = coeff1*q1->y + coeff2*q2->y;
-//	dest->z = coeff1*q1->z + coeff2*q2->z;
-//	dest->w = coeff1*q1->w + coeff2*q2->w;
-
-
-	glm::quat x, y;
-	x.x = q1->x;
-	x.y = q1->y;
-	x.z = q1->z;
-	x.w = q1->w;
-	y.x = q2->x;
-	y.y = q2->y;
-	y.z = q2->z;
-	y.w = q2->w;
-	glm::quat q = glm::slerp(x, y, (float)lambda);
-	dest->x = q.x;
-	dest->y = q.y;
-	dest->z = q.z;
-	dest->w = q.w;
+	if (dot < 0) {
+		dest->w = blendI * q1->w + lambda * -q2->w;
+		dest->x = blendI * q1->x + lambda * -q2->x;
+		dest->y = blendI * q1->y + lambda * -q2->y;
+		dest->z = blendI * q1->z + lambda * -q2->z;
+	} else {
+		dest->w = blendI * q1->w + lambda * q2->w;
+		dest->x = blendI * q1->x + lambda * q2->x;
+		dest->y = blendI * q1->y + lambda * q2->y;
+		dest->z = blendI * q1->z + lambda * q2->z;
+	}
 }
 
 
@@ -420,30 +380,22 @@ void mat4_rotate(mat4* mat, float anglex, float angley, float anglez) {
 }
 
 void mat4_quat(mat4* mat, quat* quat) {
-//	mat->m00 = 1.0f - 2.0f*quat->y*quat->y + 2.0f*quat->z*quat->z;
-//	mat->m10 =        2.0f*quat->x*quat->y + 2.0f*quat->w*quat->z;
-//	mat->m20 =        2.0f*quat->x*quat->z - 2.0f*quat->w*quat->y;
-//
-//	mat->m01 =        2.0f*quat->x*quat->y - 2.0f*quat->w*quat->z;
-//	mat->m11 = 1.0f - 2.0f*quat->x*quat->x + 2.0f*quat->z*quat->z;
-//	mat->m21 =        2.0f*quat->y*quat->z + 2.0f*quat->w*quat->x;
-//
-//	mat->m02 =        2.0f*quat->x*quat->z + 2.0f*quat->w*quat->y;
-//	mat->m12 =        2.0f*quat->y*quat->z - 2.0f*quat->w*quat->x;
-//	mat->m22 = 1.0f - 2.0f*quat->x*quat->x + 2.0f*quat->y*quat->y;
-	glm::quat q;
-	q.x = quat->x;
-	q.y = quat->y;
-	q.z = quat->z;
-	q.w = quat->w;
-	glm::mat4 m = glm::toMat4(q);
-
-	float* m_ptr = &m[0][0];
-	float* mat_ptr = (float*)mat;
-
-	for (size_t i = 0; i < 16; ++i) {
-		mat_ptr[i] = m_ptr[i];
-	}
+	mat->m00 = 1.0f - 2.0f * (quat->y*quat->y + quat->z*quat->z);
+	mat->m10 =        2.0f * (quat->x*quat->y + quat->w*quat->z);
+	mat->m20 =        2.0f * (quat->x*quat->z - quat->w*quat->y);
+	mat->m30 = 0.0f;
+	mat->m01 =        2.0f * (quat->x*quat->y - quat->w*quat->z);
+	mat->m11 = 1.0f - 2.0f * (quat->x*quat->x + quat->z*quat->z);
+	mat->m21 =        2.0f * (quat->y*quat->z + quat->w*quat->x);
+	mat->m31 = 0.0f;
+	mat->m02 =        2.0f * (quat->x*quat->z + quat->w*quat->y);
+	mat->m12 =        2.0f * (quat->y*quat->z - quat->w*quat->x);
+	mat->m22 = 1.0f - 2.0f * (quat->x*quat->x + quat->y*quat->y);
+	mat->m32 = 0.0f;
+	mat->m03 = 0.0f;
+	mat->m13 = 0.0f;
+	mat->m23 = 0.0f;
+	mat->m33 = 1.0f;
 }
 
 void mat4_translate(mat4* mat, float x, float y, float z) {

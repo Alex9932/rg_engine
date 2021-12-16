@@ -21,7 +21,7 @@ RG_INLINE static void __assembly_path(char* dest, size_t len, rg_string path, rg
 
 void cl_mat_load(rg_string name) {
 	char path[128];
-	rg_buildResourcePath(rg_level->levelname, name, path, RG_MATERIALS_DIR);
+	rg_buildResourcePath(name, path, RG_MATERIALS_DIR);
 
 	char diff[128];
 	char norm[128];

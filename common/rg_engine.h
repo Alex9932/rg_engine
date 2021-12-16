@@ -34,8 +34,10 @@
 #endif
 
 #define RG_CHECKFLAG(var, flag) ((var & flag) == flag)
-#define rg_print  SDL_Log
-#define rg_assert SDL_assert_always
+#define rg_print                SDL_Log
+#define rg_assert               SDL_assert_always
+#define rg_assert_msg(c, msg)   SDL_LogInfo(SDL_LOG_CATEGORY_ASSERT, "Internal error! %s", msg); \
+								SDL_assert_always(c)
 
 enum RG_EventType {
 	RG_EVENT_SDL       = 0,
@@ -83,6 +85,6 @@ double rg_getRunningTime();
 
 void rg_registerEventHandler(EventCallback callback);
 void rg_pushEvent(rg_Event* event);
-void rg_buildResourcePath(const char* levelname, const char* name, char* dest, const char* type);
+void rg_buildResourcePath(const char* name, char* dest, const char* type);
 
 #endif /* RG_ENGINE_H_ */

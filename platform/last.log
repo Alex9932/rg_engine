@@ -11,7 +11,7 @@ Info [render] Created renderer: opengl
 Info [render] Starting renderer
 Info [render] OpenGL Renderer: NVIDIA Corporation NVIDIA GeForce GT 730/PCIe/SSE2
 Info [render] OpenGL Version: 4.6.0 NVIDIA 470.86; GLSL: 4.60 NVIDIA
-Info [system] Loading shaders: platform/shader/main.vs platform/shader/main.fs
+Info [system] Loading shaders: platform/shader/g_main.vs platform/shader/g_main.fs
 Info [system] Loading shaders: platform/shader/ds_lightpass.vs platform/shader/ds_lightpass.fs
 Info [system] Loading shaders: platform/shader/ds_output.vs platform/shader/ds_output.fs
 Info [system] Loading shaders: platform/shader/ds_sslr.vs platform/shader/ds_sslr.fs
@@ -36,17 +36,26 @@ Info [system] Event handler thread started!
 Info [system] Starting engine...
 Info [ game ] Loading level: gamedata/levels/rg_test_/
 Info [system] Executing script: gamedata/levels/rg_test_/level.js
+Info [assert] Internal error! Level in not loaded!
 Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
+Info [assert] Internal error! Level in not loaded!
 Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
+Info [assert] Internal error! Level in not loaded!
 Info [system] Size changed: 1280x720
 Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
+Info [assert] Internal error! Level in not loaded!
 Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
+Info [assert] Internal error! Level in not loaded!
 Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
+Info [assert] Internal error! Level in not loaded!
 Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
 Info [render] Loading geometry
+Info [assert] Internal error! Level in not loaded!
 Info [render] Load mesh: gamedata/levels/rg_test_/level.rgm
+Info [assert] Internal error! Level in not loaded!
 Info [render] Load mesh: gamedata/meshes/vampire.argm
 Info [render] Loading textures
+Info [assert] Internal error! Level in not loaded!
 Info [render] Load texture: gamedata/materials/anim_mdl/diff.png
 Info [render] Load texture: gamedata/materials/anim_mdl/norm.png
 Info [render] Load texture: gamedata/materials/anim_mdl/roug.png
@@ -55,14 +64,6 @@ Info [ game ] Unable to load texutre: gamedata/materials/anim_mdl/roug.png, USIN
 Info [render] Load texture: gamedata/materials/anim_mdl/metl.png
  Err [system] Resource gamedata/materials/anim_mdl/metl.png not found!
 Info [ game ] Unable to load texutre: gamedata/materials/anim_mdl/metl.png, USING DEFAULT!
+Info [assert] Internal error! Level in not loaded!
 Info [render] Load texture: gamedata/materials/grass/diff.png
-Info [render] Load texture: gamedata/materials/grass/norm.png
-Info [render] Load texture: gamedata/materials/grass/roug.png
- Err [system] Resource gamedata/materials/grass/roug.png not found!
-Info [ game ] Unable to load texutre: gamedata/materials/grass/roug.png, USING DEFAULT!
-Info [render] Load texture: gamedata/materials/grass/metl.png
- Err [system] Resource gamedata/materials/grass/metl.png not found!
-Info [ game ] Unable to load texutre: gamedata/materials/grass/metl.png, USING DEFAULT!
-Info [system] Shutdown request detected!
-Info [client] Client: shutdown
-Info
+Info [render] Load texture: gamedata/materials/grass/norm.pn

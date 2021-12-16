@@ -150,7 +150,7 @@ void cl_r_init() {
 
 	glEnable(GL_DEPTH_TEST);
 
-	s_gbuffer = shader_create("platform/shader/main.vs", "platform/shader/main.fs", NULL);
+	s_gbuffer = shader_create("platform/shader/g_main.vs", "platform/shader/g_main.fs", NULL);
 	s_lpbuffer = shader_create("platform/shader/ds_lightpass.vs", "platform/shader/ds_lightpass.fs", NULL);
 	s_combine = shader_create("platform/shader/ds_output.vs", "platform/shader/ds_output.fs", NULL);
 	s_sslr = shader_create("platform/shader/ds_sslr.vs", "platform/shader/ds_sslr.fs", NULL);
@@ -862,7 +862,7 @@ void cl_r_unloadMeshes() {
 
 void cl_r_loadMesh(rg_mesh mesh) {
 	char path[128];
-	rg_buildResourcePath(rg_level->levelname, mesh.name, path, "meshes");
+	rg_buildResourcePath(mesh.name, path, "meshes");
 
 	SDL_LogInfo(SDL_LOG_CATEGORY_RENDER, "Load mesh: %s", path);
 
