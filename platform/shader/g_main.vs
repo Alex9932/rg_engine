@@ -32,8 +32,6 @@ uniform int anim;
 uniform mat4 bonesMatrices[MAX_BONES];
 uniform mat4 bonesOffsets[MAX_BONES];
 
-
-
 void main() {
 	_surface_type = surface_type;
 	_time = time;

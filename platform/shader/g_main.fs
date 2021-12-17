@@ -82,8 +82,8 @@ vec4 calcSkyColor() {
 
 	//float sunAngle = cos(time * 0.3) * 3.14159;
 	//float sunAngle = time * 0.3;
-	float sunAngle = 1.5;
-	//float sunAngle = 1.7;
+	//float sunAngle = 1.5;
+	float sunAngle = 1.7;
 
 	sun = vec3(160, 150 * cos(sunAngle), 150 * sin(sunAngle));
 	//sun = vec3(150, 0, 150);
@@ -118,6 +118,17 @@ vec4 calcSkyColor() {
 	//return vec4(0.3, 0.5, 1.0, 1);
 }
 
+const float gradient = 1.5;
+const float density = 0.07;
+
+float calcFog() {
+	float dist = length(_vertex - cam_pos);
+	float fogAmount = exp(-pow(dist*density, gradient));
+	return clamp(1 - fogAmount, 0.0, 1.0);
+}
+
+const vec3 fog_color = vec3(0, 0, 0);
+
 void main() {
 	vec4 t_color = texture(diffuse, _t_coord * tiling);
 	if(t_color.a < 0.9) {
@@ -144,4 +155,6 @@ void main() {
 		o_color = vec4(0, 0, 0.8, 1);
 		o_normal.a = 0;
 	}
+	
+	o_color.rgb = mix(o_color.rgb, fog_color, calcFog());
 }

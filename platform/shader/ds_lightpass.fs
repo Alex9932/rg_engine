@@ -14,8 +14,8 @@ uniform sampler2D prew;
 uniform vec3 camera_pos;
 
 // "SUN" light
-vec3 lightColor = vec3(0.93, 0.89, 0.71);
-//vec3 lightColor = vec3(0, 0, 0);
+//vec3 lightColor = vec3(0.93, 0.89, 0.71);
+vec3 lightColor = vec3(0, 0, 0);
 vec3 lightDir = normalize(vec3(1, 1, 1));
 
 //float ambientStrength = 0.4;
