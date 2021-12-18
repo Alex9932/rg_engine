@@ -54,6 +54,9 @@ cl_texture_t cl_getTexture(rg_string path, cl_texture_type type) {
 			case CL_TEXTURE_ROUGHNESS:
 				res = rg_loadResource("gamedata/textures/default/roug.png");
 				break;
+			case CL_TEXTURE_GLOW:
+				res = rg_loadResource("gamedata/textures/default/glow.png");
+				break;
 			default:
 				break;
 		}

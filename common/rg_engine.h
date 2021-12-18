@@ -37,6 +37,7 @@
 #define rg_print                SDL_Log
 #define rg_assert               SDL_assert_always
 #define rg_assert_msg(c, msg)   SDL_LogInfo(SDL_LOG_CATEGORY_ASSERT, "Internal error! %s", msg); \
+								rg_assert_message = msg;										 \
 								SDL_assert_always(c)
 
 enum RG_EventType {
@@ -58,7 +59,7 @@ typedef wchar_t      wchar;
 typedef const char*  rg_string;
 typedef const wchar* rg_wstring;
 
-
+extern rg_string rg_assert_message;
 extern bool rg_isDebug;
 extern double rg_fps_avg;
 extern double rg_fps_max;

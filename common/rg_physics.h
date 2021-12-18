@@ -22,6 +22,8 @@ void rg_phys_update(double delta);
 void rg_phys_clearWorld();
 
 rg_phys_object* rg_phys_createBox(float x, float y, float z, float w, float h, float d, float mass);
+rg_phys_object* rg_phys_createSphere(float x, float y, float z, float r, float mass);
+
 void rg_phys_freeBody(rg_phys_object* body);
 
 void rg_phys_getMatrix(mat4* matrix, rg_phys_object* body);

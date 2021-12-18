@@ -14,8 +14,13 @@
 #include "rg_script.h"
 #include <vector>
 #include <cJSON.h>
-#include <rg_animation.h>
+#include "rg_animation.h"
 #include "rg_objects.h"
+#include "rg_physics.h"
+
+#define RG_COLLIDER_AABB    0
+#define RG_COLLIDER_SPHERE  1
+#define RG_COLLIDER_CAPSULE 2
 
 typedef struct rg_mesh {
 	char* name;

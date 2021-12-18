@@ -34,36 +34,38 @@ Info [audio] AL: Open device...
 Info [audio] AL: Loading sound: gamedata/bg.ogg
 Info [system] Event handler thread started!
 Info [system] Starting engine...
-Info [ game ] Loading level: gamedata/levels/rg_test_/
-Info [system] Executing script: gamedata/levels/rg_test_/level.js
-Info [assert] Internal error! Level in not loaded!
-Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
-Info [assert] Internal error! Level in not loaded!
-Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
-Info [assert] Internal error! Level in not loaded!
+Info [ game ] Loading level: gamedata/levels/rg_physics/
+Info [system] Executing script: gamedata/levels/rg_physics/level.js
+Info [system] Executing script: gamedata/scripts/vecmath.js
+Info [system] > Vec2: 0.7071067811865475 0.7071067811865475
+Info [system] > Vec2: 0.7071067811865475 0.7071067811865475
+Info [system] > Dot: 0.9999999999999998
+Info [system] > A's length: 0.9999999999999999
 Info [system] Size changed: 1280x720
-Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
-Info [assert] Internal error! Level in not loaded!
-Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
-Info [assert] Internal error! Level in not loaded!
-Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
-Info [assert] Internal error! Level in not loaded!
-Info [client] Loaded animation gamedata/anims/vampire.anim: 3.433333 s.
+Info [ phys ] Kinematic object at: 0.000000, -0.100000, 0.000000
 Info [render] Loading geometry
 Info [assert] Internal error! Level in not loaded!
-Info [render] Load mesh: gamedata/levels/rg_test_/level.rgm
+Info [render] Load mesh: gamedata/levels/rg_physics/level.rgm
+Info [ phys ] Lag detected! Skipping...
 Info [assert] Internal error! Level in not loaded!
-Info [render] Load mesh: gamedata/meshes/vampire.argm
+Info [render] Load mesh: gamedata/meshes/box.rgm
+Info [ phys ] Lag detected! Skipping...
+Info [assert] Internal error! Level in not loaded!
+Info [render] Load mesh: gamedata/meshes/toad.rgm
 Info [render] Loading textures
 Info [assert] Internal error! Level in not loaded!
-Info [render] Load texture: gamedata/materials/anim_mdl/diff.png
-Info [render] Load texture: gamedata/materials/anim_mdl/norm.png
-Info [render] Load texture: gamedata/materials/anim_mdl/roug.png
- Err [system] Resource gamedata/materials/anim_mdl/roug.png not found!
-Info [ game ] Unable to load texutre: gamedata/materials/anim_mdl/roug.png, USING DEFAULT!
-Info [render] Load texture: gamedata/materials/anim_mdl/metl.png
- Err [system] Resource gamedata/materials/anim_mdl/metl.png not found!
-Info [ game ] Unable to load texutre: gamedata/materials/anim_mdl/metl.png, USING DEFAULT!
+Info [render] Load texture: gamedata/materials/metal/diff.png
+Info [render] Load texture: gamedata/materials/metal/norm.png
+Info [render] Load texture: gamedata/materials/metal/roug.png
+Info [render] Load texture: gamedata/materials/metal/metl.png
+ Err [system] Resource gamedata/materials/metal/metl.png not found!
+Info [ game ] Unable to load texutre: gamedata/materials/metal/metl.png, USING DEFAULT!
+Info [render] Load texture: gamedata/materials/metal/glow.png
+ Err [system] Resource gamedata/materials/metal/glow.png not found!
+Info [ game ] Unable to load texutre: gamedata/materials/metal/glow.png, USING DEFAULT!
 Info [assert] Internal error! Level in not loaded!
 Info [render] Load texture: gamedata/materials/grass/diff.png
-Info [render] Load texture: gamedata/materials/grass/norm.pn
+Info [render] Load texture: gamedata/materials/grass/norm.png
+Info [render] Load texture: gamedata/materials/grass/roug.png
+ Err [system] Resource gamedata/materials/grass/roug.png not found!
+Info [ game ] Unable to load texutre: gamedata/materia

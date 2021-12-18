@@ -59,7 +59,7 @@ void rg_phys_init() {
 	dWorldSetERP(d_world, 0.2);
 	dWorldSetCFM(d_world, 1e-5);
 	d_contactgroup = dJointGroupCreate(0);
-	d_ground = dCreatePlane(d_space, 0, 1, 0, 0);
+//	d_ground = dCreatePlane(d_space, 0, 1, 0, 0);
 }
 
 void rg_phys_destroy() {
@@ -71,14 +71,14 @@ void rg_phys_destroy() {
 }
 
 void rg_phys_update(double delta) {
-//	if(delta <= 0 || delta > 1) {
-//		SDL_LogInfo(SDL_LOG_CATEGORY_PHYSICS, "Lag detected! Skipping...");
-//		return;
-//	}
-//
-//	dSpaceCollide(d_space, (void*)NULL, &_rg_phys_callback);
-//	dWorldQuickStep(d_world, delta * SIM_STEP_MULTIPLIER);
-//	dJointGroupEmpty(d_contactgroup);
+	if(delta <= 0 || delta > 1) {
+		SDL_LogInfo(SDL_LOG_CATEGORY_PHYSICS, "Lag detected! Skipping...");
+		return;
+	}
+
+	dSpaceCollide(d_space, (void*)NULL, &_rg_phys_callback);
+	dWorldQuickStep(d_world, delta * SIM_STEP_MULTIPLIER);
+	dJointGroupEmpty(d_contactgroup);
 }
 
 void rg_phys_clearWorld() {
@@ -91,7 +91,8 @@ void rg_phys_clearWorld() {
 }
 
 rg_phys_object* rg_phys_createBox(float x, float y, float z, float w, float h, float d, float mass) {
-	SDL_LogInfo(SDL_LOG_CATEGORY_PHYSICS, "Creating a new body");
+//	SDL_LogInfo(SDL_LOG_CATEGORY_PHYSICS, "Creating a new body");
+//	SDL_LogInfo(SDL_LOG_CATEGORY_PHYSICS, "Space: %x", d_space);
 	rg_phys_object* body = rg_phys_makeBody();
 	body->geom = dCreateBox(d_space, w, h, d);
 	body->body = dBodyCreate(d_world);
@@ -101,7 +102,19 @@ rg_phys_object* rg_phys_createBox(float x, float y, float z, float w, float h, f
 	dGeomSetBody(body->geom, body->body);
 	dBodySetPosition(body->body, x, y, z);
 	dGeomSetPosition(body->geom, x, y, z);
-//	dBodySetKinematic(body->body);
+	return body;
+}
+
+rg_phys_object* rg_phys_createSphere(float x, float y, float z, float r, float mass) {
+	rg_phys_object* body = rg_phys_makeBody();
+	body->geom = dCreateSphere(d_space, r);
+	body->body = dBodyCreate(d_world);
+	dMass _mass;
+	dMassSetSphere(&_mass, mass, r);
+	dBodySetMass(body->body, &_mass);
+	dGeomSetBody(body->geom, body->body);
+	dBodySetPosition(body->body, x, y, z);
+	dGeomSetPosition(body->geom, x, y, z);
 	return body;
 }
 

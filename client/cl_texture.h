@@ -16,7 +16,8 @@ enum cl_texture_type {
 	CL_TEXTURE_DIFFUSE = 0,
 	CL_TEXTURE_NORMAL,
 	CL_TEXTURE_METALLIC,
-	CL_TEXTURE_ROUGHNESS
+	CL_TEXTURE_ROUGHNESS,
+	CL_TEXTURE_GLOW
 };
 
 cl_texture_t cl_getTexture(rg_string path);

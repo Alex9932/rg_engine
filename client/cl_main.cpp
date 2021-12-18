@@ -63,8 +63,8 @@ static bool _cl_event_handler(rg_Event* event) {
 					case SDL_SCANCODE_F12:
 						if(rg_level == NULL) {
 							rg_level = rg_newLevel();
-							if(rg_loadLevel(rg_level, "rg_sponza") == -1) {
-//							if(rg_loadLevel(rg_level, "rg_physics") == -1) {
+//							if(rg_loadLevel(rg_level, "rg_sponza") == -1) {
+							if(rg_loadLevel(rg_level, "rg_physics") == -1) {
 //							if(rg_loadLevel(rg_level, "rg_test_") == -1) {
 //							if(rg_loadLevel(rg_level, "rg_test") == -1) {
 								rg_freeLevel(rg_level);

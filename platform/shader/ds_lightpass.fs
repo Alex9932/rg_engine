@@ -9,6 +9,7 @@ out vec4 color;
 uniform sampler2D diffuse;
 uniform sampler2D normal;
 uniform sampler2D vertex;
+uniform sampler2D glow;
 uniform sampler2D prew;
 
 uniform vec3 camera_pos;
@@ -109,10 +110,12 @@ void main () {
 	vec4 _vertex  = texture(vertex,  _coords);
 	vec4 _diffuse = texture(diffuse, _coords);
 	vec4 _normal  = texture(normal,  _coords);
+	vec4 _glow    = texture(glow,    _coords);
 	
 	vec3 t_color    = _diffuse.rgb;
 	vec3 t_normal   = _normal.rgb;
 	vec3 t_vertex   = _vertex.rgb;
+	vec3 t_glow     = _glow.rgb;
 	float metallic  = _diffuse.a;
 	float roughness = _normal.a;
 	
@@ -126,7 +129,7 @@ void main () {
 	// Calculate point lights
 	for(int i = 0; i < LIGHT_SOURCES; i++) {
 		if(lights[i].radius > length(t_vertex - lights[i].position)) {
-			diff += calcLight(lights[i], t_vertex, t_normal, metallic, roughness) * calcShadow(t_vertex, lights[i], lsmap[i]);
+			diff += (calcLight(lights[i], t_vertex, t_normal, metallic, roughness) * calcShadow(t_vertex, lights[i], lsmap[i])) + t_glow;
 		}
 	}
 	

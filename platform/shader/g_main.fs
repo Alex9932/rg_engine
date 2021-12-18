@@ -12,11 +12,13 @@ in float _time;
 layout (location = 0) out vec4 o_color;
 layout (location = 1) out vec4 o_normal;
 layout (location = 2) out vec4 o_vertex;
+layout (location = 3) out vec4 o_glow;
 
 uniform sampler2D diffuse;
 uniform sampler2D normal;
 uniform sampler2D roughness;
 uniform sampler2D metallic;
+uniform sampler2D glow;
 
 uniform vec3 cam_pos;
 uniform float tiling;
@@ -138,14 +140,16 @@ void main() {
 	vec3  t_normal     = texture(normal   , _t_coord * tiling).xyz * 2 - 1;
 	float t_roughness  = texture(roughness, _t_coord * tiling).r;
 	float t_metallic   = texture(metallic , _t_coord * tiling).r;
+	vec3  t_glow       = texture(glow     , _t_coord * tiling).rgb;
 	
 	vec3 t_o_color = t_color.rgb;
 	vec3 t_o_normal = _tg_space * t_normal;
 	//t_o_normal = _normal // DISABLE NORMAL MAPPING
-	
-	o_color  = vec4(t_o_color, t_metallic);
-	o_normal = vec4(t_o_normal, t_roughness);
-	o_vertex = vec4(_vertex, _surface_type);
+    
+	o_color    = vec4(t_o_color, t_metallic);
+	o_normal   = vec4(t_o_normal, t_roughness);
+	o_vertex   = vec4(_vertex, _surface_type);
+	o_glow     = vec4(t_glow, 1);
 	
 	if(_surface_type == 1) {
 		o_color = calcSkyColor();

@@ -27,17 +27,21 @@ void cl_mat_load(rg_string name) {
 	char norm[128];
 	char roug[128];
 	char metl[128];
+	char glow[128];
 
 	__assembly_path(diff, 128, path, "diff.png");
 	__assembly_path(norm, 128, path, "norm.png");
 	__assembly_path(roug, 128, path, "roug.png");
 	__assembly_path(metl, 128, path, "metl.png");
+	__assembly_path(glow, 128, path, "glow.png");
+
 
 	rg_material_t* mat = (rg_material_t*)rg_malloc(sizeof(rg_material_t));
 	mat->diffuse = cl_getTexture(diff, CL_TEXTURE_DIFFUSE);
 	mat->normal = cl_getTexture(norm, CL_TEXTURE_NORMAL);
 	mat->roughness = cl_getTexture(roug, CL_TEXTURE_ROUGHNESS);
 	mat->metallic = cl_getTexture(metl, CL_TEXTURE_METALLIC);
+	mat->glow = cl_getTexture(glow, CL_TEXTURE_GLOW);
 	mat->mat_id = materials.size();
 	materials.push_back(mat);
 }

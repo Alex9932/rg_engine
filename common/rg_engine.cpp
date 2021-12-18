@@ -32,6 +32,7 @@ static Uint32 _fps_ptr = 0;
 double rg_fps_avg = 0;
 double rg_fps_max = -1.0;
 bool rg_isDebug;
+rg_string rg_assert_message = NULL;
 rg_string rg_fsjson;
 rg_string rg_s_port;
 rg_string rg_c_addr;
@@ -174,11 +175,11 @@ static void _e_log_func(void* userdata, int category, SDL_LogPriority priority, 
 }
 
 static SDL_AssertState _rg_assertion_handler(const SDL_AssertData* data, void* userdata) {
-	SDL_LogError(SDL_LOG_CATEGORY_ASSERT, "Assertion failure at %s (%s:%d) '%s'", data->function, data->filename, data->linenum, data->condition);
+	SDL_LogError(SDL_LOG_CATEGORY_ASSERT, "Assertion failure at %s (%s:%d) '%s' %s", data->function, data->filename, data->linenum, data->condition, rg_assert_message);
 
 	if(RG_CHECKFLAG(_flags, RG_CLIENT)) {
 		char message[2048];
-		sprintf(message, "Assertion failure at %s (%s:%d) '%s'", data->function, data->filename, data->linenum, data->condition);
+		sprintf(message, "Assertion failure at %s (%s:%d) '%s'\n%s", data->function, data->filename, data->linenum, data->condition, rg_assert_message);
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "rg_engine", message, NULL);
 	}
 
@@ -332,7 +333,7 @@ static void _rg_shutdown() {
 	SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM, "Engine: Shutting down...");
 	SDL_Quit();
 	fclose(_e_log_file);
-//	exit(0);
+	exit(0);
 }
 
 static Uint64 st_limiter = SDL_GetPerformanceCounter();

@@ -5,6 +5,18 @@
  *      Author: alex9932
  */
 
+// PHYSICS
+
+/*
+"physics" section
+ {
+ 	 "type": [COLLIDER (AABB => 0, SPHERE => 1, ...), IS KINEMATIC (0, 1)]
+ 	 "COLLIDER (aabb, sphere, ...)": []
+ 	 "entity": ENTITY ID (-1 => not linked to entity)
+ }
+
+*/
+
 // TODO: !!! REWRITE THIS !!!
 
 #include "rg_level.h"
@@ -157,11 +169,13 @@ int rg_loadLevel(Level* level, rg_string level_name) {
 	cJSON* _entitys   = cJSON_GetObjectItem(level->config, "entitys");
 	cJSON* _terrains  = cJSON_GetObjectItem(level->config, "terrains");
 	cJSON* _lights    = cJSON_GetObjectItem(level->config, "lights");
+	cJSON* _physics   = cJSON_GetObjectItem(level->config, "physics");
 	int a = cJSON_GetArraySize(_meshes);
 	int b = cJSON_GetArraySize(_materials);
 	int c = cJSON_GetArraySize(_entitys);
 	int d = cJSON_GetArraySize(_terrains);
 	int e = cJSON_GetArraySize(_lights);
+	int f = cJSON_GetArraySize(_physics);
 
 	for (int i = 0; i < a; ++i) {
 		cJSON* _m = cJSON_GetArrayItem(_meshes, i);
@@ -257,6 +271,69 @@ int rg_loadLevel(Level* level, rg_string level_name) {
 		level->lights.push_back(light);
 	}
 
+	/*
+	"physics" section
+	 {
+	 	 "type": [COLLIDER (AABB => 0, SPHERE => 1, ...), IS KINEMATIC (0, 1)]
+	 	 "COLLIDER (aabb, sphere, ...)": []
+	 	 "entity": ENTITY ID (-1 => not linked to entity)
+	 }
+
+	*/
+
+	for (int i = 0; i < f; ++i) {
+		cJSON* _p_object = cJSON_GetArrayItem(_physics, i);
+
+		cJSON* __type = cJSON_GetObjectItem(_p_object, "type");
+		Uint32 collider     = (Uint32)cJSON_GetNumberValue(cJSON_GetArrayItem(__type, 0));
+		Uint32 is_kinematic = (Uint32)cJSON_GetNumberValue(cJSON_GetArrayItem(__type, 1));
+		Sint32 entity_id    = (Sint32)cJSON_GetNumberValue(cJSON_GetObjectItem(_p_object, "entity"));
+
+		// Only AABB and SHPERE implemented
+		rg_phys_object* phys_body = NULL;
+		float x;
+		float y;
+		float z;
+
+		switch (collider) {
+			case RG_COLLIDER_AABB: {
+				cJSON* __aabb = cJSON_GetObjectItem(_p_object, "aabb");
+				x = cJSON_GetNumberValue(cJSON_GetArrayItem(__aabb, 0));
+				y = cJSON_GetNumberValue(cJSON_GetArrayItem(__aabb, 1));
+				z = cJSON_GetNumberValue(cJSON_GetArrayItem(__aabb, 2));
+				float w = cJSON_GetNumberValue(cJSON_GetArrayItem(__aabb, 3));
+				float h = cJSON_GetNumberValue(cJSON_GetArrayItem(__aabb, 4));
+				float d = cJSON_GetNumberValue(cJSON_GetArrayItem(__aabb, 5));
+//				SDL_LogInfo(SDL_LOG_CATEGORY_PHYSICS, "Body: [%f, %f, %f, %f, %f, %f]", x, y, z, w, h, d);
+				phys_body = rg_phys_createBox(x, y, z, w, h, d, 5);
+
+				break;
+			}
+			case RG_COLLIDER_SPHERE: {
+				cJSON* __sph = cJSON_GetObjectItem(_p_object, "sphere");
+				x = cJSON_GetNumberValue(cJSON_GetArrayItem(__sph, 0));
+				y = cJSON_GetNumberValue(cJSON_GetArrayItem(__sph, 1));
+				z = cJSON_GetNumberValue(cJSON_GetArrayItem(__sph, 2));
+				float r = cJSON_GetNumberValue(cJSON_GetArrayItem(__sph, 3));
+//				phys_body = rg_phys_createBox(x, y, z, w, h, d, 5);
+				phys_body = rg_phys_createSphere(x, y, z, r, 5);
+				break;
+			}
+			default:
+				rg_assert_msg(NULL, "Level loading error (UNKNOWN COLLIDER TYPE)");
+				break;
+		}
+
+		if(is_kinematic) {
+			SDL_LogInfo(SDL_LOG_CATEGORY_PHYSICS, "Kinematic object at: %f, %f, %f", x, y, z);
+			dBodySetKinematic(phys_body->body);
+		}
+
+		if(entity_id != -1) {
+			level->objects[entity_id]->phys_body = phys_body;
+		}
+	}
+
 	rg_Event loadlevel_event;
 	loadlevel_event.type = RG_EVENT_LOADLEVEL;
 	rg_pushEvent(&loadlevel_event);
@@ -277,7 +354,6 @@ void rg_updateLevel(Level* level, double dt) {
 					obj->rotation.x, obj->rotation.y, obj->rotation.z);
 
 			mat4_mul(&obj->transform, &model_matrix, &scale_matrix);
-//			mat4_mul(&obj->transform, &scale_matrix, &model_matrix);
 		} else {
 			rg_phys_getMatrix(&obj->transform, obj->phys_body);
 		}

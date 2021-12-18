@@ -159,7 +159,7 @@ void cl_r_init() {
 
 	s_particle = shader_create("platform/shader/fs_particle.vs", "platform/shader/fs_particle.fs", "platform/shader/fs_particle.gs");
 
-	gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
+	gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 4, FBO_DEPTH);
 	lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 	cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 	sslr_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 1, 0);
@@ -485,10 +485,11 @@ static RG_INLINE void _cl_r_beginLightShader() {
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "normal"), 1);
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "vertex"), 2);
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "prew"), 3);
-	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[0]"), 4);
-	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[1]"), 5);
-	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[2]"), 6);
-	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[3]"), 7);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "glow"), 4);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[0]"), 5);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[1]"), 6);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[2]"), 7);
+	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "lsmap[3]"), 8);
 
 	shader_uniform_1i(shader_uniform_get(s_lpbuffer, "allowShadows"), _allowShadows);
 
@@ -502,12 +503,14 @@ static RG_INLINE void _cl_r_beginLightShader() {
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, lp_buffer->color[0]);
 	glActiveTexture(GL_TEXTURE4);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[0]);
+	glBindTexture(GL_TEXTURE_2D, gbuffer->color[3]);
 	glActiveTexture(GL_TEXTURE5);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[1]);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[0]);
 	glActiveTexture(GL_TEXTURE6);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[2]);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[1]);
 	glActiveTexture(GL_TEXTURE7);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[2]);
+	glActiveTexture(GL_TEXTURE8);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[3]);
 }
 
@@ -610,7 +613,7 @@ void cl_r_doRender(double dt) {
 		cl_fboFree(lp_buffer);
 		cl_fboFree(sslr_buffer);
 		cl_fboFree(dbg_light_buffer);
-		gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 3, FBO_DEPTH);
+		gbuffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 4, FBO_DEPTH);
 		lp_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 		cb_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 2, 0);
 		sslr_buffer = cl_fboNew(cl_display_getWidth(), cl_display_getHeight(), 1, 0);
@@ -640,6 +643,7 @@ void cl_r_doRender(double dt) {
 	shader_uniform_1i(shader_uniform_get(s_gbuffer, "normal"), 1);
 	shader_uniform_1i(shader_uniform_get(s_gbuffer, "roughness"), 2);
 	shader_uniform_1i(shader_uniform_get(s_gbuffer, "metallic"), 3);
+	shader_uniform_1i(shader_uniform_get(s_gbuffer, "glow"), 4);
 	shader_uniform_1f(shader_uniform_get(s_gbuffer, "tiling"), 1);
 	shader_uniform_1f(shader_uniform_get(s_gbuffer, "time"), _time);
 	shader_uniform_3fp(shader_uniform_get(s_gbuffer, "cam_pos"), (float*)&camera.position);
@@ -668,6 +672,8 @@ void cl_r_doRender(double dt) {
 					glBindTexture(GL_TEXTURE_2D, mat->roughness);
 					glActiveTexture(GL_TEXTURE3);
 					glBindTexture(GL_TEXTURE_2D, mat->metallic);
+					glActiveTexture(GL_TEXTURE4);
+					glBindTexture(GL_TEXTURE_2D, mat->glow);
 					cl_VAO* mesh = _cl_r_getMesh(obj->mesh_id);
 					if(mesh != NULL) {
 						if(!mesh->anim) {

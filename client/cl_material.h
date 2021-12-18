@@ -19,6 +19,7 @@ typedef struct rg_material_t {
 	cl_texture_t normal;
 	cl_texture_t roughness;
 	cl_texture_t metallic;
+	cl_texture_t glow;
 } rg_material_t;
 
 void cl_mat_load(rg_string name);
