@@ -93,7 +93,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.1186637443" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.165885043" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="GL"/>
-									<listOptionValue builtIn="false" value="openh264"/>
+									<listOptionValue builtIn="false" value="ode"/>
 									<listOptionValue builtIn="false" value="SDL2_net"/>
 									<listOptionValue builtIn="false" value="freetype"/>
 									<listOptionValue builtIn="false" value="mujs"/>
@@ -155,4 +155,5 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

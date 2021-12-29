@@ -36,8 +36,9 @@
 #include "cl_water.h"
 
 
-#define SHADOW_SIZE   512
-#define MAX_PARTICLES 1024
+#define PSHADOW_SIZE   512
+#define SHADOW_SIZE    512
+#define MAX_PARTICLES  1024
 
 static const Uint32 inds[] = { 0, 1, 2, 2, 3, 0 };
 static const rg_vertex_t vtx[] = {
@@ -70,6 +71,10 @@ static cl_VAO* dbg_light_box;
 // Point light shadow maps
 static GLuint shadow_qubemaps[4];
 static GLuint shadow_mapFBO[4];
+
+static rg_Shader s_shadowmap;
+static GLuint shadow_map;
+static GLuint shadow_mapFB;
 
 // Particles
 static rg_Shader s_particle;
@@ -155,6 +160,7 @@ void cl_r_init() {
 	s_combine = shader_create("platform/shader/ds_output.vs", "platform/shader/ds_output.fs", NULL);
 	s_sslr = shader_create("platform/shader/ds_sslr.vs", "platform/shader/ds_sslr.fs", NULL);
 	s_shadowqmap = shader_create("platform/shader/ds_shadowqmap.vs", "platform/shader/ds_shadowqmap.fs", "platform/shader/ds_shadowqmap.gs");
+	s_shadowmap = shader_create("platform/shader/ds_shadowmap.vs", "platform/shader/ds_shadowmap.fs", NULL);
 
 
 	s_particle = shader_create("platform/shader/fs_particle.vs", "platform/shader/fs_particle.fs", "platform/shader/fs_particle.gs");
@@ -203,12 +209,13 @@ void cl_r_init() {
 
 	mat4_identity(&model_mat);
 
+	// Point light shadows
 	glGenFramebuffers(4, shadow_mapFBO);
 	glGenTextures(4, shadow_qubemaps);
 	for (Uint32 i = 0; i < 4; ++i) {
 		glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_qubemaps[i]);
 		for (Uint32 j = 0; j < 6; ++j) {
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j, 0, GL_DEPTH_COMPONENT, SHADOW_SIZE, SHADOW_SIZE, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j, 0, GL_DEPTH_COMPONENT, PSHADOW_SIZE, PSHADOW_SIZE, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -222,6 +229,24 @@ void cl_r_init() {
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	// "Sun" shadows
+	glGenFramebuffers(1, &shadow_mapFB);
+	glGenTextures(1, &shadow_map);
+	glBindTexture(GL_TEXTURE_2D, shadow_map);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_SIZE, SHADOW_SIZE, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFB);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, shadow_map, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+	// Particles
 	glGenVertexArrays(1, &p_vao);
 	glBindVertexArray(p_vao);
 	glGenBuffers(1, &p_vbo);
@@ -249,7 +274,7 @@ void cl_r_init() {
 //	particles.push_back({0, 2, 0,  0.3, 0, 0,  0, 0, 0});
 //	particles.push_back({2, 0, 2,  0.3, 0, 0,  0, 0, 0});
 
-
+	// Light debug boxes
 	rg_Resource* res = rg_loadResource("gamedata/meshes/box.rgm");
 	rg_mesh_t* mesht = rg_rmlConvert(res->data);
 	dbg_light_box = cl_makeVAO(mesht);
@@ -418,6 +443,13 @@ static void _r_drawSkeleton(GameObject* anim_obj) {
 static void _r_draw3d(double dt) {
 	if(r_canRender) {
 		if(_drawAxis) {
+			mat4 matrix = {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+			cl_rl3d_applyMatrix(&matrix);
 			_r_drawaxis(3);
 
 			for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
@@ -427,9 +459,7 @@ static void _r_draw3d(double dt) {
 					_r_drawaxis(1);
 				}
 			}
-		}
 
-		if(_drawAxis) {
 			for (size_t i = 0; i < rg_level->objects.size(); ++i) {
 				if(rg_level->objects[i]->type == RG_OBJECT_ANIMATED) {
 					GameObject* anim_obj = rg_level->objects[i];
@@ -444,6 +474,10 @@ static void _r_draw3d(double dt) {
 					}
 				}
 			}
+
+			rg_phys_getMatrix(&matrix, rg_phys_getPlayerObject()->body);
+			cl_rl3d_applyMatrix(&matrix);
+			_r_drawaxis(1);
 		}
 	}
 }
@@ -543,24 +577,25 @@ static void _cl_r_loadBoneMatrices(rg_Shader shader, GameObject* obj) {
 	_cl_r_loadBoneOffset(shader, obj, &obj->skel.root_bone);
 }
 
-static void _cl_r_calcShadowQmaps(PointLight** light) {
+static void _cl_r_calcShadowQmaps(PointLight** lights) {
 	if(!_allowShadows)
 		return;
 
 	glViewport(0, 0, SHADOW_SIZE, SHADOW_SIZE);
 	for (Uint32 i = 0; i < 4; ++i) {
-		if(light[i] == NULL) { continue; }
+		PointLight* light = lights[i];
+		if(light == NULL) { continue; }
 		mat4 proj;
 		mat4 view[6];
-		mat4_frustum(&proj, 1, 90, 1, light[i]->radius);
+		mat4_frustum(&proj, 1, 90, 1, light->radius);
 		float d90 = PI/2;
 		float d180 = PI;
-		mat4_viewZ(&view[0], light[i]->position.x, light[i]->position.y, light[i]->position.z,  d90, 0,    d180);
-		mat4_viewZ(&view[1], light[i]->position.x, light[i]->position.y, light[i]->position.z, -d90, 0,    d180);
-		mat4_viewZ(&view[2], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180,  d90, d180);
-		mat4_viewZ(&view[3], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180, -d90, d180);
-		mat4_viewZ(&view[4], light[i]->position.x, light[i]->position.y, light[i]->position.z, d180, 0,    d180);
-		mat4_viewZ(&view[5], light[i]->position.x, light[i]->position.y, light[i]->position.z,    0, 0,    d180);
+		mat4_viewZ(&view[0], light->position.x, light->position.y, light->position.z,  d90, 0,    d180);
+		mat4_viewZ(&view[1], light->position.x, light->position.y, light->position.z, -d90, 0,    d180);
+		mat4_viewZ(&view[2], light->position.x, light->position.y, light->position.z, d180,  d90, d180);
+		mat4_viewZ(&view[3], light->position.x, light->position.y, light->position.z, d180, -d90, d180);
+		mat4_viewZ(&view[4], light->position.x, light->position.y, light->position.z, d180, 0,    d180);
+		mat4_viewZ(&view[5], light->position.x, light->position.y, light->position.z,    0, 0,    d180);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFBO[i]);
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -573,13 +608,21 @@ static void _cl_r_calcShadowQmaps(PointLight** light) {
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "matrices[5]"), (float*)&view[5]);
 
 		shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "proj"), (float*)&proj);
-		shader_uniform_3fp(shader_uniform_get(s_shadowqmap, "lightPos"), (float*)&light[i]->position);
-		shader_uniform_1f(shader_uniform_get(s_shadowqmap, "far_plane"), light[i]->radius);
+		shader_uniform_3fp(shader_uniform_get(s_shadowqmap, "lightPos"), (float*)&light->position);
+		shader_uniform_1f(shader_uniform_get(s_shadowqmap, "far_plane"), light->radius);
 		for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
 			GameObject* obj = rg_level->objects[i];
+			vec3 dist;
+			dist.x = light->position.x - obj->position.x;
+			dist.y = light->position.y - obj->position.y;
+			dist.z = light->position.z - obj->position.z;
+			float len = vec3_length(&dist);
+			if(len > light->radius) {
+				continue;
+			}
+
 			shader_uniform_mat4f(shader_uniform_get(s_shadowqmap, "model"), (float*)&obj->transform);
 			cl_VAO* mesh = _cl_r_getMesh(obj->mesh_id);
-
 			SDL_assert_always(mesh);
 
 			if(!mesh->anim) {
@@ -593,6 +636,54 @@ static void _cl_r_calcShadowQmaps(PointLight** light) {
 			cl_drawVAO(mesh);
 		}
 	}
+	glViewport(0, 0, cl_display_getWidth(), cl_display_getHeight());
+}
+
+void _cl_r_makeShadowMap() {
+	mat4 proj;
+	mat4 view;
+
+	float near_plane = 1.0f, far_plane = 7.5f;
+	mat4_ortho(&proj, 10, -10, 10, -10, far_plane, near_plane);
+
+	mat4_view(&view, 0, 10, 0, 0, 3.1415);
+
+	mat4 lightSpace;
+	mat4_mul(&lightSpace, &proj, &view);
+
+	glViewport(0, 0, SHADOW_SIZE, SHADOW_SIZE);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, shadow_mapFB);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	shader_start(s_shadowmap);
+	shader_uniform_mat4f(shader_uniform_get(s_shadowmap, "lightSpace"), (float*)&lightSpace);
+//	shader_uniform_mat4f(shader_uniform_get(s_shadowmap, "view"), (float*)&view);
+//	shader_uniform_mat4f(shader_uniform_get(s_shadowmap, "proj"), (float*)&proj);
+	for (Uint32 i = 0; i < rg_level->objects.size(); ++i) {
+		GameObject* obj = rg_level->objects[i];
+		shader_uniform_mat4f(shader_uniform_get(s_shadowmap, "model"), (float*)&obj->transform);
+		shader_uniform_1f(shader_uniform_get(s_shadowmap, "tiling"), 1);
+		shader_uniform_1i(shader_uniform_get(s_shadowmap, "diffuse"), 0);
+		cl_VAO* mesh = _cl_r_getMesh(obj->mesh_id);
+		SDL_assert_always(mesh);
+
+		rg_material_t* mat = cl_mat_get(obj->mat_id);
+		if(mat != NULL) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, mat->diffuse);
+		}
+
+		if(!mesh->anim) {
+			shader_uniform_1i(shader_uniform_get(s_shadowmap, "anim"), 0);
+		} else {
+			if(_doAnimation) {
+				shader_uniform_1i(shader_uniform_get(s_shadowmap, "anim"), 1);
+				_cl_r_loadBoneMatrices(s_shadowmap, obj);
+			}
+		}
+		cl_drawVAO(mesh);
+	}
+
 	glViewport(0, 0, cl_display_getWidth(), cl_display_getHeight());
 }
 
@@ -629,28 +720,33 @@ void cl_r_doRender(double dt) {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 	//                               GEOMETRY  PASS                               //
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-	cl_fboBind(gbuffer);
-	glEnable(GL_DEPTH_TEST);
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear gbuffer
-
-
-	shader_start(s_gbuffer);
-	shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "proj"), (float*)&camera.projection);
-	shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "view"), (float*)&camera.view);
-
-	shader_uniform_1i(shader_uniform_get(s_gbuffer, "diffuse"), 0);
-	shader_uniform_1i(shader_uniform_get(s_gbuffer, "normal"), 1);
-	shader_uniform_1i(shader_uniform_get(s_gbuffer, "roughness"), 2);
-	shader_uniform_1i(shader_uniform_get(s_gbuffer, "metallic"), 3);
-	shader_uniform_1i(shader_uniform_get(s_gbuffer, "glow"), 4);
-	shader_uniform_1f(shader_uniform_get(s_gbuffer, "tiling"), 1);
-	shader_uniform_1f(shader_uniform_get(s_gbuffer, "time"), _time);
-	shader_uniform_3fp(shader_uniform_get(s_gbuffer, "cam_pos"), (float*)&camera.position);
 
 
 	// Render objects
 	if(r_canRender) {
+		// Render shadow map
+		_cl_r_makeShadowMap();
+
+		// Render Objects
+		cl_fboBind(gbuffer);
+		glEnable(GL_DEPTH_TEST);
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear gbuffer
+
+
+		shader_start(s_gbuffer);
+		shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "proj"), (float*)&camera.projection);
+		shader_uniform_mat4f(shader_uniform_get(s_gbuffer, "view"), (float*)&camera.view);
+
+		shader_uniform_1i(shader_uniform_get(s_gbuffer, "diffuse"), 0);
+		shader_uniform_1i(shader_uniform_get(s_gbuffer, "normal"), 1);
+		shader_uniform_1i(shader_uniform_get(s_gbuffer, "roughness"), 2);
+		shader_uniform_1i(shader_uniform_get(s_gbuffer, "metallic"), 3);
+		shader_uniform_1i(shader_uniform_get(s_gbuffer, "glow"), 4);
+		shader_uniform_1f(shader_uniform_get(s_gbuffer, "tiling"), 1);
+		shader_uniform_1f(shader_uniform_get(s_gbuffer, "time"), _time);
+		shader_uniform_3fp(shader_uniform_get(s_gbuffer, "cam_pos"), (float*)&camera.position);
+
 		cl_skybox_render(s_gbuffer);
 		cl_grass_render(dt, s_gbuffer);
 		cl_water_render(dt, s_gbuffer);

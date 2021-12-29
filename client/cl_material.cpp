@@ -51,6 +51,7 @@ void _cl_mat_unload(rg_material_t* mat) {
 	cl_deleteTexture(mat->normal);
 	cl_deleteTexture(mat->roughness);
 	cl_deleteTexture(mat->metallic);
+	cl_deleteTexture(mat->glow);
 	rg_free(mat);
 }
 

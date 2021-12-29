@@ -134,6 +134,7 @@ void main () {
 	}
 	
 	vec3 result = ambient + diff;
+	//color = t_prew + vec4(result, 0.0);
 	color = t_prew + vec4(result, 0.0);
 	
 	if(surface_type > 0.5) {

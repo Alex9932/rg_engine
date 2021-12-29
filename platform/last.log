@@ -1,4 +1,4 @@
-Info [system] rgEngine v0.5.0 (02.12.2021 at 09:00), client, cJSON v1.7.14
+Info [system] rgEngine v0.6.0 (28.12.2021 at 14:25), client, cJSON v1.7.14
 Info [system] SDL version: 2.0.10
 Info [system] Platform: Linux, Octal-core CPU, line 64, 7937 Mb ram.
 Info [system] Mounting file systems...
@@ -6,6 +6,26 @@ Info [network] Starting networking subsystem...
 Info [network] SDLNet ver: 2.0.1
 Info [ phys ] Init world
 Info [client] Initializing client
+Info [client] rgEngine Build 0.6 (client)
+Info [client] F1     - Unload level
+Info [client] F2     - Skeletal animation test level
+Info [client] F12    - Physics test level
+Info [client] F5     - Toggle gbuffer
+Info [client] F6     - Toggle cursor grabbing
+Info [client] F7     - Toggle shadows
+Info [client] F8     - Toggle coordinates showing
+Info [client] F11    - Toggle fullscreen
+Info [client] F      - Toggle animation
+Info [client] G      - Toggle wireframe
+Info [client] F10    - Start demo recording
+Info [client] F9     - Stop demo recording
+Info [client] F3     - Play demo (record.dem)
+Info [client] R      - Add keyframe
+Info [client] C      - Free camera
+Info [client] WASD   - Movement
+Info [client] SPACE  - Jump
+Info [client] LSHIFT - -speed
+Info [client] LCTRL  - +speed
 Info [render] OpenGL shaders: ENABLED
 Info [render] Created renderer: opengl
 Info [render] Starting renderer
@@ -18,6 +38,7 @@ Info [system] Loading shaders: platform/shader/ds_sslr.vs platform/shader/ds_ssl
 Info [system] Loading shaders: platform/shader/ds_shadowqmap.vs platform/shader/ds_shadowqmap.fs
 Info [system] |___GEOMETRY: platform/shader/ds_shadowqmap.gs
 Warn [system] SHADER USES GEOMETRY PROGRAM!
+Info [system] Loading shaders: platform/shader/ds_shadowmap.vs platform/shader/ds_shadowmap.fs
 Info [system] Loading shaders: platform/shader/fs_particle.vs platform/shader/fs_particle.fs
 Info [system] |___GEOMETRY: platform/shader/fs_particle.gs
 Warn [system] SHADER USES GEOMETRY PROGRAM!
@@ -41,11 +62,11 @@ Info [system] > Vec2: 0.7071067811865475 0.7071067811865475
 Info [system] > Vec2: 0.7071067811865475 0.7071067811865475
 Info [system] > Dot: 0.9999999999999998
 Info [system] > A's length: 0.9999999999999999
-Info [system] Size changed: 1280x720
 Info [ phys ] Kinematic object at: 0.000000, -0.100000, 0.000000
 Info [render] Loading geometry
 Info [assert] Internal error! Level in not loaded!
 Info [render] Load mesh: gamedata/levels/rg_physics/level.rgm
+Info [system] Size changed: 1280x720
 Info [ phys ] Lag detected! Skipping...
 Info [assert] Internal error! Level in not loaded!
 Info [render] Load mesh: gamedata/meshes/box.rgm
@@ -55,17 +76,4 @@ Info [render] Load mesh: gamedata/meshes/toad.rgm
 Info [render] Loading textures
 Info [assert] Internal error! Level in not loaded!
 Info [render] Load texture: gamedata/materials/metal/diff.png
-Info [render] Load texture: gamedata/materials/metal/norm.png
-Info [render] Load texture: gamedata/materials/metal/roug.png
-Info [render] Load texture: gamedata/materials/metal/metl.png
- Err [system] Resource gamedata/materials/metal/metl.png not found!
-Info [ game ] Unable to load texutre: gamedata/materials/metal/metl.png, USING DEFAULT!
-Info [render] Load texture: gamedata/materials/metal/glow.png
- Err [system] Resource gamedata/materials/metal/glow.png not found!
-Info [ game ] Unable to load texutre: gamedata/materials/metal/glow.png, USING DEFAULT!
-Info [assert] Internal error! Level in not loaded!
-Info [render] Load texture: gamedata/materials/grass/diff.png
-Info [render] Load texture: gamedata/materials/grass/norm.png
-Info [render] Load texture: gamedata/materials/grass/roug.png
- Err [system] Resource gamedata/materials/grass/roug.png not found!
-Info [ game ] Unable to load texutre: gamedata/materia
+Info [render] Load texture: gameda

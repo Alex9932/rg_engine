@@ -271,16 +271,6 @@ int rg_loadLevel(Level* level, rg_string level_name) {
 		level->lights.push_back(light);
 	}
 
-	/*
-	"physics" section
-	 {
-	 	 "type": [COLLIDER (AABB => 0, SPHERE => 1, ...), IS KINEMATIC (0, 1)]
-	 	 "COLLIDER (aabb, sphere, ...)": []
-	 	 "entity": ENTITY ID (-1 => not linked to entity)
-	 }
-
-	*/
-
 	for (int i = 0; i < f; ++i) {
 		cJSON* _p_object = cJSON_GetArrayItem(_physics, i);
 
@@ -355,7 +345,8 @@ void rg_updateLevel(Level* level, double dt) {
 
 			mat4_mul(&obj->transform, &model_matrix, &scale_matrix);
 		} else {
-			rg_phys_getMatrix(&obj->transform, obj->phys_body);
+			rg_phys_getMatrix(&obj->transform, obj->phys_body->body);
+			rg_phys_getPosition(&obj->position, obj->phys_body->body);
 		}
 
 		if(obj->type == RG_OBJECT_ANIMATED) {

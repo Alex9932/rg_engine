@@ -26,7 +26,7 @@ char* LOADING_STATUS;
 
 static bool _load_materials = false;
 static bool _unloadlevel = false;
-static bool _cl_isFreecam = true;
+static bool _cl_isFreecam = false;
 
 //static vec4 _player;
 
@@ -121,6 +121,27 @@ static SoundSource* src;
 
 void cl_main() {
 	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "Initializing client");
+
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "rgEngine Build 0.6 (client)");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F1     - Unload level");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F2     - Skeletal animation test level");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F12    - Physics test level");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F5     - Toggle gbuffer");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F6     - Toggle cursor grabbing");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F7     - Toggle shadows");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F8     - Toggle coordinates showing");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F11    - Toggle fullscreen");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F      - Toggle animation");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "G      - Toggle wireframe");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F10    - Start demo recording");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F9     - Stop demo recording");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "F3     - Play demo (record.dem)");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "R      - Add keyframe");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "C      - Free camera");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "WASD   - Movement");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "SPACE  - Jump");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "LSHIFT - -speed");
+	SDL_LogInfo(SDL_LOG_CATEGORY_CLIENT, "LCTRL  - +speed");
 
 	cl_display_init();
 	cl_inputInit();

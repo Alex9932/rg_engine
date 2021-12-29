@@ -12,8 +12,8 @@
 #include <SDL2/SDL.h>
 //#include "rg_level.h"
 
-#define RG_VERSION    "0.5.0"
-#define RG_BUILD_DATE "02.12.2021 at 09:00"
+#define RG_VERSION    "0.6.0"
+#define RG_BUILD_DATE "28.12.2021 at 14:25"
 
 #define RG_MESHES_DIR "meshes"
 #define RG_MATERIALS_DIR "materials"

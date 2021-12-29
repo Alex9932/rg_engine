@@ -80,6 +80,21 @@
             "color": [1, 0.5, 0],
             "color1": [0, 0.5, 1],
             "attenuation": [1, 0.06, 0.028]
+        },
+        {
+            "position": [8, 5, 10],
+            "color": [1, 1, 1],
+            "attenuation": [1, 0.06, 0.028]
+        },
+        {
+            "position": [10, 5, 10],
+            "color": [1, 1, 1],
+            "attenuation": [1, 0.06, 0.028]
+        },
+        {
+            "position": [10, 5, 8],
+            "color": [1, 1, 1],
+            "attenuation": [1, 0.06, 0.028]
         }
     ],
     

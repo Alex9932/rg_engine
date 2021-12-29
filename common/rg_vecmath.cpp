@@ -257,9 +257,9 @@ void mat3_identity(mat3* mat, float scale) {
 }
 
 void mat3_mul(vec3* dest, vec3* left, mat3* right) {
-	dest->x = left->x * right->m00 + left->x * right->m01 + left->x * right->m02;
-	dest->y = left->y * right->m10 + left->y * right->m11 + left->y * right->m12;
-	dest->z = left->z * right->m20 + left->z * right->m21 + left->z * right->m22;
+	dest->x = left->x * right->m00 + left->y * right->m01 + left->z * right->m02;
+	dest->y = left->x * right->m10 + left->y * right->m11 + left->z * right->m12;
+	dest->z = left->x * right->m20 + left->y * right->m21 + left->z * right->m22;
 }
 
 void mat3_mul(mat3* dest, mat3* left, mat3* right) {
@@ -325,10 +325,10 @@ void mat4_identity(mat4* mat) {
 }
 
 void mat4_mul(vec4* dest, vec4* left, mat4* right) {
-	dest->x = left->x * right->m00 + left->x * right->m01 + left->x * right->m02 + left->x * right->m03;
-	dest->y = left->y * right->m10 + left->y * right->m11 + left->y * right->m12 + left->y * right->m13;
-	dest->z = left->z * right->m20 + left->z * right->m21 + left->z * right->m22 + left->z * right->m23;
-	dest->w = left->w * right->m30 + left->w * right->m31 + left->w * right->m32 + left->w * right->m33;
+	dest->x = left->x * right->m00 + left->y * right->m01 + left->z * right->m02 + left->w * right->m03;
+	dest->y = left->x * right->m10 + left->y * right->m11 + left->z * right->m12 + left->w * right->m13;
+	dest->z = left->x * right->m20 + left->y * right->m21 + left->z * right->m22 + left->w * right->m23;
+	dest->w = left->x * right->m30 + left->y * right->m31 + left->z * right->m32 + left->w * right->m33;
 }
 
 void mat4_mul(mat4* dest, mat4* left, mat4* right) {
@@ -782,9 +782,9 @@ void dmat3_identity(dmat3* mat, double scale) {
 }
 
 void dmat3_mul(dvec3* dest, dvec3* left, dmat3* right) {
-	dest->x = left->x * right->m00 + left->x * right->m01 + left->x * right->m02;
-	dest->y = left->y * right->m10 + left->y * right->m11 + left->y * right->m12;
-	dest->z = left->z * right->m20 + left->z * right->m21 + left->z * right->m22;
+	dest->x = left->x * right->m00 + left->y * right->m01 + left->z * right->m02;
+	dest->y = left->x * right->m10 + left->y * right->m11 + left->z * right->m12;
+	dest->z = left->x * right->m20 + left->y * right->m21 + left->z * right->m22;
 }
 
 void dmat3_mul(dmat3* dest, dmat3* left, dmat3* right) {
@@ -851,10 +851,10 @@ void dmat4_identity(dmat4* mat) {
 }
 
 void dmat4_mul(dvec4* dest, dvec4* left, dmat4* right) {
-	dest->x = left->x * right->m00 + left->x * right->m01 + left->x * right->m02 + left->x * right->m03;
-	dest->y = left->y * right->m10 + left->y * right->m11 + left->y * right->m12 + left->y * right->m13;
-	dest->z = left->z * right->m20 + left->z * right->m21 + left->z * right->m22 + left->z * right->m23;
-	dest->w = left->w * right->m30 + left->w * right->m31 + left->w * right->m32 + left->w * right->m33;
+	dest->x = left->x * right->m00 + left->y * right->m01 + left->z * right->m02 + left->w * right->m03;
+	dest->y = left->x * right->m10 + left->y * right->m11 + left->z * right->m12 + left->w * right->m13;
+	dest->z = left->x * right->m20 + left->y * right->m21 + left->z * right->m22 + left->w * right->m23;
+	dest->w = left->x * right->m30 + left->y * right->m31 + left->z * right->m32 + left->w * right->m33;
 }
 
 void dmat4_mul(dmat4* dest, dmat4* left, dmat4* right) {
